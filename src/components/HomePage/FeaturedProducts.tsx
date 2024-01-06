@@ -11,12 +11,12 @@ type FeaturedProductsProps = {
 function FeaturedProducts({header, subheader, products}: FeaturedProductsProps) {
 	return (
 		<section className="flex justify-center">
-			<div className="max-w-screen-xl">
+			<div className="w-full max-w-screen-xl px-12">
 				<div className="flex flex-col gap-4 items-center py-12">
 					<h1 className="text-4xl">{header}</h1>
 					<p>{subheader}</p>
 				</div>
-				<div className="flex gap-2">
+				<div className="flex gap-2 justify-between">
 					{
 						products.map((prod, index) => (
 							<Product product={prod} key={index} />

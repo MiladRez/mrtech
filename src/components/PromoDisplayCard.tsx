@@ -9,8 +9,8 @@ function PromoDisplayCard({ item }: { item: PromoDisplayItem }) {
 				<p className="">{item.header}</p>
 				<div className="flex items-center group cursor-pointer w-fit">
 					<a className="uppercase pr-2 font-light group-hover:text-primary">Shop now</a>
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 group-hover:w-6 transition-all duration-300">
-						<path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+					<svg stroke="currentColor" className="w-6 h-6 group-hover:w-8 group-hover:fill-current group-hover:text-primary transition-[width] duration-300">
+						<use href="src/icons_sprite.svg#right-arrow" />
 					</svg>					
 				</div>
 			</div>
