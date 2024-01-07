@@ -24,30 +24,33 @@ function Footer() {
 							<button className="w-32 border border-primary px-4 py-3 text-white text-sm bg-primary font-bold hover:bg-blue-800 hover:border-blue-800 transition duration-300">Sign Up</button>
 						</div>
 						<div className="flex justify-between pt-4">
-							<svg stroke="currentColor" strokeWidth={0.5} className="w-7 h-7 hover:fill-primary hover:text-primary cursor-pointer" >
+							<svg stroke="currentColor" strokeWidth={0.5} className="w-6 h-6 hover:fill-primary hover:text-primary cursor-pointer" >
 								<use href="src/icons_sprite.svg#facebook" />
 							</svg>
-							<svg stroke="currentColor" strokeWidth={0.1} className="w-7 h-7 hover:fill-primary hover:text-primary cursor-pointer" >
+							<svg stroke="currentColor" strokeWidth={0.1} className="w-6 h-6 hover:fill-primary hover:text-primary cursor-pointer" >
 								<use href="src/icons_sprite.svg#instagram" />
 							</svg>
-							<svg stroke="currentColor" strokeWidth={0.5} className="w-7 h-7 hover:fill-primary hover:text-primary cursor-pointer" >
+							<svg stroke="currentColor" strokeWidth={0.5} className="w-6 h-6 hover:fill-primary hover:text-primary cursor-pointer" >
 								<use href="src/icons_sprite.svg#linkedin" />
 							</svg>
-							<svg stroke="currentColor" strokeWidth={0.5} className="w-7 h-7 hover:fill-primary hover:text-primary cursor-pointer" >
+							<svg stroke="currentColor" strokeWidth={0.5} className="w-6 h-6 hover:fill-primary hover:text-primary cursor-pointer" >
 								<use href="src/icons_sprite.svg#pinterest" />
 							</svg>
-							<svg stroke="currentColor" strokeWidth={0.5} className="w-5 h-5 mt-1 hover:fill-primary hover:text-primary cursor-pointer" >
+							<svg stroke="currentColor" strokeWidth={0.5} className="w-4 h-4 mt-1 hover:fill-primary hover:text-primary cursor-pointer" >
 								<use href="src/icons_sprite.svg#twitterx" />
 							</svg>
-							<svg stroke="currentColor" strokeWidth={0.5} className="w-7 h-7 hover:fill-primary hover:text-primary cursor-pointer" >
+							<svg stroke="currentColor" strokeWidth={0.5} className="w-6 h-6 hover:fill-primary hover:text-primary cursor-pointer" >
 								<use href="src/icons_sprite.svg#youtube" />
 							</svg>
 						</div>
 					</div>
 				</div>				
 			</div>
-
-			<p>2024, mrtech</p>
+			<div className="flex justify-center">
+				<div className="w-full max-w-screen-xl px-12">
+					<p className="text-xs text-neutral-500 py-12">All rights reserved © 2023 | MRtech</p>
+				</div>
+			</div>
 		</footer>
 	)
 }

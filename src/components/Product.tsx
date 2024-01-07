@@ -3,11 +3,11 @@ import { ProductItem } from "../data/products";
 
 function Product({ product }: { product: ProductItem }) {
 	return (
-		<div className="flex flex-col justify-between w-72">
+		<div className="flex flex-col justify-between w-72 group">
 			<div className="flex flex-col h-full justify-between gap-4 pb-5">
 				<div>
 					<div className="relative">
-						<img src={product.img.toString()} className="w-72 px-6 py-6" />
+						<img src={product.img.toString()} className="w-72 px-6 py-6 group-hover:scale-105 transition duration-300" />
 						<button className={`${product.sale ? "" : "hidden"} absolute bg-blue-800 text-sm text-white border px-4 py-1 rounded-2xl bottom-2 left-0`}>Sale</button>	
 					</div>
 					<div className="pt-2">

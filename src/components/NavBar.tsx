@@ -33,11 +33,11 @@ function NavBar() {
 					<img src={mrtechLogo} className="w-20" />
 					<div className="pl-8">
 						<div className="flex gap-8 text-sm">
-							<a className="hover:text-primary select-none">Home</a>
-							<a className="hover:text-primary select-none">Shop</a>
-							<a className="hover:text-primary select-none">Discounts</a>
-							<a className="hover:text-primary select-none">Contact</a>
-							<select defaultValue={'default'} className="select-none bg-neutral-50 focus:outline-none hover:text-primary">
+							<a className="hover:text-primary cursor-pointer">Shop</a>
+							<a className="hover:text-primary cursor-pointer">Discounts</a>
+							<a className="hover:text-primary cursor-pointer">Blog</a>
+							<a className="hover:text-primary cursor-pointer">Contact</a>
+							<select defaultValue={'default'} className="cursor-pointer bg-neutral-50 focus:outline-none hover:text-primary">
 								<option value="default">
 									English
 								</option>
@@ -47,15 +47,15 @@ function NavBar() {
 									</option>
 								))}
 							</select>
-							<a className="uppercase select-none hover:text-primary">Register / Sign in</a>
+							<a className="uppercase cursor-pointer hover:text-primary">Register / Sign in</a>
 						</div>
 					</div>					
 				</div>
 				<div className="flex items-center gap-6">
-					<svg stroke="currentColor" className="w-6 h-6 hover:fill-current hover:text-primary">
+					<svg stroke="currentColor" className="w-[1.4rem] h-[1.4rem] cursor-pointer hover:fill-current hover:text-primary">
 						<use href="src/icons_sprite.svg#search" />
 					</svg>
-					<svg stroke="currentColor" className="w-7 h-7 hover:fill-current hover:text-primary">
+					<svg stroke="currentColor" className="w-6 h-6 cursor-pointer hover:fill-current hover:text-primary">
 						<use href="src/icons_sprite.svg#cart" />
 					</svg>
 				</div>
