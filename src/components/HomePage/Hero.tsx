@@ -4,7 +4,7 @@ import HeroComputerSetup from "../../images/hero_computer_setup.png";
 
 function Hero() {
 	return (
-		<section className="flex justify-center h-screen mb-12">
+		<section className="-mt-24 flex justify-center h-screen mb-12">
 			<img src={HeroBG} className="absolute -z-10 h-screen w-screen object-cover" />
 			<div className="pt-28 h-full">
 				<div className="flex max-w-screen-xl items-center h-full">
