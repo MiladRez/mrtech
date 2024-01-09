@@ -18,8 +18,9 @@ function Footer() {
 						<h3 className="text-sm font-bold">Be the first to know</h3>
 						<p className="text-xs">Sign up to stay in the loop about the hottest deals, coolest new products, and exclusive sales events.</p>
 						<div className="flex">
-							<div className="w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
-								<input className="w-full px-2 py-3 border-2 border-transparent text-sm focus:outline-none focus:border-blue-800 transition-[border-color] duration-[400ms]" placeholder="Email Address" />
+							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
+								<input className="w-full px-2 py-3 border border-neutral-400 text-sm focus:outline-none peer" placeholder="Email Address" />
+								<div className="absolute top-0 w-full h-full pointer-events-none border-2 border-transparent peer-focus:border-blue-800 transition-[border-color] duration-[400ms]"></div>
 							</div>
 							<button className="w-32 border border-primary px-4 py-3 text-white text-sm bg-primary font-bold hover:bg-blue-800 hover:border-blue-800 transition duration-300">Sign Up</button>
 						</div>
