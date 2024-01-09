@@ -33,8 +33,8 @@ function NavBar() {
 		document.addEventListener("mouseup", closeWhenClickedOutsideSearchBar);
 	}
 
-	const closeWhenClickedOutsideSearchBar = (e: any) => {
-		if (!e.composedPath().includes(document.querySelector("#searchBar"))) {
+	const closeWhenClickedOutsideSearchBar = (event: any) => {
+		if (!event.composedPath().includes(document.querySelector("#searchBar"))) {
 			setSearch(false);
 			setVisible(true);
 			document.removeEventListener("mouseup", closeWhenClickedOutsideSearchBar);
@@ -49,7 +49,7 @@ function NavBar() {
 
 	return (
 		<>
-			<nav className={`fixed ${visible ? "max-h-24" : "max-h-0"} w-screen flex justify-center bg-neutral-50 z-10 transition-[max-height] duration-300 overflow-hidden`}>
+			<nav className={`fixed ${visible ? "max-h-24" : "max-h-0"} w-screen flex justify-center bg-stone-50 border-b z-20 transition-[max-height] duration-300 overflow-hidden`}>
 				<div className="flex w-full max-w-screen-xl justify-between px-12 py-4">
 					<div className="flex items-center">
 						<a href="/">
