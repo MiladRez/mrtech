@@ -9,7 +9,7 @@ function PromoDisplayCard({ item }: { item: PromoDisplayItem }) {
 				<p className="">{item.header}</p>
 				<div className="flex items-center group cursor-pointer w-fit">
 					<a className="uppercase pr-2 font-light group-hover:text-primary">Shop now</a>
-					<svg stroke="currentColor" className="w-6 h-6 group-hover:w-8 group-hover:fill-current group-hover:text-primary transition-[width] duration-300">
+					<svg stroke="currentColor" className="w-6 h-6 group-hover:translate-x-1 group-hover:fill-current group-hover:text-primary transition-transform duration-300">
 						<use href="src/icons_sprite.svg#right-arrow" />
 					</svg>					
 				</div>

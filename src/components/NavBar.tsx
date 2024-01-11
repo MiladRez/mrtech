@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import mrtechLogo from "../images/mrtech-logo.png";
-
-const langs: string[] = ["French", "Spanish"];
+import { Dropdown } from "flowbite-react";
+import CanadaFlagIcon from "../images/canada-flag.png";
+import USAFlagIcon from "../images/usa-flag.png";
 
 function NavBar() {
 
@@ -17,20 +18,30 @@ function NavBar() {
 		if (currentScrollPos > prevScrollPos && currentScrollPos > 500) {
 			setVisible(false);
 		} else {
-			setVisible(true)
+			if (!search) {
+				setVisible(true)
+			}
 		}
 
 		setPrevScrollPos(currentScrollPos)
 	}
 
 	const handleSearchButtonClick = () => {
-		setSearch(!search);
-		setVisible(!visible);
+		setSearch(true);
+		setVisible(false);
 		// focus on search bar
 		if (searchBarInput.current) {
 			searchBarInput.current.focus()
 		}
 		document.addEventListener("mouseup", closeWhenClickedOutsideSearchBar);
+		document.body.style.overflow = "hidden";
+	}
+
+	const handleCloseSearchButtonClick = () => {
+		setSearch(false);
+		setVisible(true);
+		document.removeEventListener("mouseup", closeWhenClickedOutsideSearchBar);
+		document.body.style.overflow = "scroll";
 	}
 
 	const closeWhenClickedOutsideSearchBar = (event: any) => {
@@ -38,6 +49,7 @@ function NavBar() {
 			setSearch(false);
 			setVisible(true);
 			document.removeEventListener("mouseup", closeWhenClickedOutsideSearchBar);
+			document.body.style.overflow = "scroll";
 		}
 	}
 
@@ -49,28 +61,43 @@ function NavBar() {
 
 	return (
 		<>
-			<nav className={`fixed ${visible ? "max-h-24" : "max-h-0"} w-screen flex justify-center bg-stone-50 border-b z-20 transition-[max-height] duration-300 overflow-hidden`}>
+			<nav className={`fixed ${visible ? "max-h-24" : "max-h-0 overflow-hidden"} w-screen flex justify-center bg-stone-50 border-b z-20 transition-[max-height] duration-300`}>
 				<div className="flex w-full max-w-screen-xl justify-between px-12 py-4">
 					<div className="flex items-center">
 						<a href="/">
 							<img src={mrtechLogo} className="w-20" />
 						</a>
 						<div className="pl-8">
-							<div className="flex gap-8 text-sm">
+							<div className="flex items-center gap-8 text-sm">
 								<a href="/shop" className="hover:text-primary cursor-pointer">Shop</a>
-								<a href="/discounts" className="hover:text-primary cursor-pointer">Discounts</a>
+								<a href="/deals" className="hover:text-primary cursor-pointer">Deals</a>
 								<a href="/blog" className="hover:text-primary cursor-pointer">Blog</a>
-								<a href="contact" className="hover:text-primary cursor-pointer">Contact</a>
-								<select defaultValue={'default'} className="cursor-pointer bg-neutral-50 focus:outline-none hover:text-primary">
-									<option value="default">
-										English
-									</option>
-									{langs.map((lang, index) => (
-										<option value={lang} key={index}>
-											{lang}
-										</option>
-									))}
-								</select>
+								<a href="/contact" className="hover:text-primary cursor-pointer">Contact</a>
+								<div>
+									<Dropdown
+										label={
+											<div className="flex items-center gap-2">
+												<img src={CanadaFlagIcon} className="w-6 h-6" />
+												<p>Canada (EN)</p>
+											</div>
+										}
+										inline
+										className="!-left-4"
+									>
+										<Dropdown.Item className="pr-5">
+											<div className="flex items-center gap-2">
+												<img src={CanadaFlagIcon} className="w-6 h-6" />
+												<p>Canada (FR)</p>
+											</div>
+										</Dropdown.Item>
+										<Dropdown.Item className="pr-5">
+											<div className="flex items-center gap-2">
+												<img src={USAFlagIcon} className="w-6 h-6" />
+												<p>USA (EN)</p>
+											</div>
+										</Dropdown.Item>
+									</Dropdown>
+								</div>
 								<a className="uppercase cursor-pointer hover:text-primary">Register / Sign in</a>
 							</div>
 						</div>					
@@ -99,7 +126,7 @@ function NavBar() {
 							</svg>
 						</button>
 					</div>
-					<button onClick={handleSearchButtonClick} className="px-3">
+					<button onClick={handleCloseSearchButtonClick} className="px-3">
 						<svg stroke="currentColor" className="w-6 h-6 hover:scale-125 hover:text-primary transition duration-200">
 							<use href="src/icons_sprite.svg#cross" />
 						</svg>
@@ -107,6 +134,7 @@ function NavBar() {
 				</div>
 			</div>
 			<div className={`invisible h-24`}></div>
+			<div className={`${search ? "bg-black pointer-events-auto" : ""} w-screen h-screen fixed opacity-50 z-10 pointer-events-none`}></div>
 		</>
 	)
 }
