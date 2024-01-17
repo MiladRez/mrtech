@@ -72,7 +72,7 @@ function Contact() {
 								<div className="absolute top-0 w-full h-full pointer-events-none border-2 border-transparent peer-focus:border-blue-800 transition-[border-color] duration-[400ms]"></div>
 							</div>
 						</div>
-						<button className='w-full bg-primary py-5 text-lg font-bold text-white rounded hover:bg-blue-800 transition duration-300 group'>
+						<button className='w-full bg-primary py-5 text-lg font-bold text-white rounded hover:bg-blue-800 transition duration-300 group mt-2'>
 							Send Message
 							<svg fill="none" strokeWidth={1.5} stroke="currentColor" className="w-10 h-6 inline text-white group-hover:translate-x-1 transition duration-200">
 								<use href="src/icons_sprite.svg#send" />
