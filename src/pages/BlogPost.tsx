@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { useLocation } from "react-router-dom";
@@ -7,7 +7,11 @@ function BlogPost() {
 	
 	const { blog } = useLocation().state
 
-	return (
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
+
+	return (		  
 		<>
 			<NavBar />
 			<div className="flex justify-center">

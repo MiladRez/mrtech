@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { allProducts } from "../data/products";
 
 function ProductListHeader({ title, desc }: { title: string, desc: string }) {
 	

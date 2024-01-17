@@ -12,7 +12,7 @@ function FeaturedBlogs() {
 						<p className="text-neutral-500">Trending Tech Talks</p>	
 					</div>
 					<div className="grid grid-cols-3 gap-2 justify-between">
-						{allBlogs.splice(0,3).map((blog, index) => (
+						{allBlogs.slice(0,3).map((blog, index) => (
 							<BlogDisplayCard blog={blog} key={index} />
 						))}		
 					</div>
