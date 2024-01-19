@@ -26,6 +26,13 @@
 		<symbol viewBox="0 0 24 24" id="right-arrow">
 			<path d="M6 12H18M18 12L13 7M18 12L13 17" />
 		</symbol>
+		<symbol viewBox="0 0 24 24" id="share">
+			<path d="M20 13L20 18C20 19.1046 19.1046 20 18 20L6 20C4.89543 20 4 19.1046 4 18L4 13" stroke-linecap="round" stroke-linejoin="round"></path>
+			<path d="M16 8L12 4M12 4L8 8M12 4L12 16" stroke-linecap="round" stroke-linejoin="round"></path>
+		</symbol>
+		<symbol viewBox="0 0 24 24" id="copy">
+			<path class="cls-1" d="M731,676.07V356a40.1,40.1,0,0,0-40-40H419.31a40.11,40.11,0,0,0-40,40v388.8a40.11,40.11,0,0,0,40,40H731"></path><path class="cls-1" d="M335.51,684H304a35.12,35.12,0,0,1-35-35V250.26a35.12,35.12,0,0,1,35-35H585.66a35.12,35.12,0,0,1,35,35v24.53"></path></g></svg>
+		</symbol>
 		<symbol viewBox="0 0 512 512" id="free-delivery">
 			<path d="M476.158,286.938l-13.259-53.035c3.625-0.77,6.345-3.986,6.345-7.839v-8.551c0-18.566-15.105-33.67-33.67-33.67h-60.392
 				v-17.637c0-9.136-7.432-16.568-16.568-16.568H246.32l68.24-27.296c4.111-1.644,6.11-6.31,4.466-10.421
