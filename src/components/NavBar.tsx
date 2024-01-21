@@ -3,8 +3,11 @@ import mrtechLogo from "../images/mrtech-logo.png";
 import { Dropdown } from "flowbite-react";
 import CanadaFlagIcon from "../images/canada-flag.png";
 import USAFlagIcon from "../images/usa-flag.png";
+import { useCart } from "./CartContext";
 
-function NavBar() {
+export default function NavBar() {
+
+	const { numOfItemsInCart } = useCart();
 
 	const [prevScrollPos, setPrevScrollPos] = useState(0);
 	const [visible, setVisible] = useState(true);
@@ -26,6 +29,7 @@ function NavBar() {
 		setPrevScrollPos(currentScrollPos)
 	}
 
+	// handling of opening search bar when user clicks on "magnifying glass search" icon
 	const handleSearchButtonClick = () => {
 		setSearch(true);
 		setVisible(false);
@@ -37,6 +41,7 @@ function NavBar() {
 		document.body.style.overflow = "hidden";
 	}
 
+	// handling of closing search bar when user clicks the "cross" icon to close search bar
 	const handleCloseSearchButtonClick = () => {
 		setSearch(false);
 		setVisible(true);
@@ -44,12 +49,10 @@ function NavBar() {
 		document.body.style.overflow = "scroll";
 	}
 
+	// handling of closing search bar when user clicks outside of search bar
 	const closeWhenClickedOutsideSearchBar = (event: any) => {
 		if (!event.composedPath().includes(document.querySelector("#searchBar"))) {
-			setSearch(false);
-			setVisible(true);
-			document.removeEventListener("mouseup", closeWhenClickedOutsideSearchBar);
-			document.body.style.overflow = "scroll";
+			handleCloseSearchButtonClick();
 		}
 	}
 
@@ -106,10 +109,13 @@ function NavBar() {
 						<svg stroke="currentColor" className="w-[1.4rem] h-[1.4rem] cursor-pointer hover:fill-current hover:text-primary" onClick={handleSearchButtonClick}>
 							<use href="src/icons_sprite.svg#search" />
 						</svg>
-						<a href="/cart">
-							<svg stroke="currentColor" className="w-6 h-6 cursor-pointer hover:fill-current hover:text-primary">
+						<a href="/cart" className="relative hover:text-primary group">
+							<svg stroke="currentColor" className="w-6 h-6 cursor-pointer hover:fill-current">
 								<use href="src/icons_sprite.svg#cart" />
-							</svg>	
+							</svg>
+							<div className={`${numOfItemsInCart > 0 ? "" : "hidden"} ${ numOfItemsInCart >= 10 ? "w-5" : "w-4" } absolute -top-1.5 left-3.5 h-4 rounded-xl bg-white border border-black flex justify-center items-center group-hover:border-primary`}>
+								<p className="text-xs">{ numOfItemsInCart }</p>
+							</div>
 						</a>
 					</div>
 				</div>
@@ -138,5 +144,3 @@ function NavBar() {
 		</>
 	)
 }
-
-export default NavBar;

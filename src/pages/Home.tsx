@@ -2,14 +2,15 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import Hero from "../components/HomePage/Hero";
 import FeaturedProducts from "../components/HomePage/FeaturedProducts";
-import { productsOnSale, popularProducts } from "../data/products";
+import { productsOnSale, popularProducts, ProductItem } from "../data/products";
 import PromoDisplay from "../components/HomePage/PromoDisplay";
 import Footer from "../components/Footer";
 import BuildYourPC from "../components/HomePage/BuildYourPC";
 import FeaturedBlogs from "../components/HomePage/FeaturedBlogs";
 import SubscribeToNewsletter from "../components/HomePage/SubscribeToNewsletter";
 
-function Home() {
+export default function Home() {
+
 	return (
 		<>
 			<NavBar />
@@ -24,5 +25,3 @@ function Home() {
 		</>
 	)
 }
-
-export default Home;

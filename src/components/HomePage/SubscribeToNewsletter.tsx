@@ -1,6 +1,6 @@
 import React from "react";
 
-function SubscribeToNewsletter() {
+export default function SubscribeToNewsletter() {
 	const customerServices = (icon: string, title: string, desc: string) => {
 		return (
 			<div className="flex items-center">
@@ -43,5 +43,3 @@ function SubscribeToNewsletter() {
 		</section>
 	)
 }
-
-export default SubscribeToNewsletter;

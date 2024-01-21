@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../components/NavBar";
 import ProductListHeader from "../components/ProductListHeader";
 import ProductList from "../components/ProductList";
 import Footer from "../components/Footer";
 import { productsOnSale } from "../data/products";
 
-function Deals() {
+export default function Deals() {
+
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
+
 	return (
 		<>
 			<NavBar />
@@ -15,5 +20,3 @@ function Deals() {
 		</>
 	)
 }
-
-export default Deals;

@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import BlogDisplayCard from "../components/BlogDisplayCard";
 import { Link } from "react-router-dom";
 
-function Blog() {
+export default function Blog() {
 	const headerBlog = allBlogs[0]
 
 	return (
@@ -14,7 +14,7 @@ function Blog() {
 			<div className="flex justify-center">
 				<div className="flex flex-col gap-12 max-w-screen-xl px-12 py-20">
 					<h1 className="text-4xl">Trending</h1>
-					<Link to={`/blog/${headerBlog.id}`} state={{ blog: headerBlog }}>
+					<Link to={`/blog/${headerBlog.title}`} state={{ blog: headerBlog }}>
 						<div className="group">
 							<div className="overflow-hidden">
 								<img src={headerBlog.img.toString()} className="w-full h-[36rem] object-cover group-hover:scale-105 transition duration-300" />	
@@ -37,5 +37,3 @@ function Blog() {
 		</>
 	)
 }
-
-export default Blog;

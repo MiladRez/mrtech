@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { ProductItem, allProducts } from "../data/products";
 import Product from "./Product";
 import FilterDropdown from "./FilterDropdown";
+import { useCart } from "./CartContext";
 
 const sortOrder: string[] = [
 	"Highest Rated",
@@ -13,7 +14,9 @@ const sortOrder: string[] = [
 	"Recently Added",
 ]
 
-function ProductList({ products }: { products: ProductItem[] }) {
+export default function ProductList({ products }: { products: ProductItem[] }) {
+
+	const { addItemToCart } = useCart();
 
 	const [disabledApplyPriceRangeButton, setDisabledApplyPriceRangeButton] = useState(true);
 	const minPriceInput = useRef(null);
@@ -25,6 +28,10 @@ function ProductList({ products }: { products: ProductItem[] }) {
 		} else {
 			setDisabledApplyPriceRangeButton(false)
 		}
+	}
+
+	const addToCart = (item: ProductItem) => {
+		addItemToCart(item)
 	}
 
 	const availabilityFilterContent = 
@@ -130,7 +137,7 @@ function ProductList({ products }: { products: ProductItem[] }) {
 					<div className="col-span-3 grid grid-cols-3 gap-y-8">
 						{
 							products.map((prod, index) => (
-								<Product product={prod} key={index} />
+								<Product product={prod} key={index} addToCart={addToCart} />
 							))
 						}
 					</div>
@@ -140,5 +147,3 @@ function ProductList({ products }: { products: ProductItem[] }) {
 		</div>
 	)
 }
-
-export default ProductList;

@@ -5,7 +5,7 @@ type FooterColumnProps = {
 	items: string[]
 }
 
-function FooterColumn({header, items}: FooterColumnProps) {
+export default function FooterColumn({header, items}: FooterColumnProps) {
 	return (
 		<div className="flex flex-col gap-4">
 			<h3 className="text-sm font-bold">{header}</h3>
@@ -15,5 +15,3 @@ function FooterColumn({header, items}: FooterColumnProps) {
 		</div>
 	)
 }
-
-export default FooterColumn;

@@ -1,7 +1,7 @@
 import React from "react";
 import { PromoDisplayItem } from "../data/promo_display_items";
 
-function PromoDisplayCard({ item }: { item: PromoDisplayItem }) {
+export default function PromoDisplayCard({ item }: { item: PromoDisplayItem }) {
 	return (
 		<div className="bg-neutral-100">
 			<img src={item.img.toString()} className="w-[36.5rem]" />
@@ -17,5 +17,3 @@ function PromoDisplayCard({ item }: { item: PromoDisplayItem }) {
 		</div>
 	)
 }
-
-export default PromoDisplayCard;

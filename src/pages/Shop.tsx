@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import ProductListHeader from "../components/ProductListHeader";
 import ProductList from "../components/ProductList";
 import { allProducts } from "../data/products";
 
-function Shop() {
+export default function Shop() {
+
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
+
 	return (
 		<>
 			<NavBar />
@@ -15,5 +20,3 @@ function Shop() {
 		</>
 	)
 }
-
-export default Shop;

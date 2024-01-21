@@ -1,7 +1,7 @@
 import React from "react";
 import FooterColumn from "./FooterColumn";
 
-function Footer() {
+export default function Footer() {
 	return (
 		<footer className="bg-neutral-100">
 			<div className="flex justify-center border">
@@ -55,5 +55,3 @@ function Footer() {
 		</footer>
 	)
 }
-
-export default Footer;

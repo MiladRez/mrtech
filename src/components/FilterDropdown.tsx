@@ -6,7 +6,7 @@ type FilterDropdownProps = {
 	content: ReactElement
 }
 
-function FilterDropdown({openFilter, title, content}: FilterDropdownProps) {
+export default function FilterDropdown({openFilter, title, content}: FilterDropdownProps) {
 
 	const [filterOpen, setFilterOpen] = useState(openFilter)
 
@@ -26,5 +26,3 @@ function FilterDropdown({openFilter, title, content}: FilterDropdownProps) {
 		</div>
 	)
 }
-
-export default FilterDropdown;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function ProductListHeader({ title, desc }: { title: string, desc: string }) {
+export default function ProductListHeader({ title, desc }: { title: string, desc: string }) {
 	
 	return (
 		<div className="flex justify-center pt-20">
@@ -13,5 +13,3 @@ function ProductListHeader({ title, desc }: { title: string, desc: string }) {
 		</div>
 	)
 }
-
-export default ProductListHeader;
