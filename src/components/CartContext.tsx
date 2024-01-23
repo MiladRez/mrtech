@@ -15,7 +15,7 @@ const CartContext = createContext<CartContextType>({cart: new Map(), numOfItemsI
 export function CartProvider({ children } : { children: ReactNode }) {
 	const [cart, setCart] = useState(new Map<ProductItem, number>(localStorage.cart ? JSON.parse(localStorage.cart) : null));
 	const [numOfItemsInCart, setNumOfItemsInCart] = useState(localStorage.numOfItemsInCart ? parseInt(localStorage.numOfItemsInCart) : 0);
-	const [totalCost, setTotalCost] = useState(localStorage.totalCost ? parseFloat(localStorage.totalCost) : 0);
+	const [totalCost, setTotalCost] = useState(localStorage.totalCost ? parseFloat(parseFloat(localStorage.totalCost).toFixed(2)) : 0.00);
 
 	useEffect(() => {
 		localStorage.setItem("cart", JSON.stringify([...cart]));
@@ -26,7 +26,7 @@ export function CartProvider({ children } : { children: ReactNode }) {
 	}, [numOfItemsInCart]);
 
 	useEffect(() => {
-		localStorage.setItem("totalCost", totalCost.toString());
+		localStorage.setItem("totalCost", totalCost.toFixed(2));
 	}, [totalCost]);
 
 	const addItemToCart = (item: ProductItem) => {
@@ -76,6 +76,7 @@ export function CartProvider({ children } : { children: ReactNode }) {
 			}
 		})
 		const quantityDiff = quantity - origQuantity;
+		console.log(`quantity: ${quantity} - origQuantity: ${origQuantity}`);
 		setNumOfItemsInCart((numOfItemsInCart + quantityDiff) > 0 ? numOfItemsInCart + quantityDiff : 0);
 
 		let itemPrice = item.sale ? item.salePrice! : item.price;

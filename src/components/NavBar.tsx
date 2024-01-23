@@ -114,7 +114,7 @@ export default function NavBar() {
 								<use href="src/icons_sprite.svg#cart" />
 							</svg>
 							<div className={`${numOfItemsInCart > 0 ? "" : "hidden"} ${ numOfItemsInCart >= 10 ? "w-5" : "w-4" } absolute -top-1.5 left-3.5 h-4 rounded-xl bg-white border border-black flex justify-center items-center group-hover:border-primary`}>
-								<p className="text-xs">{ numOfItemsInCart }</p>
+								<p className="text-xs pl-px">{ numOfItemsInCart }</p>
 							</div>
 						</a>
 					</div>

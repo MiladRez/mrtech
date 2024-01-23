@@ -27,7 +27,7 @@ export default function FeaturedProducts({ header, subheader, products }: Featur
 				</div>
 				<div className="flex gap-2 justify-between">
 					{
-						products.map((prod, index) => (
+						products.slice(0, 4).map((prod, index) => (
 							<Product product={prod} key={index} addToCart={addToCart} />
 						))
 					}

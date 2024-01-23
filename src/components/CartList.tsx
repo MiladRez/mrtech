@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
-import ProductCartDisplay from "./ProductCartDisplay";
+import React, { useState } from "react";
 import { useCart } from "./CartContext";
 import { ProductItem } from "../data/products";
+import CartProductDisplay from "./CartProductDisplay";
 
 export default function CartList() {
 
-	const { totalCost, removeItemFromCart, updateItemQuantity } = useCart();
+	const { cart, totalCost, removeItemFromCart, updateItemQuantity } = useCart();
 
-	const [cart, setCart] = useState(JSON.parse(localStorage.cart));
-
-	const removeFromCart = async (item: ProductItem) => {
-		await removeItemFromCart(item);
-		setCart(JSON.parse(localStorage.cart));
+	const removeFromCart = (item: ProductItem) => {
+		removeItemFromCart(item);
 	}
 
-	const updateQuantity = async (item: ProductItem, quantity: number) => {
-		await updateItemQuantity(item, quantity);
-		setCart(JSON.parse(localStorage.cart));
+	const updateQuantity = (item: ProductItem, quantity: number) => {
+		updateItemQuantity(item, quantity);
 	}
 
 	return (
@@ -36,8 +32,8 @@ export default function CartList() {
 					</div>
 					<div className="border-y flex flex-col gap-12 py-12">
 						{
-							cart.map((prod: Array<string>, index: number) => (
-								<ProductCartDisplay product={prod} key={index} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />
+							Array.from(cart.keys()).map((prod, index) => (
+								<CartProductDisplay product={prod} key={index} quantityAmount={cart.get(prod)!} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />	
 							))
 						}
 					</div>

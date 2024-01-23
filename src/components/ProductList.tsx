@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { ReactElement, useRef, useState } from "react";
 import { ProductItem, allProducts } from "../data/products";
 import Product from "./Product";
 import FilterDropdown from "./FilterDropdown";
@@ -34,16 +34,19 @@ export default function ProductList({ products }: { products: ProductItem[] }) {
 		addItemToCart(item)
 	}
 
+	const checkbox = (id: string, name: string, disabled: boolean): ReactElement => {
+		return (
+			<li className="flex gap-2">
+				<input id={ id } type="checkbox" disabled={ disabled } className="disabled:cursor-not-allowed peer focus:ring-0" />
+				<label htmlFor={ id } className="w-full text-sm cursor-pointer select-none hover:underline peer-disabled:no-underline peer-disabled:cursor-not-allowed peer-disabled:text-black/50">{ name }</label>
+			</li>	
+		)
+	}
+
 	const availabilityFilterContent = 
-		<ul className="flex flex-col gap-4">
-			<li className="flex gap-2">
-				<input id="in-stock" type="checkbox" className="disabled:cursor-not-allowed peer" />
-				<label htmlFor="in-stock" className="w-full text-sm cursor-pointer select-none hover:underline peer-disabled:cursor-not-allowed peer-disabled:text-black/50">In stock (10)</label>
-			</li>
-			<li className="flex gap-2">
-				<input id="out-of-stock" disabled type="checkbox" className="disabled:cursor-not-allowed peer" />
-				<label htmlFor="out-of-stock" className="w-full text-sm cursor-pointer select-none peer-disabled:cursor-not-allowed peer-disabled:text-black/50">Out of stock (0)</label>
-			</li>
+		<ul className="flex flex-col gap-4 px-1">
+			{ checkbox("in-stock", "In stock (10)", false) }
+			{ checkbox("out-of-stock", "Out of stock (0)", true) }
 		</ul>
 	
 	const priceFilterContent = 
@@ -69,39 +72,15 @@ export default function ProductList({ products }: { products: ProductItem[] }) {
 				<button disabled={disabledApplyPriceRangeButton} className="w-full border px-12 py-4 bg-primary text-sm text-white font-semibold hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-black transition duration-200">Apply Price Range</button>
 				<button className={`${disabledApplyPriceRangeButton ? "hidden" : ""} text-sm text-primary pt-6 self-start hover:underline`}>Clear price range</button>
 			</div>
-			<ul className="flex flex-col gap-4 pt-6">
-				<li className="flex gap-2">
-					<input id="pr-lt200" type="checkbox" className="disabled:cursor-not-allowed peer" />
-					<label htmlFor="pr-lt200" className="w-full text-sm cursor-pointer select-none hover:underline peer-disabled:cursor-not-allowed peer-disabled:text-black/50">Less than $200 (5)</label>
-				</li>
-				<li className="flex gap-2">
-					<input id="pr-200to300" type="checkbox" className="disabled:cursor-not-allowed peer" />
-					<label htmlFor="pr-200to300" className="w-full text-sm cursor-pointer select-none hover:underline peer-disabled:cursor-not-allowed peer-disabled:text-black/50">$200 - $299.99 (1)</label>
-				</li>
-				<li className="flex gap-2">
-					<input id="pr-300to400" type="checkbox" className="disabled:cursor-not-allowed peer" />
-					<label htmlFor="pr-300to400" className="w-full text-sm cursor-pointer select-none hover:underline peer-disabled:cursor-not-allowed peer-disabled:text-black/50">$300 - $399.99 (0)</label>
-				</li>
-				<li className="flex gap-2">
-					<input id="pr-400to600" type="checkbox" className="disabled:cursor-not-allowed peer" />
-					<label htmlFor="pr-400to600" className="w-full text-sm cursor-pointer select-none hover:underline peer-disabled:cursor-not-allowed peer-disabled:text-black/50">$400 - $599.99 (3)</label>
-				</li>
-				<li className="flex gap-2">
-					<input id="pr-600to800" type="checkbox" className="disabled:cursor-not-allowed peer" />
-					<label htmlFor="pr-600to800" className="w-full text-sm cursor-pointer select-none hover:underline peer-disabled:cursor-not-allowed peer-disabled:text-black/50">$600 - $799.99 (0)</label>
-				</li>
-				<li className="flex gap-2">
-					<input id="pr-800to1000" type="checkbox" className="disabled:cursor-not-allowed peer" />
-					<label htmlFor="pr-800to1000" className="w-full text-sm cursor-pointer select-none hover:underline peer-disabled:cursor-not-allowed peer-disabled:text-black/50">$800 - $999.99 (0)</label>
-				</li>
-				<li className="flex gap-2">
-					<input id="pr-1000to1200" type="checkbox" className="disabled:cursor-not-allowed peer" />
-					<label htmlFor="pr-1000to1200" className="w-full text-sm cursor-pointer select-none hover:underline peer-disabled:cursor-not-allowed peer-disabled:text-black/50">$1000 - $1199.99 (0)</label>
-				</li>
-				<li className="flex gap-2">
-					<input id="pr-1200andUp" type="checkbox" className="disabled:cursor-not-allowed peer" />
-					<label htmlFor="pr-1200andUp" className="w-full text-sm cursor-pointer select-none hover:underline peer-disabled:cursor-not-allowed peer-disabled:text-black/50">$1200 and Up (1)</label>
-				</li>
+			<ul className="flex flex-col gap-4 pt-6 px-1">
+				{ checkbox("pr-lt200", "Less than $200 (5)", false) }
+				{ checkbox("pr-200to300", "$200 - $299.99 (1)", false) }
+				{ checkbox("pr-300to400", "$300 - $399.99 (0)", false) }
+				{ checkbox("pr-400to600", "$400 - $599.99 (3)", false) }
+				{ checkbox("pr-600to800", "$600 - $799.99 (0)", false) }
+				{ checkbox("pr-800to1000", "$800 - $999.99 (0)", false) }
+				{ checkbox("pr-1000to1200", "$1000 - $1199.99 (0)", false) }
+				{ checkbox("pr-1200andUp", "$1200 and Up (1)", false) }
 			</ul>
 		</div>
 		
@@ -132,7 +111,7 @@ export default function ProductList({ products }: { products: ProductItem[] }) {
 								)
 							})}
 						</select>
-						<p className="text-sm text-neutral-500 pl-12">{allProducts.length} products</p>
+						<p className="text-sm text-neutral-500 pl-12">{products.length} products</p>
 					</div>
 					<div className="col-span-3 grid grid-cols-3 gap-y-8">
 						{

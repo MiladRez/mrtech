@@ -9,6 +9,7 @@ import BlogPost from './pages/BlogPost';
 import Page404 from './pages/Page404';
 import { CartProvider } from './components/CartContext';
 import Cart from './pages/Cart';
+import ProductInfo from './pages/ProductInfo';
 
 export default function App() {
 	return (
@@ -18,8 +19,9 @@ export default function App() {
 					<Route path="/" element={<Home />} />
 					<Route path='/shop' element={<Shop />} />
 					<Route path='/deals' element={<Deals />} />
+					<Route path='/product/:product_name' element={<ProductInfo />} />
 					<Route path='/blog' element={<Blog />} />
-					<Route path='/blog/:blog_id' element={<BlogPost />} />
+					<Route path='/blog/:blog_title' element={<BlogPost />} />
 					<Route path='/contact' element={<Contact />} />
 					<Route path='/cart' element={<Cart />} />
 					<Route path='*' element={<Page404 />} />
