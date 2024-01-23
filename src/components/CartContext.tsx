@@ -47,7 +47,7 @@ export function CartProvider({ children } : { children: ReactNode }) {
 
 		setNumOfItemsInCart(numOfItemsInCart + 1);
 
-		let itemPrice = item.sale ? item.salePrice! : item.price;
+		const itemPrice = item.sale ? item.salePrice! : item.price;
 		setTotalCost(totalCost + itemPrice);
 	}
 
@@ -62,9 +62,8 @@ export function CartProvider({ children } : { children: ReactNode }) {
 		setCart(new Map(cart))
 		setNumOfItemsInCart((numOfItemsInCart - removedItemCount) > 0 ? numOfItemsInCart - removedItemCount : 0);
 
-		let itemPrice = item.sale ? item.salePrice! : item.price;
+		const itemPrice = item.sale ? item.salePrice! : item.price;
 		setTotalCost(totalCost - (itemPrice * removedItemCount));
-
 	}
 
 	const updateItemQuantity = (item: ProductItem, quantity: number) => {
@@ -75,11 +74,12 @@ export function CartProvider({ children } : { children: ReactNode }) {
 				setCart(new Map(cart.set(k, quantity)))
 			}
 		})
+		
 		const quantityDiff = quantity - origQuantity;
 		console.log(`quantity: ${quantity} - origQuantity: ${origQuantity}`);
 		setNumOfItemsInCart((numOfItemsInCart + quantityDiff) > 0 ? numOfItemsInCart + quantityDiff : 0);
 
-		let itemPrice = item.sale ? item.salePrice! : item.price;
+		const itemPrice = item.sale ? item.salePrice! : item.price;
 		setTotalCost(totalCost + (itemPrice * quantityDiff));
 	}
 

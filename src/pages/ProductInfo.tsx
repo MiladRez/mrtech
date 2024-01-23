@@ -13,7 +13,10 @@ export default function ProductInfo() {
 
 	const product: ProductItem = useLocation().state.product;
 
+	// used for logic (backend quantity)
 	const [quantity, setQuantity] = useState(0);
+	// merely used for displaying the item quantity (frontend quantity)
+	const [quantityDisplay, setQuantityDisplay] = useState(quantity);
 	const [numOfReviews, setNumOfReviews] = useState(Math.floor(Math.random() * 1000))
 	const [disabled, setDisabled] = useState(quantity === 1);
 	
@@ -39,19 +42,32 @@ export default function ProductInfo() {
 	
 	const handleQuantityOnChange = (event: any) => {
 		if (event.target.value === "") {
-			setQuantity(event.target.value);
+			setQuantityDisplay(event.target.value);
+		} else if (event.target.value === "0") {
+			if (quantity > 0) {
+				removeItemFromCart(product);
+			}
+			const newQuantity = 0;
+			setQuantity(newQuantity);
+			setQuantityDisplay(newQuantity);
 		} else {
-			addItemToCart(product);
 			const newQuantity = parseInt(event.target.value);
 			setQuantity(newQuantity);
-			updateItemQuantity(product, newQuantity);
+			setQuantityDisplay(newQuantity);
+			
+			if (quantity === 0) {
+				addItemToCart(product);
+			} else {
+				updateItemQuantity(product, newQuantity);
+			}
 		}
 	}
 
 	const handleQuantityOnBlur = (event: any) => {
 		if (event.target.value === "") {
-			const newQuantity = 0;
+			const newQuantity = 0
 			setQuantity(newQuantity);
+			setQuantityDisplay(newQuantity);
 			removeItemFromCart(product);
 		}
 	}
@@ -62,7 +78,14 @@ export default function ProductInfo() {
 		addItemToCart(product);
 	}
 
+	const handleAddProductToCart = () => {
+		addItemToCart(product);
+		const newQuantity = quantity + 1;
+		setQuantity(newQuantity);
+	}
+
 	useEffect(() => {
+		setQuantityDisplay(quantity);
 		quantity < 1 ? setDisabled(true) : setDisabled(false);
 	}, [quantity]);
 
@@ -109,7 +132,7 @@ export default function ProductInfo() {
 											<use href="src/icons_sprite.svg#minus"/>
 										</svg>
 									</div>
-									<input type="number" value={quantity} onChange={handleQuantityOnChange} onBlur={handleQuantityOnBlur} className="px-0 py-0 text-center text-sm w-8 border-none focus:ring-0" />
+									<input type="number" value={quantityDisplay} onChange={handleQuantityOnChange} onBlur={handleQuantityOnBlur} className="px-0 py-0 text-center text-sm w-8 border-none focus:ring-0" />
 									<div onClick={handleQuantityIncreaseClick} className="px-4 py-4 cursor-pointer hover:bg-black/10">
 										<svg className="w-3.5 h-4">
 											<use href="src/icons_sprite.svg#plus"/>
@@ -119,7 +142,7 @@ export default function ProductInfo() {
 							</div>	
 						</div>
 						<div className="flex flex-col gap-3">
-							<button className="border border-black px-4 py-3 text-sm hover:bg-black hover:text-white transition duration-200">Add to cart</button>
+							<button onClick={handleAddProductToCart} className="px-4 py-3 text-sm ring-1 ring-neutral-500 hover:ring-2 hover:font-semibold transition-all duration-200">Add to cart</button>
 							<button className="border border-black px-4 py-3 bg-black text-white text-sm hover:bg-primary hover:border-primary hover:text-white transition duration-200">Buy now</button>
 						</div>
 						<div className="py-4">
