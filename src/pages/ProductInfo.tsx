@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import FeaturedProducts from "../components/HomePage/FeaturedProducts";
 import { ProductItem, allProducts } from "../data/products";
 import StarRatings from 'react-star-ratings';
@@ -11,22 +11,17 @@ export default function ProductInfo() {
 
 	const { cart, addItemToCart, removeItemFromCart, updateItemQuantity } = useCart();
 
-	const product: ProductItem = useLocation().state.product;
-
+	// const product: ProductItem = useLocation().state.product;
+	const [product, setProduct] = useState({} as ProductItem);
 	// used for logic (backend quantity)
 	const [quantity, setQuantity] = useState(0);
 	// merely used for displaying the item quantity (frontend quantity)
 	const [quantityDisplay, setQuantityDisplay] = useState(quantity);
-	const [numOfReviews, setNumOfReviews] = useState(Math.floor(Math.random() * 1000))
 	const [disabled, setDisabled] = useState(quantity === 1);
-	
-	// get random list of products for "Similar products" list
-	const randomProductsList = allProducts.sort(() => 0.5 - Math.random());
-	const similarProducts = randomProductsList.slice(0, 4);
+	// recommended list of products frequently bought with this product
+	const [similarProducts, setSimilarProducts] = useState(Array<ProductItem>);
 
-	// always displays to two decimal places
-	const price = product.price.toLocaleString("en-CA", { style: "currency", currency: "CAD" });
-	const salePrice = product.salePrice?.toLocaleString("en-CA", { style: "currency", currency: "CAD" });
+	const { product_name } = useParams();
 
 	const handleQuantityDecreaseClick = () => {
 		if (quantity > 1) {
@@ -90,74 +85,102 @@ export default function ProductInfo() {
 	}, [quantity]);
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
+
+		let newQuantity = 0;
 		Array.from(cart.keys()).map(k => {
 			if (k.id === product.id) {
-				setQuantity(cart.get(k)!);
+				newQuantity = cart.get(k)!;
+				setQuantity(newQuantity);
 			}
 		});
+
+		setQuantity(newQuantity);
+		setQuantityDisplay(newQuantity);
+	}, [product]);
+
+	useEffect(() => {
+		// get random list of products for "Similar products" list (excluding current product)
+		const randomProductsList = allProducts.filter((prod) => prod.id != product.id).sort(() => 0.5 - Math.random());
+		setSimilarProducts(randomProductsList.slice(0, 4));
 	}, []);
+
+	useEffect(() => {
+		// update product when accessing new url
+		allProducts.forEach((prod) => {
+			if (prod.name === decodeURIComponent(product_name!)) {
+				setProduct(prod);
+			}
+		})
+	}, [product_name]);
 
 	return (
 		<>
 			<NavBar />
-			<section className="flex justify-center">
-				<div className="flex max-w-screen-xl px-12 py-12">
-					<div className="w-2/3 flex flex-col items-center">
-						<img src={ product.img.toString() } className="w-3/5 sticky top-32 border" />	
-					</div>
-					<div className="w-1/3 flex flex-col gap-8">
-						<div className="flex flex-col gap-2">
-							<p className="text-xs uppercase text-neutral-500">{ product.manufacturer }</p>
-							<h1 className="text-4xl">{product.name}</h1>
-							<div className="flex gap-2">
-								<StarRatings
-									rating={product.rating}
-									starRatedColor="#fbbf24"
-									starDimension="20px"
-									starSpacing="1px"
-								/>
-								<p className="pt-0.5 font-bold">{ product.rating } <span className="font-light">({ numOfReviews } Reviews)</span></p>	
-							</div>
-							<div className="flex pt-4 text-xl font-bold">
-								<p className={`${product.sale ? "text-sm line-through text-neutral-500 pr-4" : ""}`}>{price} CAD</p>		
-								<p className={`${product.sale ? "" : "hidden"}`}>{salePrice} CAD</p>
-							</div>
+			{
+				product.id ?
+				<section className="flex justify-center">
+					<div className="flex max-w-screen-xl px-12 py-12">
+						<div className="w-2/3 flex flex-col items-center">
+							<img src={ product.img.toString() } className="w-3/5 sticky top-32 border px-8 py-8" />	
 						</div>
-						<div className="flex flex-col gap-2">
-							<p className="text-xs text-neutral-500">Quantity</p>
-							<div className="flex items-center">
-								<div className="w-40 flex items-center justify-between ring-1 ring-neutral-500 hover:ring-2 transition duration-200">
-									<div onClick={handleQuantityDecreaseClick} className={`${disabled ? "cursor-not-allowed" : "cursor-pointer hover:bg-black/10"} px-4 py-4`}>
-										<svg className="w-4 h-4">
-											<use href="src/icons_sprite.svg#minus"/>
-										</svg>
-									</div>
-									<input type="number" value={quantityDisplay} onChange={handleQuantityOnChange} onBlur={handleQuantityOnBlur} className="px-0 py-0 text-center text-sm w-8 border-none focus:ring-0" />
-									<div onClick={handleQuantityIncreaseClick} className="px-4 py-4 cursor-pointer hover:bg-black/10">
-										<svg className="w-3.5 h-4">
-											<use href="src/icons_sprite.svg#plus"/>
-										</svg>
-									</div>	
+						<div className="w-1/3 flex flex-col gap-8">
+							<div className="flex flex-col gap-2">
+								<p className="text-xs uppercase text-neutral-500">{ product.manufacturer }</p>
+								<h1 className="text-4xl">{product.name}</h1>
+								<div className="flex gap-2">
+									<StarRatings
+										rating={product.rating}
+										starRatedColor="#fbbf24"
+										starDimension="20px"
+										starSpacing="1px"
+									/>
+									<p className="pt-0.5 font-bold">{ product.rating } <span className="font-light">({ product.numOfReviews } Reviews)</span></p>	
 								</div>
-							</div>	
-						</div>
-						<div className="flex flex-col gap-3">
-							<button onClick={handleAddProductToCart} className="px-4 py-3 text-sm ring-1 ring-neutral-500 hover:ring-2 hover:font-semibold transition-all duration-200">Add to cart</button>
-							<button className="border border-black px-4 py-3 bg-black text-white text-sm hover:bg-primary hover:border-primary hover:text-white transition duration-200">Buy now</button>
-						</div>
-						<div className="py-4">
-							<ul className="flex flex-col gap-2">
-								{
-									product.features.map((feature, index) => (
-										<li key={index} className="list-disc">{ feature }</li>
-									))
-								}
-							</ul>
+								<div className="flex pt-4 text-xl font-bold">
+									<p className={`${product.sale ? "text-sm line-through text-neutral-500 pr-4" : ""}`}>{product.price.toLocaleString("en-CA", { style: "currency", currency: "CAD" })} CAD</p>		
+									<p className={`${product.sale ? "" : "hidden"}`}>{product.salePrice?.toLocaleString("en-CA", { style: "currency", currency: "CAD" })} CAD</p>
+								</div>
+							</div>
+							<div className="flex flex-col gap-2">
+								<p className="text-xs text-neutral-500">Quantity</p>
+								<div className="flex items-center">
+									<div className="w-40 flex items-center justify-between ring-1 ring-neutral-500 hover:ring-2 transition duration-200">
+										<div onClick={handleQuantityDecreaseClick} className={`${disabled ? "cursor-not-allowed" : "cursor-pointer hover:bg-black/10"} px-4 py-4`}>
+											<svg className="w-4 h-4">
+												<use href="src/icons_sprite.svg#minus"/>
+											</svg>
+										</div>
+										<input type="number" value={quantityDisplay} onChange={handleQuantityOnChange} onBlur={handleQuantityOnBlur} className="px-0 py-0 text-center text-sm w-8 border-none focus:ring-0" />
+										<div onClick={handleQuantityIncreaseClick} className="px-4 py-4 cursor-pointer hover:bg-black/10">
+											<svg className="w-3.5 h-4">
+												<use href="src/icons_sprite.svg#plus"/>
+											</svg>
+										</div>	
+									</div>
+								</div>	
+							</div>
+							<div className="flex flex-col gap-3 select-none">
+								<button onClick={handleAddProductToCart} className="px-4 py-3 text-sm ring-1 ring-neutral-500 hover:ring-2 hover:font-semibold transition-all duration-200">Add to cart</button>
+								<button className="border border-black px-4 py-3 bg-black text-white text-sm hover:bg-primary hover:border-primary hover:text-white transition duration-200">Buy now</button>
+							</div>
+							<div className="py-4">
+								<ul className="flex flex-col gap-2">
+									{
+										product.features.map((feature, index) => (
+											<li key={index} className="list-disc">{ feature }</li>
+										))
+									}
+								</ul>
+							</div>
 						</div>
 					</div>
-				</div>
-			</section>
-			<FeaturedProducts header="You may also like" subheader="" products={similarProducts} />
+				</section>
+				:
+				null
+			}
+				
+			<FeaturedProducts header="You may also like" subheader="" products={similarProducts} viewAllPage="/shop" />
 			<Footer />
 		</>
 	)

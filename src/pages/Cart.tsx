@@ -14,7 +14,7 @@ export default function Cart() {
 		<>
 			<NavBar />
 			<CartList />
-			<FeaturedProducts header="Frequently bought together" subheader="Save with bundled products" products={freqBoughtTogetherList} />
+			<FeaturedProducts header="Frequently bought together" subheader="Save with bundled products" products={freqBoughtTogetherList} viewAllPage="/shop" />
 			<Footer />
 		</>
 	)

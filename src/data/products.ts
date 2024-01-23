@@ -20,7 +20,8 @@ export type ProductItem = {
 	price: number,
 	salePrice?: number,
 	rating: number,
-	features: Array<string>
+	numOfReviews: number,
+	features: Array<string>,
 }
 
 export const allProducts: ProductItem[] = [
@@ -33,6 +34,7 @@ export const allProducts: ProductItem[] = [
 		price: 279.99,
 		salePrice: 199.99,
 		rating: 4.4,
+		numOfReviews: 17,
 		features: [
 			"Built-in air filters at the front vent improve the airflow and reduce the intake of dust particles to keep the case's interior cleaner",
 			"ATX (Max-Length 210mm) power supply is efficient, saves power and space, and is compatible with most modern motherboards",
@@ -52,6 +54,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Corsair",
 		price: 119.99,
 		rating: 4.9,
+		numOfReviews: 244,
 		features: [
 			"3200MHz memory speed effectively boosts your system's processor performance",
 			"16 CAS latency improves the performance of the RAM",
@@ -72,6 +75,7 @@ export const allProducts: ProductItem[] = [
 		price: 2099.99,
 		salePrice: 1949.99,
 		rating: 4.8,
+		numOfReviews: 345,
 		features: [
 			"24GB of high-speed GDDR6X video memory delivers ray tracing and AI-powered graphics for an immersive gaming experience",
 			"2235MHz core clock speed and 2.52GHz boost clock speed provide the power you need to keep up with the most intensive games",
@@ -90,6 +94,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Asus",
 		price: 219.99,
 		rating: 4.7,
+		numOfReviews: 765,
 		features: [
 			"The ASUS ROG-THOR-850P2-GAMING power supply boasts 80Plus Platinum efficiency",
 			"Robust protection mechanisms, including Over Power, Over Voltage, Under Voltage, Short Circuit, Over Current, and Over Temperature Protection",
@@ -109,6 +114,7 @@ export const allProducts: ProductItem[] = [
 		price: 599.99,
 		salePrice: 499.99,
 		rating: 4.8,
+		numOfReviews: 5,
 		features: [
 			"3.8GHz clock speed can run resource-intensive applications without slowing down",
 			"Eight cores adeptly handle high-FPS gaming sessions, video editing, and many more heavy-duty programs",
@@ -126,6 +132,7 @@ export const allProducts: ProductItem[] = [
 		price: 799.99,
 		salePrice: 599.99,
 		rating: 4.6,
+		numOfReviews: 801,
 		features: [
 			"Base speed of 4.4GHz and a max boost clock speed of 6GHz ensure unrivaled responsiveness and performance for even the most demanding tasks and applications",
 			"Intel Turbo Boost Max Technology 3.0 identifies the fastest cores in the processor and directs significant workloads to them for better performance",
@@ -145,6 +152,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Thermaltake",
 		price: 49.99,
 		rating: 3.5,
+		numOfReviews: 641,
 		features: [
 			"Get a vivid RGB lighting experience with the UX210, featuring 10 high-lumen addressable LEDs with 16.8 colours",
 			"Designed to synchronize with ASUS Aura Sync, ASRock RGB LED, GIGABYTE RGB Fusion, and MSI Mystic Light Sync for the best performance",
@@ -160,6 +168,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Samsung",
 		price: 199.99,
 		rating: 4.8,
+		numOfReviews: 593,
 		features: [
 			"PCIe 4.0 NVMe SSD with 2TB of memory ensures an efficient data transfer rate - up to 1400K/1550K IOPS, while sequential read/write speeds up to 7450/6900 MB/s",
 			"Sequential read speed up to 7450MB/s and write speed up to 6900MB/s guarantee rapid load times for a smooth gaming experience",
@@ -178,6 +187,7 @@ export const allProducts: ProductItem[] = [
 		price: 199.99,
 		salePrice: 150.00,
 		rating: 5.0,
+		numOfReviews: 972,
 		features: [
 			"AM4 socket helps you to extract more power and performance from your computer",
 			"Micro-ATX form factor saves space, while allowing you to utilize the maximum potential of the memory and CPU",
@@ -196,6 +206,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Asus",
 		price: 549.98,
 		rating: 4.5,
+		numOfReviews: 188,
 		features: [
 			"LGA 1700 socket is suitable for the Intel Core 12th and 13th generation, Pentium Gold, and Celeron processors",
 			"Four DIMM slots with dual channel architecture let you add up to 128GB of DDR5 RAM",

@@ -76,7 +76,6 @@ export function CartProvider({ children } : { children: ReactNode }) {
 		})
 		
 		const quantityDiff = quantity - origQuantity;
-		console.log(`quantity: ${quantity} - origQuantity: ${origQuantity}`);
 		setNumOfItemsInCart((numOfItemsInCart + quantityDiff) > 0 ? numOfItemsInCart + quantityDiff : 0);
 
 		const itemPrice = item.sale ? item.salePrice! : item.price;

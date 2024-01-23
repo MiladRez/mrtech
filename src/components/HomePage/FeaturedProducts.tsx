@@ -7,10 +7,11 @@ import { useCart } from "../CartContext";
 type FeaturedProductsProps = {
 	header: string,
 	subheader: string,
-	products: ProductItem[]
+	products: ProductItem[],
+	viewAllPage: string
 }
 
-export default function FeaturedProducts({ header, subheader, products }: FeaturedProductsProps) {
+export default function FeaturedProducts({ header, subheader, products, viewAllPage }: FeaturedProductsProps) {
 
 	const { addItemToCart } = useCart();
 
@@ -33,7 +34,7 @@ export default function FeaturedProducts({ header, subheader, products }: Featur
 					}
 				</div>
 				<div className="flex justify-center py-8">
-					<Link to={`${ products[0].sale ? "/deals" : "/shop" }`}>
+					<Link to={viewAllPage}>
 						<button className="w-fit border px-10 py-3 bg-black border-black text-white hover:bg-primary hover:border-primary hover:text-white transition duration-200">View all</button>
 					</Link>
 				</div>

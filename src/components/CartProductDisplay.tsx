@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ProductItem } from "../data/products";
+import { ProductItem, allProducts } from "../data/products";
+import { Link } from "react-router-dom";
 
 type CartProductDisplayProps = {
 	product: ProductItem,
@@ -64,10 +65,10 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
 	return (
 		<div className="grid grid-cols-5 items-center">
 			<div className="col-span-3">
-				<a href="https://www.google.com" className="flex w-3/4">
+				<Link to={`/product/${encodeURIComponent(product.name)}`} state={{ product: product }} className="flex w-3/4 group">
 					<img src={ product.img.toString() } className="w-32 h-32" />
 					<div className="flex flex-col gap-2 justify-center pl-10">
-						<p className="">{ product.name }</p>	
+						<p className="group-hover:underline">{ product.name }</p>	
 						<p className="text-sm text-neutral-500">{product.manufacturer}</p>
 						<div className="select-none">
 							<div className="flex items-center">
@@ -85,7 +86,7 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
 							
 						</div>
 					</div>	
-				</a>	
+				</Link>	
 			</div>
 			<div className="flex items-center">
 				<div className="w-40 flex items-center justify-between ring-1 ring-neutral-500 hover:ring-2 transition duration-200">

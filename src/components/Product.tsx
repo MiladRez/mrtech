@@ -1,11 +1,8 @@
 import React from "react";
-import { ProductItem } from "../data/products";
+import { ProductItem, allProducts } from "../data/products";
 import { Link } from "react-router-dom";
-import { useCart } from "./CartContext";
 
 export default function Product({ product, addToCart }: { product: ProductItem, addToCart: Function }) {
-
-	const { cart } = useCart();
 
 	const handleAddProductToCart = () => {
 		addToCart(product)
@@ -19,7 +16,7 @@ export default function Product({ product, addToCart }: { product: ProductItem, 
 
 	return (
 		<div className="flex flex-col justify-between w-72 group">
-			<Link to={`/product/${name}`} state={{ product: product }}>
+			<Link to={`/product/${encodeURIComponent(name)}`} state={{ product: product }}>
 				<div className="flex flex-col h-full justify-between gap-4 pb-5">
 					<div>
 						<div className="relative">
