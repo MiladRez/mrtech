@@ -6,7 +6,7 @@ export default function Contact() {
 	return (
 		<>
 			<NavBar />
-			<div className="flex justify-center">
+			<section className="flex justify-center">
 				<div className="flex justify-between gap-24 max-w-screen-xl px-12 py-20">
 					<div className="w-full flex flex-col gap-6">
 						<h1 className='text-2xl sm:text-4xl font-bold text-center lg:text-start'>
@@ -80,7 +80,7 @@ export default function Contact() {
 						</button>
 					</form>
 				</div>
-			</div>
+			</section>
 			<Footer />
 		</>
 	)

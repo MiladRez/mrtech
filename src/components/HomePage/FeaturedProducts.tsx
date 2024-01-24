@@ -8,15 +8,17 @@ type FeaturedProductsProps = {
 	header: string,
 	subheader: string,
 	products: ProductItem[],
-	viewAllPage: string
+	viewAllPage: string,
+	setProduct: Function
 }
 
-export default function FeaturedProducts({ header, subheader, products, viewAllPage }: FeaturedProductsProps) {
+export default function FeaturedProducts({ header, subheader, products, viewAllPage, setProduct }: FeaturedProductsProps) {
 
 	const { addItemToCart } = useCart();
 
 	const addToCart = (item: ProductItem) => {
 		addItemToCart(item)
+		setProduct(item);
 	}
 
 	return (

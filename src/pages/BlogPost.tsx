@@ -37,7 +37,6 @@ export default function BlogPost() {
 
 	useEffect(() => {
 		allBlogs.forEach((blog) => {
-			console.log(blog)
 			if (blog.title === decodeURIComponent(blog_title!)) {
 				setBlog(blog);
 			}
@@ -63,10 +62,10 @@ export default function BlogPost() {
 												<use href="src/icons_sprite.svg#share" />
 											</svg>
 										</div>
-										<div id="copyLink" className={`${ copyLinkVisible ? "max-h-32" : "max-h-0 ring-0" } absolute right-0 top-14 w-80 ring-1 ring-neutral-500 hover:ring-2 transition-all duration-200 overflow-hidden`}>
+										<div id="copyLink" className={`${ copyLinkVisible ? "max-h-32 ring-1" : "max-h-0 ring-0" } absolute right-0 top-14 w-80 ring-neutral-500 hover:ring-2 transition-all duration-200 overflow-hidden`}>
 											<div className={`${ copiedToClipboardVisible ? "hidden" : "" } relative flex`}>
 												<label className="absolute top-1 left-4 text-neutral-500 text-[10px] pointer-events-none">Link</label>
-												<p className="w-full pt-4 px-4 text-sm text-clip overflow-hidden">{ window.location.href }</p>
+												<p className="w-full pt-4 px-4 text-sm text-clip overflow-hidden whitespace-nowrap">{ window.location.href }</p>
 												<button className="bg-white px-3 py-3" onClick={handleCopyLinkButtonClick}>
 													<svg stroke="currentColor" strokeWidth={0.01} className="w-5 h-5 hover:scale-110 transition duration-100">
 														<use href="src/icons_sprite.svg#copy" />

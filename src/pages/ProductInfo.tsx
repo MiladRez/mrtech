@@ -11,7 +11,6 @@ export default function ProductInfo() {
 
 	const { cart, addItemToCart, removeItemFromCart, updateItemQuantity } = useCart();
 
-	// const product: ProductItem = useLocation().state.product;
 	const [product, setProduct] = useState({} as ProductItem);
 	// used for logic (backend quantity)
 	const [quantity, setQuantity] = useState(0);
@@ -20,6 +19,7 @@ export default function ProductInfo() {
 	const [disabled, setDisabled] = useState(quantity === 1);
 	// recommended list of products frequently bought with this product
 	const [similarProducts, setSimilarProducts] = useState(Array<ProductItem>);
+	const [productAddedToCart, setProductAddedToCart] = useState(null);
 
 	const { product_name } = useParams();
 
@@ -103,7 +103,7 @@ export default function ProductInfo() {
 		// get random list of products for "Similar products" list (excluding current product)
 		const randomProductsList = allProducts.filter((prod) => prod.id != product.id).sort(() => 0.5 - Math.random());
 		setSimilarProducts(randomProductsList.slice(0, 4));
-	}, []);
+	}, [product]);
 
 	useEffect(() => {
 		// update product when accessing new url
@@ -116,7 +116,7 @@ export default function ProductInfo() {
 
 	return (
 		<>
-			<NavBar />
+			<NavBar product={productAddedToCart} setProduct={setProductAddedToCart}/>
 			{
 				product.id ?
 				<section className="flex justify-center">
@@ -180,7 +180,7 @@ export default function ProductInfo() {
 				null
 			}
 				
-			<FeaturedProducts header="You may also like" subheader="" products={similarProducts} viewAllPage="/shop" />
+			<FeaturedProducts header="You may also like" subheader="" products={similarProducts} viewAllPage="/shop" setProduct={setProductAddedToCart} />
 			<Footer />
 		</>
 	)

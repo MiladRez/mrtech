@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function BlogDisplayCard({blog}: {blog: Blog}) {
 	return (
-		<Link to={`/blog/${blog.title}`} state={{ blog }}>
+		<Link to={`/blog/${encodeURIComponent(blog.title)}`} >
 			<div className="group">
 				<div className="overflow-hidden">
 					<img src={blog.img.toString()} className="w-full h-56 object-cover group-hover:scale-105 transition duration-300" />

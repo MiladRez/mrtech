@@ -14,7 +14,7 @@ const sortOrder: string[] = [
 	"Recently Added",
 ]
 
-export default function ProductList({ products }: { products: ProductItem[] }) {
+export default function ProductList({ products, setProduct }: { products: ProductItem[], setProduct: Function }) {
 
 	const { addItemToCart } = useCart();
 
@@ -31,7 +31,8 @@ export default function ProductList({ products }: { products: ProductItem[] }) {
 	}
 
 	const addToCart = (item: ProductItem) => {
-		addItemToCart(item)
+		addItemToCart(item);
+		setProduct(item);
 	}
 
 	const checkbox = (id: string, name: string, disabled: boolean): ReactElement => {
@@ -86,7 +87,7 @@ export default function ProductList({ products }: { products: ProductItem[] }) {
 		
 
 	return (
-		<div className="flex justify-center pb-16">
+		<section className="flex justify-center pb-16">
 			<div className="w-full max-w-screen-xl px-12 grid grid-cols-4 gap-4">
 				<div className="col-span-1 border-r">
 					<FilterDropdown openFilter={true} title="Availability" content={availabilityFilterContent} />
@@ -121,8 +122,7 @@ export default function ProductList({ products }: { products: ProductItem[] }) {
 						}
 					</div>
 				</div>
-				
 			</div>
-		</div>
+		</section>
 	)
 }
