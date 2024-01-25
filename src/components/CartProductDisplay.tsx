@@ -95,7 +95,7 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
 							<use href="src/icons_sprite.svg#minus"/>
 						</svg>
 					</div>
-					<input type="number" value={quantity} onChange={handleQuantityOnChange} onBlur={handleQuantityOnBlur} className="px-0 py-0 text-center text-sm w-8 border-none focus:ring-0" />
+					<input name="quantity" type="number" value={quantity} onChange={handleQuantityOnChange} onBlur={handleQuantityOnBlur} className="px-0 py-0 text-center text-sm w-8 border-none focus:ring-0" />
 					<div onClick={handleQuantityIncreaseClick} className="px-4 py-4 cursor-pointer hover:bg-black/10">
 						<svg className="w-3.5 h-4">
 							<use href="src/icons_sprite.svg#plus"/>

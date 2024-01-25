@@ -1,5 +1,5 @@
 import React from "react";
-import { ProductItem, allProducts } from "../data/products";
+import { ProductItem } from "../data/products";
 import { Link } from "react-router-dom";
 
 export default function Product({ product, addToCart }: { product: ProductItem, addToCart: Function }) {
@@ -21,7 +21,7 @@ export default function Product({ product, addToCart }: { product: ProductItem, 
 					<div>
 						<div className="relative">
 							<img src={img.toString()} className="w-72 px-6 py-6 group-hover:scale-105 transition duration-300" />
-							<button className={`${product.sale ? "" : "hidden"} absolute bg-blue-800 text-sm text-white border px-4 py-1 rounded-2xl bottom-2 left-0`}>Sale</button>	
+							<div className={`${product.sale ? "" : "hidden"} absolute bg-blue-800 text-sm text-white border px-4 py-1 rounded-2xl bottom-2 left-0`}>Sale</div>	
 						</div>
 						<div className="pt-2">
 							<p className="text-sm line-clamp-2 group-hover:underline">{name}</p>

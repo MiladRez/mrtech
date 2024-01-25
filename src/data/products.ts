@@ -222,3 +222,14 @@ export const allProducts: ProductItem[] = [
 
 export const productsOnSale: ProductItem[] = allProducts.filter((prod) => prod.sale);
 export const popularProducts: ProductItem[] = allProducts.filter((prod) => !prod.sale);
+
+export const searchQuerySuggestions: string[] = [
+	""
+]
+export const sitePages: string[] = [
+	"Home",
+	"Shop",
+	"Deals",
+	"Blog",
+	"Contact"
+]

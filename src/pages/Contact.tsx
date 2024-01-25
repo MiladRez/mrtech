@@ -33,38 +33,39 @@ export default function Contact() {
 					</div>
 					<form className='flex flex-col gap-6 w-full sm:px-10 lg:px-0 items-end'>
 						<div className='flex flex-col w-full'>
-							<label className='font-bold text-sm'>
+							<label htmlFor="fullName" className='font-bold text-sm'>
 								Full Name
 							</label>
 							<div className="relative focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
-								<input type="text" placeholder='John Doe' className='w-full bg-gray-100 px-2 py-3 border border-neutral-400 text-sm placeholder:opacity-50 focus:bg-white focus:ring-0 focus:border-neutral-400 peer' />
+								<input id="fullName" type="text" placeholder='John Doe' className='w-full bg-gray-100 px-2 py-3 border border-neutral-400 text-sm placeholder:opacity-50 focus:bg-white focus:ring-0 focus:border-neutral-400 peer' />
 								<div className="absolute top-0 w-full h-full pointer-events-none border-2 border-transparent peer-focus:border-blue-800 transition-[border-color] duration-[400ms]"></div>
 							</div>
 						</div>
 						<div className='flex flex-col w-full'>
-							<label className='font-bold'>
+							<label htmlFor="emailAddress" className='font-bold'>
 								Email
 							</label>
 							<div className="relative focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
-								<input type="email" placeholder='johndoe@example.com' className='w-full bg-gray-100 px-2 py-3 border border-neutral-400 text-sm placeholder:opacity-50 focus:bg-white focus:ring-0 focus:border-neutral-400 peer' />	
+								<input id="emailAddress" type="email" placeholder='johndoe@example.com' className='w-full bg-gray-100 px-2 py-3 border border-neutral-400 text-sm placeholder:opacity-50 focus:bg-white focus:ring-0 focus:border-neutral-400 peer' />	
 								<div className="absolute top-0 w-full h-full pointer-events-none border-2 border-transparent peer-focus:border-blue-800 transition-[border-color] duration-[400ms]"></div>
 							</div>
 						</div>
 						<div className='flex flex-col w-full'>
-							<label className='font-bold'>
+							<label htmlFor="phoneNumber" className='font-bold'>
 								Phone Number
 							</label>
 							<div className="relative focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
-								<input type="tel" placeholder='1112223333' className='w-full bg-gray-100 px-2 py-3 border border-neutral-400 text-sm placeholder:opacity-50 focus:bg-white focus:ring-0 focus:border-neutral-400 peer' />	
+								<input id="phoneNumber" type="tel" placeholder='1112223333' className='w-full bg-gray-100 px-2 py-3 border border-neutral-400 text-sm placeholder:opacity-50 focus:bg-white focus:ring-0 focus:border-neutral-400 peer' />	
 								<div className="absolute top-0 w-full h-full pointer-events-none border-2 border-transparent peer-focus:border-blue-800 transition-[border-color] duration-[400ms]"></div>
 							</div>	
 						</div>
 						<div className='flex flex-col w-full'>
-							<label className='font-bold'>
+							<label htmlFor="message" className='font-bold'>
 								Message
 							</label>
 							<div className="relative focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<textarea
+									id="message"
 									rows={7}
 									placeholder="Please share your thoughts, questions, or any information you'd like us to know. We value your feedback and are here to assist you in any way we can."
 									className='w-full h-full bg-gray-100 px-2 py-2 border border-neutral text-sm placeholder:opacity-50 focus:bg-white focus:ring-0 focus:border-neutral-400 peer'

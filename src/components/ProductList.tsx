@@ -96,7 +96,7 @@ export default function ProductList({ products, setProduct }: { products: Produc
 				<div className="col-span-3">
 					<div className="flex justify-end gap-4 items-center">
 						<p className="text-sm text-neutral-500">Sort by:</p>
-						<select defaultValue={'default'} className="text-sm pr-1 text-neutral-500 cursor-pointer focus:outline-none hover:text-black hover:underline">
+						<select name="sortOrder" defaultValue={'default'} className="text-sm pr-1 text-neutral-500 cursor-pointer focus:outline-none hover:text-black hover:underline">
 							{sortOrder.map((order, index) => {
 								if (order === "Recently Added") {
 									return (
