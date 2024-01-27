@@ -14,7 +14,6 @@ export default function NavBar({ product, setProduct }: { product?: ProductItem 
 	const [prevScrollPos, setPrevScrollPos] = useState(0);
 	const [visible, setVisible] = useState(true);
 	const [search, setSearch] = useState(false);
-	const [query, setQuery] = useState("");
 
 	const searchBarInput = useRef<HTMLInputElement>(null);
 
@@ -56,7 +55,6 @@ export default function NavBar({ product, setProduct }: { product?: ProductItem 
 	const handleCloseSearchButtonClick = () => {
 		setSearch(false);
 		setVisible(true);
-		setQuery("");
 		document.removeEventListener("mouseup", closeWhenClickedOutsideSearchBar);
 		document.body.style.overflow = "scroll";
 	}
@@ -179,7 +177,7 @@ export default function NavBar({ product, setProduct }: { product?: ProductItem 
 			<section className={`fixed ${search ? "bg-black/50 pointer-events-auto" : ""} w-screen h-screen flex justify-center z-20 pointer-events-none`}>
 				<div className={`${search ? "max-h-min" : "max-h-0"} pt-40 transition-[max-height] duration-200 overflow-hidden`}>
 					<div className="max-w-screen-xl px-12">
-						<SearchBar searchBarInput={searchBarInput} search={search} query={query} setQuery={setQuery} />
+						<SearchBar searchBarInput={searchBarInput} search={search} searchResults={true} query="" />
 					</div>	
 				</div>
 			</section>

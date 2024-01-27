@@ -3,16 +3,16 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import SearchHeader from "../components/SearchHeader";
 import SearchResults from "../components/SearchResults";
+import { useParams } from "react-router-dom";
 
 export default function Search() {
 
-	const searchQuery = localStorage.getItem("searchQuery");
-	console.log(searchQuery);
+	const { search_query } = useParams();
 
 	return (
 		<>
 			<NavBar />
-			<SearchHeader />
+			<SearchHeader searchQuery={search_query!} />
 			<SearchResults />
 			<Footer />
 		</>

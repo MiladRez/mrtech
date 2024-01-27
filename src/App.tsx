@@ -27,6 +27,7 @@ export default function App() {
 					<Route path='/contact' element={<Contact />} />
 					<Route path='/cart' element={<Cart />} />
 					<Route path='/search' element={<Search />} />
+					<Route path='/search/:search_query' element={<Search />} />
 					<Route path='*' element={<Page404 />} />
 				</Routes>	
 			</CartProvider>
