@@ -7,7 +7,7 @@ import CartList from "../components/CartList";
 
 export default function Cart() {
 
-	const [product, setProduct] = useState({} as ProductItem);
+	const [product, setProduct] = useState(null);
 
 	const randomProductsList = allProducts.sort(() => 0.5 - Math.random());
 	let freqBoughtTogetherList = randomProductsList.slice(0, 4);

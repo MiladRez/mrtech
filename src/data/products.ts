@@ -224,7 +224,24 @@ export const productsOnSale: ProductItem[] = allProducts.filter((prod) => prod.s
 export const popularProducts: ProductItem[] = allProducts.filter((prod) => !prod.sale);
 
 export const searchQuerySuggestions: string[] = [
-	""
+	"razer case",
+	"ddr4 ram",
+	"ddr5",
+	"rtx 4090",
+	"rtx 4080",
+	"rtx 4070 ti",
+	"asus rog power supply",
+	"ryzen 7",
+	"ryzen 5",
+	"intel core i9",
+	"intel core i9 14900k",
+	"intel core i7",
+	"thermaltake cpu cooler",
+	"samsung 990 pro",
+	"samsung 980 pro",
+	"samsung 970 evo plus",
+	"msi motherboard",
+	"asus rog motherboard"
 ]
 export const sitePages: string[] = [
 	"Home",

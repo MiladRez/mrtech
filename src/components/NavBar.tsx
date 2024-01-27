@@ -122,7 +122,7 @@ export default function NavBar({ product, setProduct }: { product?: ProductItem 
 						</div>
 					</div>
 					<div className="flex items-center">
-						<a href="/">
+						<a href="/home">
 							<img src={mrtechLogo} className="w-20" />
 						</a>
 						<div className="pl-8">
