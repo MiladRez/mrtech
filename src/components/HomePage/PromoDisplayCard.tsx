@@ -1,5 +1,5 @@
 import React from "react";
-import { PromoDisplayItem } from "../data/promo_display_items";
+import { PromoDisplayItem } from "../../data/promo_display_items";
 
 export default function PromoDisplayCard({ item }: { item: PromoDisplayItem }) {
 	return (

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import ProductListHeader from "../components/ProductListHeader";
-import ProductList from "../components/ProductList";
+import ProductListHeader from "../components/Shop/Deals Page/ProductListHeader";
+import ProductList from "../components/Shop/Deals Page/ProductList";
 import { allProducts } from "../data/products";
 
 export default function Shop() {

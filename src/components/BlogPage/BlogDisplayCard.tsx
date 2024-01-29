@@ -1,5 +1,5 @@
 import React from "react";
-import { Blog } from "../data/blogs";
+import { Blog } from "../../data/blogs";
 import { Link } from "react-router-dom";
 
 export default function BlogDisplayCard({blog}: {blog: Blog}) {

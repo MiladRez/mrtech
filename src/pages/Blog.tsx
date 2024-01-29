@@ -2,7 +2,7 @@ import React from "react";
 import { allBlogs } from "../data/blogs";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import BlogDisplayCard from "../components/BlogDisplayCard";
+import BlogDisplayCard from "../components/BlogPage/BlogDisplayCard";
 import { Link } from "react-router-dom";
 
 export default function Blog() {

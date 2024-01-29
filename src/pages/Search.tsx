@@ -1,8 +1,8 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import SearchHeader from "../components/SearchHeader";
-import SearchResults from "../components/SearchResults";
+import SearchHeader from "../components/SearchPage/SearchHeader";
+import SearchResults from "../components/SearchPage/SearchResults";
 import { useParams } from "react-router-dom";
 
 export default function Search() {
@@ -13,7 +13,7 @@ export default function Search() {
 		<>
 			<NavBar />
 			<SearchHeader searchQuery={search_query!} />
-			<SearchResults />
+			<SearchResults searchQuery={search_query!} />
 			<Footer />
 		</>
 	);

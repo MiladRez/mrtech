@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import FeaturedProducts from "../components/HomePage/FeaturedProducts";
 import { ProductItem, allProducts } from "../data/products";
-import CartList from "../components/CartList";
+import CartList from "../components/CartPage/CartList";
 
 export default function Cart() {
 

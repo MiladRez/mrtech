@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useCart } from "./CartContext";
-import { ProductItem } from "../data/products";
+import { useCart } from "../CartContext";
+import { ProductItem } from "../../data/products";
 import CartProductDisplay from "./CartProductDisplay";
 
 export default function CartList() {

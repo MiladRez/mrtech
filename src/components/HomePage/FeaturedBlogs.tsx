@@ -1,5 +1,5 @@
 import React from "react";
-import BlogDisplayCard from "../BlogDisplayCard";
+import BlogDisplayCard from "../BlogPage/BlogDisplayCard";
 import { allBlogs } from "../../data/blogs";
 
 export default function FeaturedBlogs() {

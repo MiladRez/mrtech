@@ -1,8 +1,8 @@
 import React, { ReactElement, useRef, useState } from "react";
-import { ProductItem, allProducts } from "../data/products";
-import Product from "./Product";
+import { ProductItem, allProducts } from "../../../data/products";
+import Product from "../../Product";
 import FilterDropdown from "./FilterDropdown";
-import { useCart } from "./CartContext";
+import { useCart } from "../../CartContext";
 
 const sortOrder: string[] = [
 	"Highest Rated",

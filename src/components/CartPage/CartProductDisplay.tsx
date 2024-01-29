@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ProductItem, allProducts } from "../data/products";
+import { ProductItem, allProducts } from "../../data/products";
 import { Link } from "react-router-dom";
 
 type CartProductDisplayProps = {

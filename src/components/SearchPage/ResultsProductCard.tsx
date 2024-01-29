@@ -1,23 +1,18 @@
 import React from "react";
-import { ProductItem } from "../data/products";
 import { Link } from "react-router-dom";
+import { ProductItem } from "../../data/products";
 
-export default function Product({ product, addToCart }: { product: ProductItem, addToCart: Function }) {
-
-	const handleAddProductToCart = () => {
-		addToCart(product)
-	}
-
-	const { img, name, manufacturer, sale } = product;
+export default function ResultsProductCard({ product }: { product: ProductItem }) {
+	const { name, img, manufacturer, sale } = product; 
 
 	// always displays to two decimal places
 	const price = product.price.toLocaleString("en-CA", { style: "currency", currency: "CAD" });
 	const salePrice = product.salePrice?.toLocaleString("en-CA", { style: "currency", currency: "CAD" });
 
 	return (
-		<div className="flex flex-col justify-between w-72 group">
+		<>
 			<Link to={`/product/${encodeURIComponent(name)}`}>
-				<div className="flex flex-col h-full justify-between gap-4 pb-5">
+				<div className="flex flex-col h-full justify-between gap-4 group border px-4 py-4">
 					<div>
 						<div className="relative">
 							<img src={img.toString()} className="w-72 px-6 py-6 group-hover:scale-105 transition duration-300" />
@@ -34,7 +29,6 @@ export default function Product({ product, addToCart }: { product: ProductItem, 
 					</div>
 				</div>	
 			</Link>
-			<button onClick={handleAddProductToCart} className="w-full border border-black py-3 hover:bg-black hover:text-white transition duration-200">Add to cart</button>
-		</div>
+		</>
 	)
 }
