@@ -35,44 +35,57 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
 		document.addEventListener("mouseup", closeWhenClickedOutsideSearchResults);
 		setQueryDisplay(queryInput)
 		if (queryInput != "") {
+
+			// if query input has space (" "), will treat each term as query, returns array of terms
+			// else returns array with single element query
+			let queryInputArr = queryInput.split(" ");
+
 			// search algo for suggestions
 			let suggestionsArr = [] as string[];
-			searchQuerySuggestions.map((suggestion: string) => {
-				if (suggestion.toLowerCase().includes(queryInput.toLowerCase()) && !suggestionsArr.includes(suggestion)) {
-					suggestionsArr = [...suggestionsArr, suggestion];
-				}
+			queryInputArr.forEach(queryTerm => {
+				searchQuerySuggestions.map((suggestion: string) => {
+					if (suggestion.toLowerCase().includes(queryTerm.toLowerCase()) && !suggestionsArr.includes(suggestion)) {
+						suggestionsArr = [...suggestionsArr, suggestion];
+					}	
+				});	
 			});
 			setSuggestions(suggestionsArr.slice(0, 5));
 
 			// search algo for products
 			let productsArr = [] as ProductItem[];
-			allProducts.map((prod: ProductItem) => {
-				if (prod.name.toLowerCase().includes(queryInput.toLowerCase()) && !productsArr.includes(prod)) {
-					productsArr = [...productsArr, prod];
-				}
+			queryInputArr.forEach(queryTerm => {
+				allProducts.map((prod: ProductItem) => {
+					if (prod.name.toLowerCase().includes(queryTerm.toLowerCase()) && !productsArr.includes(prod)) {
+						productsArr = [...productsArr, prod];
+					}
+				});	
 			});
 			setProducts(productsArr.slice(0, 5));
 
 			// search algo for pages
 			let pagesArr = [] as PageWithLink[];
-			sitePages.map((page: string) => {
-				if (page.toLowerCase().includes(queryInput.toLowerCase()) && !pagesArr.includes({name: page, link: page.toLowerCase()})) {
-					pagesArr = [...pagesArr, {name: page, link: page.toLowerCase()}];
-				}
+			queryInputArr.forEach(queryTerm => {
+				sitePages.map((page: string) => {
+					if (page.toLowerCase().includes(queryTerm.toLowerCase()) && !pagesArr.includes({name: page, link: page.toLowerCase()})) {
+						pagesArr = [...pagesArr, {name: page, link: page.toLowerCase()}];
+					}
+				});	
 			});
 			
 			if (productsArr.length > 0) {
 				pagesArr = [...pagesArr, {name: "Shop", link: "shop"}];
 			}
 
-			allBlogs.map((blog: Blog) => {
-				const title = blog.title.toLowerCase();
-				const desc = blog.desc.toLowerCase();
-				const queryLC = queryInput.toLowerCase();
-				if (title.includes(queryLC) || desc.includes(queryLC) && !pagesArr.includes({name: blog.title, link: `blog/${encodeURIComponent(blog.title)}`})) {
-					pagesArr = [...pagesArr, {name: blog.title, link: `blog/${encodeURIComponent(blog.title)}`}];
-				}
-			})
+			queryInputArr.forEach(queryTerm => {
+				allBlogs.map((blog: Blog) => {
+					const title = blog.title.toLowerCase();
+					const desc = blog.desc.toLowerCase();
+					const queryLC = queryTerm.toLowerCase();
+					if (title.includes(queryLC) || desc.includes(queryLC) && !pagesArr.includes({name: blog.title, link: `blog/${encodeURIComponent(blog.title)}`})) {
+						pagesArr = [...pagesArr, {name: blog.title, link: `blog/${encodeURIComponent(blog.title)}`}];
+					}
+				})	
+			});
 			setPages(pagesArr.slice(0, 5));
 
 		} else {
@@ -109,19 +122,19 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
 	}, [search])
 
 	return (
-		<div id="searchBar" className="relative w-[42rem] pointer-events-auto group">
+		<div id="searchBar" className="relative w-[42rem] pointer-events-auto group/searchbarAndResults">
 			{/* search bar */}
-			<div className={`relative ${search ? "ring-1 ring-neutral-500 group-hover:ring-2 transition duration-200" : "ring-0"} w-full flex`}>
+			<form action={`/search/${queryDisplay}`} className={`relative ${search ? "ring-1 ring-neutral-500 group-hover/searchbarAndResults:ring-2 transition duration-200" : "ring-0"} w-full flex`}>
 				<input id="searchBarInput" ref={searchBarInput} value={queryDisplay} className="w-full px-6 pt-2 outline-none peer" onChange={(event) => searchAlgo(event.target.value)} />
 				<label htmlFor="searchBarInput" className={`absolute left-6 ${ queryDisplay != "" ? "top-1 text-[10px] duration-0" : "top-3.5 peer-focus:top-1 peer-focus:text-[10px]"} text-neutral-500 pointer-events-none transition-all duration-200`}>Search</label>
-				<a href={`/search/${queryDisplay}`} className="bg-white px-6 py-4">
-					<svg stroke="currentColor" strokeWidth={1} className="w-5 h-5 hover:scale-125 transition duration-200">
+				<button type="submit" className="bg-white px-6 py-4 group/magnifyingGlassButton">
+					<svg stroke="currentColor" strokeWidth={1} className="w-5 h-5 group-hover/magnifyingGlassButton:scale-125 transition duration-200">
 						<use href="src/icons_sprite.svg#search" />
 					</svg>
-				</a>
-			</div>
+				</button>
+			</form>
 			{/* search results */}
-			<div className={`absolute ${(queryDisplay != "" && searchResultsDisplay) ? "ring-1 ring-neutral-500 group-hover:ring-2 transition duration-200" : "hidden" } top-13 z-10 w-full h-auto bg-white overflow-hidden`}>
+			<div className={`absolute ${(queryDisplay != "" && searchResultsDisplay) ? "ring-1 ring-neutral-500 group-hover/searchbarAndResults:ring-2 transition duration-200" : "hidden" } top-13 z-10 w-full h-auto bg-white overflow-hidden`}>
 				<div className="flex gap-4">
 					<div className={`flex flex-col w-2/5 ${suggestions.length > 0 || pages.length > 0 ? "py-2" : ""}`}>
 						<div className={`flex flex-col ${suggestions.length > 0 ? "" : "hidden"}`}>
@@ -168,9 +181,9 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
 					</div>
 				</div>
 				<div className={`${(queryDisplay != "" && searchResultsDisplay) ? "" : "hidden"}`}>
-					<a href={`/search/${queryDisplay}`} className="flex border-t justify-between items-center px-6 py-2 group hover:bg-black/10">
+					<a href={`/search/${queryDisplay}`} className="flex border-t justify-between items-center px-6 py-2 group/toSearchPage hover:bg-black/10">
 						<p className="text-sm">Search for "{queryDisplay}"</p>
-						<svg stroke="currentColor" className="w-8 h-8 group-hover:translate-x-1 transition duration-200">
+						<svg stroke="currentColor" className="w-8 h-8 group-hover/toSearchPage:translate-x-1 transition duration-200">
 							<use href="src/icons_sprite.svg#right-arrow" />
 						</svg>
 					</a>	

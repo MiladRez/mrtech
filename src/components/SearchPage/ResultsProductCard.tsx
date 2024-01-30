@@ -12,7 +12,7 @@ export default function ResultsProductCard({ product }: { product: ProductItem }
 	return (
 		<>
 			<Link to={`/product/${encodeURIComponent(name)}`}>
-				<div className="flex flex-col h-full justify-between gap-4 group border px-4 py-4">
+				<div className="flex flex-col h-96 justify-between gap-4 group border px-4 py-4">
 					<div>
 						<div className="relative">
 							<img src={img.toString()} className="w-72 px-6 py-6 group-hover:scale-105 transition duration-300" />
@@ -20,12 +20,17 @@ export default function ResultsProductCard({ product }: { product: ProductItem }
 						</div>
 						<div className="pt-2">
 							<p className="text-sm line-clamp-2 group-hover:underline">{name}</p>
-							<p className="text-xs text-neutral-400 uppercase py-2">{manufacturer}</p>	
-						</div>	
-					</div>
-					<div className="inline-flex items-center">
-						<p className={`${sale ? "text-sm line-through text-neutral-500 pr-4" : ""}`}>{price} CAD</p>		
-						<p className={`${sale ? "" : "hidden"}`}>{salePrice} CAD</p>					
+							<div className="flex items-center justify-between">
+								<p className="text-xs text-neutral-400 uppercase py-2">{manufacturer}</p>
+								{
+									sale ?
+										<p className="text-blue-800 px-2 py-2">{salePrice} CAD</p>
+										:
+										<p className="px-2 py-2">{price} CAD</p>
+								}
+
+							</div>
+						</div>
 					</div>
 				</div>	
 			</Link>
