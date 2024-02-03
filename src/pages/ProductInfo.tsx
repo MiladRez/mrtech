@@ -23,7 +23,7 @@ export default function ProductInfo() {
 
 	const { product_name } = useParams();
 
-	const { img, manufacturer, name, rating, numOfReviews } = product;
+	const { img, manufacturer, name, sale, rating, numOfReviews, stock } = product;
 	// always displays to two decimal places
 	const price = product.id ? product.price.toLocaleString("en-CA", { style: "currency", currency: "CAD" }) : null;
 	const salePrice = product.id ? product.salePrice?.toLocaleString("en-CA", { style: "currency", currency: "CAD" }) : null;
@@ -141,28 +141,31 @@ export default function ProductInfo() {
 								<p className="pt-0.5 font-bold">{ rating } <span className="font-light">({ numOfReviews } Reviews)</span></p>	
 							</div>
 							<div className="flex pt-4 text-xl font-bold">
-								<p className={`${product.sale ? "text-sm line-through text-neutral-500 pr-4" : ""}`}>{ price } CAD</p>		
-								<p className={`${product.sale ? "" : "hidden"}`}>{ salePrice } CAD</p>
-								<div className={`${product.sale ? "" : "hidden"} bg-blue-800 text-sm text-white border px-4 py-1 rounded-2xl mx-4`}>Sale</div>	
+								<p className={`${sale ? "text-sm line-through text-neutral-500 pr-4" : ""}`}>{ price } CAD</p>		
+								<p className={`${sale ? "" : "hidden"}`}>{ salePrice } CAD</p>
+								<div className={`${sale ? "" : "hidden"} bg-blue-800 text-sm text-white border px-4 py-1 rounded-2xl mx-4`}>Sale</div>	
 							</div>
 						</div>
 						<div className="flex flex-col gap-2">
 							<p className="text-xs text-neutral-500">Quantity</p>
 							<div className="flex items-center">
-								<div className="w-40 flex items-center justify-between ring-1 ring-neutral-500 hover:ring-2 transition duration-200">
-									<div onClick={handleQuantityDecreaseClick} className={`${disabled ? "cursor-not-allowed" : "cursor-pointer hover:bg-black/10"} px-4 py-4`}>
-										<svg className="w-4 h-4">
-											<use href="src/icons_sprite.svg#minus"/>
-										</svg>
+								<div className="flex items-center">
+									<div className={`${stock > 0 ? "" : "cursor-not-allowed"} w-40 flex items-center justify-between ring-1 ring-neutral-500 hover:ring-2 transition duration-200`}>
+										<div onClick={handleQuantityDecreaseClick} className={`${disabled ? "cursor-not-allowed" : "cursor-pointer hover:bg-black/10"} px-4 py-4`}>
+											<svg className="w-4 h-4">
+												<use href="src/icons_sprite.svg#minus"/>
+											</svg>
+										</div>
+										<input type="number" disabled={stock === 0} value={quantityDisplay} onChange={handleQuantityOnChange} onBlur={handleQuantityOnBlur} className="px-0 py-0 text-center text-sm w-8 border-none focus:ring-0 disabled:cursor-not-allowed" />
+										<div onClick={handleQuantityIncreaseClick} className={`${stock > 0 ? "cursor-pointer hover:bg-black/10" : "cursor-not-allowed"} px-4 py-4`}>
+											<svg className="w-3.5 h-4">
+												<use href="src/icons_sprite.svg#plus"/>
+											</svg>
+										</div>	
 									</div>
-									<input type="number" value={quantityDisplay} onChange={handleQuantityOnChange} onBlur={handleQuantityOnBlur} className="px-0 py-0 text-center text-sm w-8 border-none focus:ring-0" />
-									<div onClick={handleQuantityIncreaseClick} className="px-4 py-4 cursor-pointer hover:bg-black/10">
-										<svg className="w-3.5 h-4">
-											<use href="src/icons_sprite.svg#plus"/>
-										</svg>
-									</div>	
-								</div>
-							</div>	
+								</div>	
+								<div className={`${stock > 0 ? "hidden" : ""} bg-neutral-600 text-sm text-white border px-4 py-1 rounded-2xl mx-4`}>Out of stock</div>
+							</div>
 						</div>
 						<div className="flex flex-col gap-3 select-none">
 							<button onClick={handleAddProductToCart} className="px-4 py-3 text-sm ring-1 ring-neutral-500 hover:ring-2 hover:font-semibold transition-all duration-200">Add to cart</button>

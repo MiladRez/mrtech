@@ -59,13 +59,18 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
 	}, [quantityAmount])
 
 	useEffect(() => {
+		setQuantity(quantityAmount);
+		setProductCost(productPrice * quantityAmount);
+	}, [product])
+
+	useEffect(() => {
 		quantity < 2 ? setDisabled(true) : setDisabled(false);
 	}, [quantity]);
 
 	return (
 		<div className="grid grid-cols-5 items-center">
 			<div className="col-span-3">
-				<Link to={`/product/${encodeURIComponent(product.name)}`} state={{ product: product }} className="flex w-3/4 group">
+				<Link to={`/product/${encodeURIComponent(product.name)}`} className="flex w-3/4 group">
 					<img src={ product.img.toString() } className="w-32 h-32" />
 					<div className="flex flex-col gap-2 justify-center pl-10">
 						<p className="group-hover:underline">{ product.name }</p>	

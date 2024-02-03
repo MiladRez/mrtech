@@ -19,6 +19,7 @@ export type ProductItem = {
 	manufacturer: string,
 	price: number,
 	salePrice?: number,
+	stock: number,
 	rating: number,
 	numOfReviews: number,
 	features: Array<string>,
@@ -33,6 +34,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Razer",
 		price: 279.99,
 		salePrice: 199.99,
+		stock: 1347,
 		rating: 4.4,
 		numOfReviews: 17,
 		features: [
@@ -53,6 +55,7 @@ export const allProducts: ProductItem[] = [
 		name: "Corsair Vengeance RGB Pro 32GB (2 x 16GB) DDR4 3200MHz Desktop Memory",
 		manufacturer: "Corsair",
 		price: 119.99,
+		stock: 491,
 		rating: 4.9,
 		numOfReviews: 244,
 		features: [
@@ -74,6 +77,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "NVIDIA",
 		price: 2099.99,
 		salePrice: 1949.99,
+		stock: 12,
 		rating: 4.8,
 		numOfReviews: 345,
 		features: [
@@ -93,6 +97,7 @@ export const allProducts: ProductItem[] = [
 		name: "Asus ROG Thor Platinum 850W Power Supply",
 		manufacturer: "Asus",
 		price: 219.99,
+		stock: 74,
 		rating: 4.7,
 		numOfReviews: 765,
 		features: [
@@ -113,6 +118,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "AMD",
 		price: 599.99,
 		salePrice: 499.99,
+		stock: 2,
 		rating: 4.8,
 		numOfReviews: 5,
 		features: [
@@ -131,6 +137,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Intel",
 		price: 799.99,
 		salePrice: 599.99,
+		stock: 874,
 		rating: 4.6,
 		numOfReviews: 801,
 		features: [
@@ -151,6 +158,7 @@ export const allProducts: ProductItem[] = [
 		name: "Thermaltake UX200 SE 120 mm CPU Air Cooler",
 		manufacturer: "Thermaltake",
 		price: 49.99,
+		stock: 280,
 		rating: 3.5,
 		numOfReviews: 641,
 		features: [
@@ -167,6 +175,7 @@ export const allProducts: ProductItem[] = [
 		name: "Samsung 990 Pro 2TB NVMe PCI-e Internal Solid State Drive",
 		manufacturer: "Samsung",
 		price: 199.99,
+		stock: 53,
 		rating: 4.8,
 		numOfReviews: 593,
 		features: [
@@ -186,6 +195,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "MSI",
 		price: 199.99,
 		salePrice: 150.00,
+		stock: 0,
 		rating: 5.0,
 		numOfReviews: 972,
 		features: [
@@ -205,6 +215,7 @@ export const allProducts: ProductItem[] = [
 		name: "ASUS ROG Strix Z790-E Gaming WiFi ATX LGA 1700 DDR5 Motherboard for 12/13th Gen Intel CPUs",
 		manufacturer: "Asus",
 		price: 549.98,
+		stock: 902,
 		rating: 4.5,
 		numOfReviews: 188,
 		features: [
