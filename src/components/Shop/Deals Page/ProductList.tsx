@@ -1,46 +1,80 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import { ProductItem } from "../../../data/products";
 import Product from "../../Product";
 import FilterDropdown from "./FilterDropdown";
 import { useCart } from "../../CartContext";
 
 const sortOrder: string[] = [
+	"Recently Added",
 	"Highest Rated",
 	"Best Selling",
 	"Name, A-Z",
 	"Name, Z-A",
 	"Price, Low-High",
-	"Price, High-Low",
-	"Recently Added"
+	"Price, High-Low"
 ];
 
 export default function ProductList({ products, setProduct }: { products: ProductItem[]; setProduct: Function }) {
 	const { addItemToCart } = useCart();
 
+	const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
 	const [productsDisplay, setProductsDisplay] = useState(products);
 	const [filteredProductsByStock, setFilteredProductsByStock] = useState([] as ProductItem[]);
 	const [filteredProductsByPrice, setFilteredProductsByPrice] = useState([] as ProductItem[]);
+	const [selectedSortOrder, setSelectedSortOrder] = useState("Recently Added");
 
 	const addToCart = (item: ProductItem) => {
 		addItemToCart(item);
 		setProduct(item);
 	};
 
+	const handleSortSelection = (event: any) => {
+		setSelectedSortOrder(event.target.value);
+		sortByProductProperty(event.target.value);
+	}
+
+	const sortByProductProperty = (sortOrder: string) => {
+		switch (sortOrder) {
+			case "Recently Added":
+				setProductsDisplay([...productsDisplay.sort((a, b) => parseInt(a.id) < parseInt(b.id) ? 1 : -1)]);
+				break;
+			case "Highest Rated":
+				setProductsDisplay(productsDisplay.sort((a, b) => a.rating < b.rating ? 1 : -1));
+				break;
+			case "Best Selling":
+				setProductsDisplay(productsDisplay.sort((a, b) => a.stock > b.stock ? 1 : -1));
+				break;
+			case "Name, A-Z":
+				setProductsDisplay(productsDisplay.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
+				break;
+			case "Name, Z-A":
+				setProductsDisplay(productsDisplay.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1));
+				break;
+			case "Price, Low-High":
+				setProductsDisplay(productsDisplay.sort((a, b) => (a.salePrice ? a.salePrice : a.price) > (b.salePrice ? b.salePrice : b.price) ? 1 : -1));
+				break;
+			case "Price, High-Low":
+				setProductsDisplay(productsDisplay.sort((a, b) => (a.salePrice ? a.salePrice : a.price) < (b.salePrice ? b.salePrice : b.price) ? 1 : -1));
+				break;
+		}
+	}
+
 	useEffect(() => {
 		if (filteredProductsByStock.length > 0 || filteredProductsByPrice.length > 0) {
-
 			if (filteredProductsByStock.length === 0) {
-				return setProductsDisplay(filteredProductsByPrice);
+				console.log("I run")
+				setProductsDisplay(filteredProductsByPrice);
+			} else if (filteredProductsByPrice.length === 0) {
+				setProductsDisplay(filteredProductsByStock);
+			} else {
+				setProductsDisplay(filteredProductsByStock.filter(prod => filteredProductsByPrice.includes(prod)));
 			}
-
-			if (filteredProductsByPrice.length === 0) {
-				return setProductsDisplay(filteredProductsByStock);
-			}
-			
-			setProductsDisplay(filteredProductsByStock.filter(prod => filteredProductsByPrice.includes(prod)));
 		} else {
 			setProductsDisplay(products);
 		}
+		console.log("I also run")
+		sortByProductProperty(selectedSortOrder);
 	}, [filteredProductsByStock, filteredProductsByPrice]);
 
 	type CheckboxProps = {
@@ -308,17 +342,10 @@ export default function ProductList({ products, setProduct }: { products: Produc
 						<p className="text-sm text-neutral-500">Sort by:</p>
 						<select
 							name="sortOrder"
-							defaultValue={"default"}
 							className="text-sm pr-1 text-neutral-500 cursor-pointer focus:outline-none hover:text-black hover:underline"
+							onChange={handleSortSelection}
 						>
 							{sortOrder.map((order, index) => {
-								if (order === "Recently Added") {
-									return (
-										<option value="default" key={index}>
-											{order}
-										</option>
-									);
-								}
 								return (
 									<option value={order} key={index}>
 										{order}

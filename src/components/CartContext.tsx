@@ -47,7 +47,7 @@ export function CartProvider({ children } : { children: ReactNode }) {
 
 		setNumOfItemsInCart(numOfItemsInCart + 1);
 
-		const itemPrice = item.sale ? item.salePrice! : item.price;
+		const itemPrice = item.salePrice ? item.salePrice : item.price;
 		setTotalCost(totalCost + itemPrice);
 	}
 
@@ -62,7 +62,7 @@ export function CartProvider({ children } : { children: ReactNode }) {
 		setCart(new Map(cart))
 		setNumOfItemsInCart((numOfItemsInCart - removedItemCount) > 0 ? numOfItemsInCart - removedItemCount : 0);
 
-		const itemPrice = item.sale ? item.salePrice! : item.price;
+		const itemPrice = item.salePrice ? item.salePrice : item.price;
 		setTotalCost(totalCost - (itemPrice * removedItemCount));
 	}
 
@@ -78,7 +78,7 @@ export function CartProvider({ children } : { children: ReactNode }) {
 		const quantityDiff = quantity - origQuantity;
 		setNumOfItemsInCart((numOfItemsInCart + quantityDiff) > 0 ? numOfItemsInCart + quantityDiff : 0);
 
-		const itemPrice = item.sale ? item.salePrice! : item.price;
+		const itemPrice = item.salePrice ? item.salePrice : item.price;
 		setTotalCost(totalCost + (itemPrice * quantityDiff));
 	}
 
