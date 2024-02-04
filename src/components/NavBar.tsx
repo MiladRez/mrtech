@@ -154,7 +154,7 @@ export default function NavBar({ product, setProduct }: { product?: ProductItem 
 										</Dropdown.Item>
 									</Dropdown>
 								</div>
-								<a className="uppercase cursor-pointer hover:text-primary">Register / Sign in</a>
+								<a href="/login" className="uppercase cursor-pointer hover:text-primary">Register / Sign in</a>
 							</div>
 						</div>					
 					</div>

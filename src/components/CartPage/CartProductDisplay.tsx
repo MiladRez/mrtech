@@ -11,7 +11,7 @@ type CartProductDisplayProps = {
 
 export default function CartProductDisplay({ product, quantityAmount, removeFromCart, updateQuantity }: CartProductDisplayProps) {
 
-	const productPrice = product.sale ? product.salePrice! : product.price;
+	const productPrice = product.salePrice ? product.salePrice! : product.price;
 
 	const [quantity, setQuantity] = useState(quantityAmount);
 	const [productCost, setProductCost] = useState(productPrice * quantityAmount);

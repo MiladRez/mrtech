@@ -11,6 +11,8 @@ import { CartProvider } from './components/CartContext';
 import Cart from './pages/Cart';
 import ProductInfo from './pages/ProductInfo';
 import Search from './pages/Search';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 export default function App() {
 	return (
@@ -18,6 +20,8 @@ export default function App() {
 			<CartProvider>
 				<Routes>
 					<Route path='/' element={<Navigate to='/home' />} />
+					<Route path='/login' element={<Login />} />
+					<Route path='/register' element={<Register />} />
 					<Route path='/home' element={<Home />} />
 					<Route path='/shop' element={<Shop />} />
 					<Route path='/deals' element={<Deals />} />

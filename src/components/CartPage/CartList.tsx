@@ -25,20 +25,31 @@ export default function CartList() {
 					</a>
 				</div>
 				<div className="">
-					<div className="grid grid-cols-5 py-4">
+					<div className={`${cart.size > 0 ? "" : "hidden"} grid grid-cols-5 py-4`}>
 						<p className="col-span-3 text-xs uppercase text-neutral-500">Product</p>
 						<p className="text-xs uppercase text-neutral-500">Quantity</p>
 						<p className="text-right text-xs uppercase text-neutral-500">Total</p>
 					</div>
-					<div className="border-y flex flex-col gap-12 py-12">
-						{
-							Array.from(cart.keys()).map((prod, index) => (
-								<CartProductDisplay product={prod} key={index} quantityAmount={cart.get(prod)!} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />	
-							))
+					<div className="border-y flex flex-col items-center justify-center gap-12 py-12">
+						{	
+							cart.size > 0 ?
+								Array.from(cart.keys()).map((prod, index) => (
+									<CartProductDisplay product={prod} key={index} quantityAmount={cart.get(prod)!} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />	
+								))
+								:
+								<div className="flex items-center gap-6">
+									<div className="pt-1">
+										<p className="text-lg">Your cart is empty</p>
+										<p className="text-neutral-500">Why not add something?</p>
+									</div>
+									<svg className="w-16 h-16">
+										<use href="src/icons_sprite.svg#addToCart" />
+									</svg>
+								</div>
 						}
 					</div>
 				</div>
-				<div className="flex justify-end pt-16 pb-8">
+				<div className={`${cart.size > 0 ? "" : "hidden"} flex justify-end pt-16 pb-8`}>
 					<div className="flex flex-col gap-8 text-right w-1/4">
 						<div className="flex justify-end">
 							<p className="px-8">Subtotal</p>	
