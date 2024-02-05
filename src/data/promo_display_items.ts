@@ -3,15 +3,24 @@ import PreBuiltSystem from "../images/pre-built-system.png";
 
 export type PromoDisplayItem = {
 	img: File,
-	header: string
+	header: {
+		english: string,
+		french: string
+	}
 }
 
 export const item1: PromoDisplayItem = {
 	img: USBHub,
-	header: "Items Up To 50% Off"
+	header: {
+		english: "Items Up To 50% Off",
+		french: ""
+	}
 }
 
 export const item2: PromoDisplayItem = {
 	img: PreBuiltSystem,
-	header: "Pre-Built Systems"
+	header: {
+		english: "Pre-Built Systems",
+		french: ""
+	}
 }

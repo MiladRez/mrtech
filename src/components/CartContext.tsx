@@ -17,6 +17,9 @@ export function CartProvider({ children } : { children: ReactNode }) {
 	const [numOfItemsInCart, setNumOfItemsInCart] = useState(localStorage.numOfItemsInCart ? parseInt(localStorage.numOfItemsInCart) : 0);
 	const [totalCost, setTotalCost] = useState(localStorage.totalCost ? parseFloat(parseFloat(localStorage.totalCost).toFixed(2)) : 0.00);
 
+	// determines the local currency
+	const locale = localStorage.locality ? (localStorage.locality === "USA (EN)" ? "usd" : "cad") : "cad";
+
 	useEffect(() => {
 		localStorage.setItem("cart", JSON.stringify([...cart]));
 	}, [cart]);
@@ -47,7 +50,7 @@ export function CartProvider({ children } : { children: ReactNode }) {
 
 		setNumOfItemsInCart(numOfItemsInCart + 1);
 
-		const itemPrice = item.salePrice ? item.salePrice : item.price;
+		const itemPrice = item.salePrice ? item.salePrice[locale] : item.price[locale];
 		setTotalCost(totalCost + itemPrice);
 	}
 
@@ -62,7 +65,7 @@ export function CartProvider({ children } : { children: ReactNode }) {
 		setCart(new Map(cart))
 		setNumOfItemsInCart((numOfItemsInCart - removedItemCount) > 0 ? numOfItemsInCart - removedItemCount : 0);
 
-		const itemPrice = item.salePrice ? item.salePrice : item.price;
+		const itemPrice = item.salePrice ? item.salePrice[locale] : item.price[locale];
 		setTotalCost(totalCost - (itemPrice * removedItemCount));
 	}
 
@@ -78,7 +81,7 @@ export function CartProvider({ children } : { children: ReactNode }) {
 		const quantityDiff = quantity - origQuantity;
 		setNumOfItemsInCart((numOfItemsInCart + quantityDiff) > 0 ? numOfItemsInCart + quantityDiff : 0);
 
-		const itemPrice = item.salePrice ? item.salePrice : item.price;
+		const itemPrice = item.salePrice ? item.salePrice[locale] : item.price[locale];
 		setTotalCost(totalCost + (itemPrice * quantityDiff));
 	}
 

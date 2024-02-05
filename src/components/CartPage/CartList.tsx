@@ -30,7 +30,7 @@ export default function CartList() {
 						<p className="text-xs uppercase text-neutral-500">Quantity</p>
 						<p className="text-right text-xs uppercase text-neutral-500">Total</p>
 					</div>
-					<div className="border-y flex flex-col items-center justify-center gap-12 py-12">
+					<div className={`border-y flex flex-col ${cart.size > 0 ? "" : "items-center"} justify-center gap-12 py-12`}>
 						{	
 							cart.size > 0 ?
 								Array.from(cart.keys()).map((prod, index) => (

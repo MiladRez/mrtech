@@ -16,12 +16,21 @@ export type ProductItem = {
 	img: File,
 	name: string,
 	manufacturer: string,
-	price: number,
-	salePrice?: number,
+	price: {
+		cad: number,
+		usd: number
+	},
+	salePrice?: {
+		cad: number,
+		usd: number
+	},
 	stock: number,
 	rating: number,
 	numOfReviews: number,
-	features: Array<string>,
+	features: {
+		english: Array<string>,
+		french: Array<string>
+	}
 }
 
 export const allProducts: ProductItem[] = [
@@ -30,12 +39,19 @@ export const allProducts: ProductItem[] = [
 		img: RazerTomahawkCase,
 		name: "Razer Tomahawk Mid Tower ATX Computer Case",
 		manufacturer: "Razer",
-		price: 279.99,
-		salePrice: 199.99,
+		price: {
+			cad: 279.99,
+			usd: 1
+		},
+		salePrice: {
+			cad: 199.99,
+			usd: 1,
+		},
 		stock: 1347,
 		rating: 4.4,
 		numOfReviews: 17,
-		features: [
+		features: {
+			english: [
 			"Built-in air filters at the front vent improve the airflow and reduce the intake of dust particles to keep the case's interior cleaner",
 			"ATX (Max-Length 210mm) power supply is efficient, saves power and space, and is compatible with most modern motherboards",
 			"Accommodates up to two 140mm or two 120mm fans with removable dust filters at the top, up to three 120mm or two 120mm fans at the front, up to a 120mm rear fan up, and up to two 120mm fans above the PSU shroud to maximize the cooling",
@@ -44,18 +60,24 @@ export const allProducts: ProductItem[] = [
 			"Compatible with E-ATX / ATX / Micro-ATX / Mini-ITX (Max 280mm Wide) motherboards that help build a custom computer",
 			"16.8 million colours and a suite of effects for syncing the case with the rest of battle station to take your gameplay to another level",
 			"Razer Chroma RGB customizable lighting lets you enjoy a more immersive gaming experience"
-		]
+			],
+			french: []
+		}
 	},
 	{
 		id: "2",
 		img: CorsairVengeanceRAM,
 		name: "Corsair Vengeance RGB Pro 32GB (2 x 16GB) DDR4 3200MHz Desktop Memory",
 		manufacturer: "Corsair",
-		price: 119.99,
+		price: {
+			cad: 119.99,
+			usd: 1
+		},
 		stock: 491,
 		rating: 4.9,
 		numOfReviews: 244,
-		features: [
+		features: {
+			english: [
 			"3200MHz memory speed effectively boosts your system's processor performance",
 			"16 CAS latency improves the performance of the RAM",
 			"XMP 2.0 support allows the memory to automatically adjust to the fastest yet safe speed with just a single BIOS setting",
@@ -64,19 +86,28 @@ export const allProducts: ProductItem[] = [
 			"Wire-free design makes installation easy and simple",
 			"Custom designed PCB offers enhanced signal quality for excellent performance and stability",
 			"Kit of two 16GB DDR4 memory modules enhances your system's performance for smooth multitasking"
-		]
+			],
+			french: []
+		}
 	},
 	{
 		id: "3",
 		img: NVIDIA_RTX_4090,
 		name: "NVIDIA GeForce RTX 4090 24GB GDDR6 Video Card",
 		manufacturer: "NVIDIA",
-		price: 2099.99,
-		salePrice: 1949.99,
+		price: {
+			cad: 2099.99,
+			usd: 1
+		},
+		salePrice: {
+			cad: 1949.99,
+			usd: 1
+		},
 		stock: 12,
 		rating: 4.8,
 		numOfReviews: 345,
-		features: [
+		features: {
+			english: [
 			"24GB of high-speed GDDR6X video memory delivers ray tracing and AI-powered graphics for an immersive gaming experience",
 			"2235MHz core clock speed and 2.52GHz boost clock speed provide the power you need to keep up with the most intensive games",
 			"NVIDIA Ada Lovelace architecture with 16,384 NVIDIA CUDA cores, dedicated ray tracing cores, and dedicated tensor cores ensure stunning visuals",
@@ -84,18 +115,24 @@ export const allProducts: ProductItem[] = [
 			"NVIDIA DLSS, Game Ready and NVIDIA Studio Drivers, NVIDIA GeForce Experience, NVIDIA Broadcast, NVIDIA G-SYNC, NVIDIA GPU Boost, Microsoft DirectX 12 Ultimate, Vulkan RT APIs, Vulkan 1.3, Open GL 4.6, HDCP 2.3, and DisplayPort 1.4a technologies optimize the graphics card for incredible performance",
 			"Support for 4K 120Hz HDR, 8K 60Hz HDR, and HDMI 2.1a variable refresh rate enables vivid resolutions",
 			"Compatible with Windows 11 64-bit (recommended), Windows 10 64-bit, and Linux 64-bit operating systems"
-		]
+			],
+			french: []
+		}
 	},
 	{
 		id: "4",
 		img: AsusThorPowerSupply,
 		name: "Asus ROG Thor Platinum 850W Power Supply",
 		manufacturer: "Asus",
-		price: 219.99,
+		price: {
+			cad: 219.99,
+			usd: 1
+		},
 		stock: 74,
 		rating: 4.7,
 		numOfReviews: 765,
-		features: [
+		features: {
+			english: [
 			"The ASUS ROG-THOR-850P2-GAMING power supply boasts 80Plus Platinum efficiency",
 			"Robust protection mechanisms, including Over Power, Over Voltage, Under Voltage, Short Circuit, Over Current, and Over Temperature Protection",
 			"Compliant with ROHS standards, it operates with an AC input range of 100-240Vac",
@@ -103,37 +140,55 @@ export const allProducts: ProductItem[] = [
 			"Maximum load capacities range from 20A to 71A, with a total output power of 850W",
 			"Package contents include cables, an addressable RGB cable, ROG accessories, and user manuals",
 			"Supporting AURA SYNC and ARGB, it features a 0dB fan button and holds a Cybenetics Noise Level Certification of A++"
-		]
+			],
+			french: []
+		}
 	},
 	{
 		id: "5",
 		img: AMDRyzen7,
 		name: "AMD Ryzen 7 5800X Octa-Core 3.8GHz AM4 Desktop Processor",
 		manufacturer: "AMD",
-		price: 599.99,
-		salePrice: 499.99,
+		price: {
+			cad: 599.99,
+			usd: 1
+		},
+		salePrice: {
+			cad: 499.99,
+			usd: 1
+		},
 		stock: 2,
 		rating: 4.3,
 		numOfReviews: 5,
-		features: [
+		features: {
+			english: [
 			"3.8GHz clock speed can run resource-intensive applications without slowing down",
 			"Eight cores adeptly handle high-FPS gaming sessions, video editing, and many more heavy-duty programs",
 			"3200Mhz bus speed ensures rapid communication between the CPU and other components of your PC",
 			"32MB of L3 cache and 4MB of L2 cache available to keep up with extensive multi-tasking demands",
 			"VR-ready design lets you use virtual reality headsets and accessories (sold separately) to immerse yourself in cyberspace"
-		]
+			],
+			french: []
+		}
 	},
 	{
 		id: "6",
 		img: IntelCoreI9,
 		name: "Intel Core i9-14900K Processor",
 		manufacturer: "Intel",
-		price: 799.99,
-		salePrice: 599.99,
+		price: {
+			cad: 799.99,
+			usd: 1
+		},
+		salePrice: {
+			cad: 599.99,
+			usd: 1
+		},
 		stock: 874,
 		rating: 4.6,
 		numOfReviews: 801,
-		features: [
+		features: {
+			english: [
 			"Base speed of 4.4GHz and a max boost clock speed of 6GHz ensure unrivaled responsiveness and performance for even the most demanding tasks and applications",
 			"Intel Turbo Boost Max Technology 3.0 identifies the fastest cores in the processor and directs significant workloads to them for better performance",
 			"Intel Thermal Velocity Boost delivers an extra burst of speed when tackling demanding tasks",
@@ -142,53 +197,74 @@ export const allProducts: ProductItem[] = [
 			"Supports both DDR5 and DDR4 RAM modules to adapt to a wide range of computing requirements",
 			"Compatibility with Intel 700 Series and Intel 600 Series Chipset based motherboards ensure seamless integration into your existing setup",
 			"125W processor base power ensures efficient and reliable operation even during heavy workloads"
-		]
+			],
+			french: []
+		}
 	},
 	{
 		id: "7",
 		img: ThermaltakeFan,
 		name: "Thermaltake UX200 SE 120 mm CPU Air Cooler",
 		manufacturer: "Thermaltake",
-		price: 49.99,
+		price: {
+			cad: 49.99,
+			usd: 1
+		},
 		stock: 280,
 		rating: 3.5,
 		numOfReviews: 641,
-		features: [
+		features: {
+			english: [
 			"Get a vivid RGB lighting experience with the UX210, featuring 10 high-lumen addressable LEDs with 16.8 colours",
 			"Designed to synchronize with ASUS Aura Sync, ASRock RGB LED, GIGABYTE RGB Fusion, and MSI Mystic Light Sync for the best performance",
 			"Make perfect contact with the CPU and thermal paste with the copper base",
 			"The fan blades are specifically designed to generate a large volume of air to pass through the aluminum heatsink"
-		]
+			],
+			french: []
+		}
 	},
 	{
 		id: "8",
 		img: Samsung990proSSD,
 		name: "Samsung 990 Pro 2TB NVMe PCI-e Internal Solid State Drive",
 		manufacturer: "Samsung",
-		price: 199.99,
+		price: {
+			cad: 199.99,
+			usd: 1
+		},
 		stock: 53,
 		rating: 4.1,
 		numOfReviews: 593,
-		features: [
+		features: {
+			english: [
 			"PCIe 4.0 NVMe SSD with 2TB of memory ensures an efficient data transfer rate - up to 1400K/1550K IOPS, while sequential read/write speeds up to 7450/6900 MB/s",
 			"Sequential read speed up to 7450MB/s and write speed up to 6900MB/s guarantee rapid load times for a smooth gaming experience",
 			"Provides high-performance bandwidth and throughput to let you push beyond the limits in gaming with demanding graphics and complex animation",
 			"Compact M.2 2280 form factor allows an easy plugging into laptops and PCs and also optimizes the power efficiency for high-speed computing",
 			"The slim heatsink’s futuristic design offers stable heat control and minimal fan noise for heavy-graphic gaming, now with RGB lights",
 			"Samsung Magician software opens access to user-friendly tools to update your drive, monitors the drive health, boosts the performance, and protects important data"
-		]
+			],
+			french: []
+		}
 	},
 	{
 		id: "9",
 		img: MSI_MicroATX_Motherboard,
 		name: "MSI X470 GAMING PLUS MAX ATX AM4 Motherboard",
 		manufacturer: "MSI",
-		price: 199.99,
-		salePrice: 150.00,
+		price: {
+			cad: 199.99,
+			usd: 1
+		},
+		salePrice: {
+			cad: 150.00,
+			usd: 1
+		},
 		stock: 0,
 		rating: 5.0,
 		numOfReviews: 972,
-		features: [
+		features: {
+			english: [
 			"AM4 socket helps you to extract more power and performance from your computer",
 			"Micro-ATX form factor saves space, while allowing you to utilize the maximum potential of the memory and CPU",
 			"One PCI Express X1 slot and 2 PCI Express X16 slots allows you to connect important components to the motherboard",
@@ -196,18 +272,24 @@ export const allProducts: ProductItem[] = [
 			"HDMI port and DisplayPort 1.4 lets you connect high quality display devices",
 			"Four USB 2.0 ports, six USB 3.1/3.2 Gen 2 ports and 1 USB Type C port allows you to connect various peripheral devices",
 			"Extended heatsink design and M.2 Shield FROZR combine to keep the components at ideal cooling temperature"
-		]
+			],
+			french: []
+		}
 	},
 	{
 		id: "10",
 		img: AsusMotherboard,
 		name: "ASUS ROG Strix Z790-E Gaming WiFi ATX LGA 1700 DDR5 Motherboard for 12/13th Gen Intel CPUs",
 		manufacturer: "Asus",
-		price: 549.98,
+		price: {
+			cad: 549.98,
+			usd: 1
+		},
 		stock: 902,
 		rating: 4.5,
 		numOfReviews: 188,
-		features: [
+		features: {
+			english: [
 			"LGA 1700 socket is suitable for the Intel Core 12th and 13th generation, Pentium Gold, and Celeron processors",
 			"Four DIMM slots with dual channel architecture let you add up to 128GB of DDR5 RAM",
 			"Onboard Wi-Fi 6E and Intel 2.5Gb Ethernet with ASUS LANGuard provide gaming-grade network performance with high speeds and low latencies",
@@ -216,7 +298,9 @@ export const allProducts: ProductItem[] = [
 			"VRM heatsink, PCH fanless heatsink, double-sided M.2 heatsink, hybrid fan headers, and Fan Xpert 4 utility efficient thermal management and cooling control options",
 			"Comes with ALC4080 with Savitech SV3H712 amplifier along with DTS Sound unbound and Sonic Studio III to give you rich and high-fidelity audio output",
 			"Includes iridescent ROG logo, monochrome finish, and Aura lighting to give your rig a groovy futuristic look"
-		]
+			],
+			french: []
+		}
 	}
 ]
 
@@ -243,10 +327,25 @@ export const searchQuerySuggestions: string[] = [
 	"msi motherboard",
 	"asus rog motherboard"
 ]
-export const sitePages: string[] = [
-	"Home",
-	"Shop",
-	"Deals",
-	"Blog",
-	"Contact"
+export const sitePages: {english: string, french: string}[] = [
+	{
+		english: "Home",
+		french: ""
+	},
+	{
+		english: "Shop",
+		french: ""
+	},
+	{
+		english: "Deals",
+		french: ""
+	},
+	{
+		english: "Blog",
+		french: ""
+	},
+	{
+		english: "Contact",
+		french: ""
+	}
 ]

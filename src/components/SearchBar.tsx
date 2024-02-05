@@ -1,6 +1,7 @@
 import React, { LegacyRef, useEffect, useState } from "react";
 import { ProductItem, allProducts, searchQuerySuggestions, sitePages } from "../data/products";
 import { Blog, allBlogs } from "../data/blogs";
+import { localityText } from "../data/locality";
 
 type SearchBarProps = {
 	searchBarInput?: LegacyRef<HTMLInputElement>,
@@ -21,6 +22,12 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
 	const [suggestions, setSuggestions] = useState([] as string[]);
 	const [products, setProducts] = useState([] as ProductItem[]);
 	const [pages, setPages] = useState([] as PageWithLink[]);
+
+	const localLang: any = localStorage.locality
+		? localStorage.locality === "Canada (FR)"
+			? localityText.french
+			: localityText.english
+		: localityText.english;
 
 	// handling of closing search results when user clicks outside of search results area
 	const closeWhenClickedOutsideSearchResults = (event: any) => {
