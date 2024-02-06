@@ -7,7 +7,18 @@ import { ProductItem, allProducts } from "../data/products";
 import StarRatings from "react-star-ratings";
 import { useCart } from "../components/CartContext";
 
-export default function ProductInfo() {
+type ProductInfoProps = {
+	locale: {
+		localLang: {
+			text: any,
+			lang: "english" | "french"
+		},
+		localCurrency: "cad" | "usd"
+	},
+	setLocale: Function
+}
+
+export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 	const { cart, addItemToCart, removeItemFromCart, updateItemQuantity } = useCart();
 
 	const [product, setProduct] = useState({} as ProductItem);
@@ -22,11 +33,21 @@ export default function ProductInfo() {
 
 	const { product_name } = useParams();
 
+	const localLang = locale.localLang.text;
+
 	const { img, manufacturer, name, rating, numOfReviews, stock } = product;
+
 	// always displays to two decimal places
-	const price = product.id ? product.price.toLocaleString("en-CA", { style: "currency", currency: "CAD" }) : null;
-	const salePrice = product.id
-		? product.salePrice?.toLocaleString("en-CA", { style: "currency", currency: "CAD" })
+	const price = product.id
+		? (locale.localCurrency === "cad"
+			? product.price[locale.localCurrency].toLocaleString("en-CA", { style: "currency", currency: "CAD" })
+			: product.price[locale.localCurrency].toLocaleString("en-US", { style: "currency", currency: "USD" }))
+		: null;
+	
+	const salePrice = product.id && product.salePrice
+		? (locale.localCurrency === "cad"
+			? product.salePrice[locale.localCurrency].toLocaleString("en-CA", { style: "currency", currency: "CAD" })
+			: product.salePrice[locale.localCurrency].toLocaleString("en-US", { style: "currency", currency: "USD" }))
 		: null;
 
 	const handleQuantityDecreaseClick = () => {
@@ -128,7 +149,12 @@ export default function ProductInfo() {
 
 	return (
 		<>
-			<NavBar product={productAddedToCart} setProduct={setProductAddedToCart} />
+			<NavBar
+				product={productAddedToCart}
+				setProduct={setProductAddedToCart}
+				localLang={locale.localLang.text}
+				setLocale={setLocale}
+			/>
 			<section className="flex justify-center">
 				<div className="flex max-w-screen-xl px-12 py-12">
 					<div className="w-2/3 flex flex-col items-center">
@@ -146,25 +172,25 @@ export default function ProductInfo() {
 									starSpacing="1px"
 								/>
 								<p className="pt-0.5 font-bold">
-									{rating} <span className="font-light">({numOfReviews} Reviews)</span>
+									{rating} <span className="font-light">({numOfReviews} { localLang.product_info_reviews })</span>
 								</p>
 							</div>
 							<div className="flex pt-4 text-xl font-bold">
 								<p className={`${salePrice ? "text-sm line-through text-neutral-500 pr-4" : ""}`}>
-									{price} CAD
+									{price} {locale.localCurrency === "cad" ? "CAD" : "USD"}
 								</p>
-								<p className={`${salePrice ? "" : "hidden"}`}>{salePrice} CAD</p>
+								<p className={`${salePrice ? "" : "hidden"}`}>{salePrice} {locale.localCurrency === "cad" ? "CAD" : "USD"}</p>
 								<div
 									className={`${
 										salePrice ? "" : "hidden"
 									} bg-blue-800 text-sm text-white border px-4 py-1 rounded-2xl mx-4`}
 								>
-									Sale
+									{ localLang.product_sale }
 								</div>
 							</div>
 						</div>
 						<div className="flex flex-col gap-2">
-							<p className="text-xs text-neutral-500">Quantity</p>
+							<p className="text-xs text-neutral-500">{ localLang.product_info_quantity }</p>
 							<div className="flex items-center">
 								<div className="flex items-center">
 									<div
@@ -207,7 +233,7 @@ export default function ProductInfo() {
 										stock > 0 ? "hidden" : ""
 									} bg-neutral-600 text-sm text-white border px-4 py-1 rounded-2xl mx-4`}
 								>
-									Out of stock
+									{ localLang.product_out_of_stock }
 								</div>
 							</div>
 						</div>
@@ -220,7 +246,7 @@ export default function ProductInfo() {
 										: "cursor-not-allowed"
 								} px-4 py-3 text-sm ring-1 ring-neutral-500`}
 							>
-								Add to cart
+								{ localLang.product_info_add_to_cart }
 							</button>
 							<button
 								className={`${
@@ -229,13 +255,13 @@ export default function ProductInfo() {
 										: "cursor-not-allowed"
 								} border border-black px-4 py-3 bg-black text-white text-sm`}
 							>
-								Buy now
+								{ localLang.product_info_buy_now }
 							</button>
 						</div>
 						<div className="py-4">
 							<ul className="flex flex-col gap-2">
 								{product.id
-									? product.features.map((feature, index) => (
+									? product.features[locale.localLang.lang].map((feature, index) => (
 											<li key={index} className="list-disc">
 												{feature}
 											</li>
@@ -247,13 +273,14 @@ export default function ProductInfo() {
 				</div>
 			</section>
 			<FeaturedProducts
-				header="You may also like"
+				header={localLang.product_info_you_may_also_like}
 				subheader=""
 				products={similarProducts}
 				viewAllPage="/shop"
 				setProduct={setProductAddedToCart}
+				locale={locale}
 			/>
-			<Footer />
+			<Footer localLang={locale.localLang.text} />
 		</>
 	);
 }

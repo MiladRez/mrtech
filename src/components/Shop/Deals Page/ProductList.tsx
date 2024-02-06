@@ -14,13 +14,27 @@ const sortOrder: string[] = [
 	"Price, High-Low"
 ];
 
-export default function ProductList({ products, setProduct }: { products: ProductItem[]; setProduct: Function }) {
+type ProductListProps = {
+	products: ProductItem[],
+	setProduct: Function,
+	locale: {
+		localLang: {
+			text: any,
+			lang: "english" | "french"
+		},
+		localCurrency: "cad" | "usd"
+	}
+}
+
+export default function ProductList({ products, setProduct, locale }: ProductListProps) {
 	const { addItemToCart } = useCart();
+
+	const localLang = locale.localLang.text;
 
 	const [productsDisplay, setProductsDisplay] = useState(products);
 	const [filteredProductsByStock, setFilteredProductsByStock] = useState([] as ProductItem[]);
 	const [filteredProductsByPrice, setFilteredProductsByPrice] = useState([] as ProductItem[]);
-	const [selectedSortOrder, setSelectedSortOrder] = useState("Recently Added");
+	const [selectedSortOrder, setSelectedSortOrder] = useState(localLang.sort_opt_1);
 
 	const addToCart = (item: ProductItem) => {
 		addItemToCart(item);
@@ -37,29 +51,29 @@ export default function ProductList({ products, setProduct }: { products: Produc
 
 	const sortByProductProperty = (sortOrder: string, prods: ProductItem[]) => {
 		switch (sortOrder) {
-			case "Recently Added":
+			case localLang.sort_opt_1:
 				setProductsDisplay([...prods.sort((a, b) => (parseInt(a.id) < parseInt(b.id) ? 1 : -1))]);
 				break;
-			case "Highest Rated":
+			case localLang.sort_opt_2:
 				setProductsDisplay([...prods.sort((a, b) => (a.rating < b.rating ? 1 : -1))]);
 				break;
-			case "Best Selling":
+			case localLang.sort_opt_3:
 				setProductsDisplay([...prods.sort((a, b) => (a.stock > b.stock ? 1 : -1))]);
 				break;
-			case "Name, A-Z":
+			case localLang.sort_opt_4:
 				setProductsDisplay([...prods.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1))]);
 				break;
-			case "Name, Z-A":
+			case localLang.sort_opt_5:
 				setProductsDisplay([...prods.sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1))]);
 				break;
-			case "Price, Low-High":
+			case localLang.sort_opt_6:
 				setProductsDisplay([
 					...prods.sort((a, b) =>
 						(a.salePrice ? a.salePrice : a.price) > (b.salePrice ? b.salePrice : b.price) ? 1 : -1
 					)
 				]);
 				break;
-			case "Price, High-Low":
+			case localLang.sort_opt_7:
 				setProductsDisplay([
 					...prods.sort((a, b) =>
 						(a.salePrice ? a.salePrice : a.price) < (b.salePrice ? b.salePrice : b.price) ? 1 : -1
@@ -146,14 +160,14 @@ export default function ProductList({ products, setProduct }: { products: Produc
 			<ul className="flex flex-col gap-4 px-1">
 				<Checkbox
 					id="in-stock"
-					name={`In stock (${inStock.length})`}
+					name={`${localLang.filter_1_checkbox_1} (${inStock.length})`}
 					disabled={inStock.length === 0}
 					toggleFilter={() => filterByStock(inStock, setInStockChecked, inStockChecked)}
 					checked={inStockChecked}
 				/>
 				<Checkbox
 					id="out-of-stock"
-					name={`Out of stock (${outOfStock.length})`}
+					name={`${localLang.filter_1_checkbox_2} (${outOfStock.length})`}
 					disabled={outOfStock.length === 0}
 					toggleFilter={() => filterByStock(outOfStock, setOutOfStockChecked, outOfStockChecked)}
 					checked={outOfStockChecked}
@@ -210,12 +224,12 @@ export default function ProductList({ products, setProduct }: { products: Produc
 			if (to) {
 				return products.filter(prod => {
 					return prod.salePrice
-						? prod.salePrice >= from && prod.salePrice < to
-						: prod.price >= from && prod.price < to;
+						? prod.salePrice[locale.localCurrency] >= from && prod.salePrice[locale.localCurrency] < to
+						: prod.price[locale.localCurrency] >= from && prod.price[locale.localCurrency] < to;
 				});
 			} else {
 				return products.filter(prod => {
-					return prod.salePrice ? prod.salePrice >= from : prod.price >= from;
+					return prod.salePrice ? prod.salePrice[locale.localCurrency] >= from : prod.price[locale.localCurrency] >= from;
 				});
 			}
 		};
@@ -223,7 +237,7 @@ export default function ProductList({ products, setProduct }: { products: Produc
 		const priceRanges = [
 			{
 				id: "pr-lt200",
-				name: `Less than $200 (${priceRangeFilter(0, 200).length})`,
+				name: `${localLang.filter_2_checkbox_pr1} (${priceRangeFilter(0, 200).length})`,
 				disabled: priceRangeFilter(0, 200).length === 0,
 				filterFunc: () =>
 					filterByPrice(priceRangeFilter(0, 200), setIsPR_lessThan200_Checked, isPR_lessThan200_Checked),
@@ -231,7 +245,7 @@ export default function ProductList({ products, setProduct }: { products: Produc
 			},
 			{
 				id: "pr-200to300",
-				name: `$200 - $299.99 (${priceRangeFilter(200, 300).length})`,
+				name: `${localLang.filter_2_checkbox_pr2} (${priceRangeFilter(200, 300).length})`,
 				disabled: priceRangeFilter(200, 300).length === 0,
 				filterFunc: () =>
 					filterByPrice(priceRangeFilter(200, 300), setIsPR_200to300_Checked, isPR_200to300_Checked),
@@ -239,7 +253,7 @@ export default function ProductList({ products, setProduct }: { products: Produc
 			},
 			{
 				id: "pr-300to400",
-				name: `$300 - $399.99 (${priceRangeFilter(300, 400).length})`,
+				name: `${localLang.filter_2_checkbox_pr3} (${priceRangeFilter(300, 400).length})`,
 				disabled: priceRangeFilter(300, 400).length === 0,
 				filterFunc: () =>
 					filterByPrice(priceRangeFilter(300, 400), setIsPR_300to400_Checked, isPR_300to400_Checked),
@@ -247,7 +261,7 @@ export default function ProductList({ products, setProduct }: { products: Produc
 			},
 			{
 				id: "pr-400to600",
-				name: `$400 - $599.99 (${priceRangeFilter(400, 600).length})`,
+				name: `${localLang.filter_2_checkbox_pr4} (${priceRangeFilter(400, 600).length})`,
 				disabled: priceRangeFilter(400, 600).length === 0,
 				filterFunc: () =>
 					filterByPrice(priceRangeFilter(400, 600), setIsPR_400to600_Checked, isPR_400to600_Checked),
@@ -255,7 +269,7 @@ export default function ProductList({ products, setProduct }: { products: Produc
 			},
 			{
 				id: "pr-600to800",
-				name: `$600 - $799.99 (${priceRangeFilter(600, 800).length})`,
+				name: `${localLang.filter_2_checkbox_pr5} (${priceRangeFilter(600, 800).length})`,
 				disabled: priceRangeFilter(600, 800).length === 0,
 				filterFunc: () =>
 					filterByPrice(priceRangeFilter(600, 800), setIsPR_600to800_Checked, isPR_600to800_Checked),
@@ -263,7 +277,7 @@ export default function ProductList({ products, setProduct }: { products: Produc
 			},
 			{
 				id: "pr-800to1000",
-				name: `$800 - $999.99 (${priceRangeFilter(800, 1000).length})`,
+				name: `${localLang.filter_2_checkbox_pr6} (${priceRangeFilter(800, 1000).length})`,
 				disabled: priceRangeFilter(800, 1000).length === 0,
 				filterFunc: () =>
 					filterByPrice(priceRangeFilter(800, 1000), setIsPR_800to1000_Checked, isPR_800to1000_Checked),
@@ -271,7 +285,7 @@ export default function ProductList({ products, setProduct }: { products: Produc
 			},
 			{
 				id: "pr-1000to1200",
-				name: `$1000 - $1199.99 (${priceRangeFilter(1000, 1200).length})`,
+				name: `${localLang.filter_2_checkbox_pr7} (${priceRangeFilter(1000, 1200).length})`,
 				disabled: priceRangeFilter(1000, 1200).length === 0,
 				filterFunc: () =>
 					filterByPrice(priceRangeFilter(1000, 1200), setIsPR_1000to1200_Checked, isPR_1000to1200_Checked),
@@ -279,7 +293,7 @@ export default function ProductList({ products, setProduct }: { products: Produc
 			},
 			{
 				id: "pr-1200andUp",
-				name: `$1200 and Up (${priceRangeFilter(1200).length})`,
+				name: `${localLang.filter_2_checkbox_pr8} (${priceRangeFilter(1200).length})`,
 				disabled: priceRangeFilter(1200).length === 0,
 				filterFunc: () =>
 					filterByPrice(priceRangeFilter(1200), setIsPR_1200andUp_Checked, isPR_1200andUp_Checked),
@@ -371,7 +385,7 @@ export default function ProductList({ products, setProduct }: { products: Produc
 						disabled={disabledApplyPriceRangeButton}
 						className="w-full border px-12 py-4 bg-primary text-sm text-white font-semibold hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-black transition duration-200"
 					>
-						Apply Price Range
+						{localLang.filter_2_apply_price_range}
 					</button>
 					<button
 						onClick={handleClearPriceRangeButton}
@@ -379,7 +393,7 @@ export default function ProductList({ products, setProduct }: { products: Produc
 							disabledApplyPriceRangeButton ? "hidden" : ""
 						} text-sm text-primary pt-6 self-start hover:underline`}
 					>
-						Clear price range
+						{localLang.filter_2_clear_price_range}
 					</button>
 				</div>
 				<ul className="flex flex-col gap-4 pt-6 px-1">
@@ -402,8 +416,8 @@ export default function ProductList({ products, setProduct }: { products: Produc
 		<section className="flex justify-center pb-16">
 			<div className="w-full max-w-screen-xl px-12 grid grid-cols-4 gap-4">
 				<div className="col-span-1 border-r">
-					<FilterDropdown openFilter={true} title="Availability" content={availabilityFilterContent()} />
-					<FilterDropdown openFilter={false} title="Price" content={priceFilterContent()} />
+					<FilterDropdown openFilter={true} title={localLang.filter_1_header} content={availabilityFilterContent()} />
+					<FilterDropdown openFilter={false} title={localLang.filter_2_header} content={priceFilterContent()} />
 				</div>
 				<div className="col-span-3">
 					<div className="flex justify-end gap-4 items-center">
@@ -426,7 +440,7 @@ export default function ProductList({ products, setProduct }: { products: Produc
 					{productsDisplay.length > 0 ? (
 						<div className="col-span-3 grid grid-cols-3 gap-y-8">
 							{productsDisplay.map((prod, index) => (
-								<Product product={prod} key={index} addToCart={addToCart} />
+								<Product product={prod} key={index} addToCart={addToCart} localLang={locale.localLang.text} localCurrency={locale.localCurrency} />
 							))}
 						</div>
 					) : (

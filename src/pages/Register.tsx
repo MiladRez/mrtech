@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import mrtechLogo from "../images/mrtech-logo.png";
 import { Link } from "react-router-dom";
 
-export default function Register() {
+export default function Register({ localLang }: { localLang: any }) {
 	const [passwordHidden, setPasswordHidden] = useState(true);
 	const [checkPasswordValidity, setCheckPasswordValidity] = useState(false);
 	const [containsMinChars, setContainsMinChars] = useState(false);
@@ -63,7 +63,7 @@ export default function Register() {
 							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<input
 									type="text"
-									placeholder="First Name"
+									placeholder={localLang.register_first_name}
 									className="w-full border-neutral-400 text-sm focus:ring-0 peer"
 									required
 								/>
@@ -72,7 +72,7 @@ export default function Register() {
 							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<input
 									type="text"
-									placeholder="Last Name"
+									placeholder={localLang.register_last_name}
 									className="w-full border-neutral-400 text-sm focus:ring-0 peer"
 									required
 								/>
@@ -81,7 +81,7 @@ export default function Register() {
 							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<input
 									type="text"
-									placeholder="Phone Number"
+									placeholder={localLang.register_phone_number}
 									className="w-full border-neutral-400 text-sm focus:ring-0 peer"
 									required
 								/>
@@ -92,7 +92,7 @@ export default function Register() {
 							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<input
 									type="email"
-									placeholder="Email"
+									placeholder={localLang.register_email}
 									className="w-full border-neutral-400 text-sm focus:ring-0 peer"
 									required
 								/>
@@ -106,7 +106,7 @@ export default function Register() {
 							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<input
 									type={passwordHidden ? "password" : "text"}
-									placeholder="Password"
+									placeholder={localLang.register_password}
 									className="w-full border-neutral-400 text-sm focus:ring-0 peer"
 									onChange={handlePasswordInput}
 									required
@@ -131,7 +131,7 @@ export default function Register() {
 						</div>
 						<div className="w-56 text-xs text-neutral-500 flex flex-col gap-0.5 select-none">
 							<div className="flex justify-between gap-1">
-								<p className="">Minimum length of 8 characters</p>
+								<p className="">{ localLang.register_pw_req_1 }</p>
 								{checkPasswordValidity ? (
 									containsMinChars ? (
 										<svg fill="#16a34a" className="w-3 h-3">
@@ -145,7 +145,7 @@ export default function Register() {
 								) : null}
 							</div>
 							<div className="flex justify-between gap-1">
-								<p>Contains at least 1 number</p>
+								<p>{ localLang.register_pw_req_2 }</p>
 								{checkPasswordValidity ? (
 									containsNum ? (
 										<svg fill="#16a34a" className="w-3 h-3">
@@ -159,7 +159,7 @@ export default function Register() {
 								) : null}
 							</div>
 							<div className="flex justify-between gap-1">
-								<p>Contains at least 1 special character</p>
+								<p>{ localLang.register_pw_req_3 }</p>
 								{checkPasswordValidity ? (
 									containsSpecialChar ? (
 										<svg fill="#16a34a" className="w-3 h-3">
@@ -173,7 +173,7 @@ export default function Register() {
 								) : null}
 							</div>
 							<div className="flex justify-between gap-1">
-								<p>Contains at least 1 uppercase letter</p>
+								<p>{ localLang.register_pw_req_4 }</p>
 								{checkPasswordValidity ? (
 									containsUpperChar ? (
 										<svg fill="#16a34a" className="w-3 h-3">
@@ -187,7 +187,7 @@ export default function Register() {
 								) : null}
 							</div>
 							<div className="flex justify-between gap-1">
-								<p>Contains at least 1 lowercase letter</p>
+								<p>{ localLang.register_pw_req_5 }</p>
 								{checkPasswordValidity ? (
 									containsLowerChar ? (
 										<svg fill="#16a34a" className="w-3 h-3">
@@ -207,13 +207,13 @@ export default function Register() {
 								isValidPassword ? "hover:bg-primary hover:border-primary hover:text-white transition duration-200" : "cursor-not-allowed"
 							} mt-12 px-3 py-4 bg-black text-white border select-none`}
 						>
-							Register
+							{ localLang.register_register_button }
 						</button>
 					</form>
 					<p>
-						Already have an account?
+						{ localLang.register_already_have_account }
 						<Link to="/login">
-							<span className="pl-1 text-primary cursor-pointer hover:text-blue-700">Sign In</span>
+							<span className="pl-1 text-primary cursor-pointer hover:text-blue-700">{ localLang.register_sign_in }</span>
 						</Link>
 						
 					</p>

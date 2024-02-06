@@ -9,12 +9,19 @@ import SearchBar from "./SearchBar";
 import { localityText } from "../data/locality";
 
 const siteLocality = new Map([
-	["Canada (EN)", CanadaFlagIcon],
-	["Canada (FR)", CanadaFlagIcon],
-	["USA (EN)", USAFlagIcon]
+	["Canada (EN)", {locale: {text: localityText.english, lang: "english"}, currency: "cad", flag: CanadaFlagIcon}],
+	["Canada (FR)", {locale: {text: localityText.french, lang: "french"}, currency: "cad", flag: CanadaFlagIcon}],
+	["USA (EN)", {locale: {text: localityText.english, lang: "english"}, currency: "usd", flag: USAFlagIcon}]
 ]);
 
-export default function NavBar({ product, setProduct }: { product?: ProductItem | null; setProduct?: Function }) {
+type NavBarProps = {
+	product?: ProductItem | null,
+	setProduct?: Function,
+	localLang: any,
+	setLocale: Function
+}
+
+export default function NavBar({ product, setProduct, localLang, setLocale }: NavBarProps) {
 	const { numOfItemsInCart } = useCart();
 
 	const searchBarInput = useRef<HTMLInputElement>(null);
@@ -24,15 +31,9 @@ export default function NavBar({ product, setProduct }: { product?: ProductItem 
 	const [search, setSearch] = useState(false);
 	const [locality, setLocality] = useState(
 		localStorage.locality
-			? { name: localStorage.locality, img: siteLocality.get(localStorage.locality) }
+			? { name: localStorage.locality, img: siteLocality.get(localStorage.locality)?.flag }
 			: { name: "Canada (EN)", img: CanadaFlagIcon }
 	);
-
-	const localLang: any = localStorage.locality
-		? localStorage.locality === "Canada (FR)"
-			? localityText.french
-			: localityText.english
-		: localityText.english;
 
 	let img, name, manufacturer;
 
@@ -105,6 +106,7 @@ export default function NavBar({ product, setProduct }: { product?: ProductItem 
 
 	useEffect(() => {
 		localStorage.setItem("locality", locality.name!);
+		setLocale({ localLang: siteLocality.get(locality.name)?.locale, localCurrency: siteLocality.get(locality.name)?.currency });
 	}, [locality]);
 
 	return (
@@ -193,13 +195,13 @@ export default function NavBar({ product, setProduct }: { product?: ProductItem 
 											.map((locale, index) => (
 												<Dropdown.Item
 													onClick={() =>
-														setLocality({ name: locale, img: siteLocality.get(locale) })
+														setLocality({ name: locale, img: siteLocality.get(locale)?.flag })
 													}
 													key={index}
 													className="pr-5"
 												>
 													<div className="flex items-center gap-2">
-														<img src={siteLocality.get(locale)} className="w-6 h-6" />
+														<img src={siteLocality.get(locale)?.flag} className="w-6 h-6" />
 														<p>{locale}</p>
 													</div>
 												</Dropdown.Item>

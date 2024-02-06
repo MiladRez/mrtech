@@ -9,12 +9,21 @@ type FeaturedProductsProps = {
 	subheader: string,
 	products: ProductItem[],
 	viewAllPage: string,
-	setProduct: Function
+	setProduct: Function,
+	locale: {
+		localLang: {
+			text: any,
+			lang: "english" | "french"
+		},
+		localCurrency: "cad" | "usd"
+	}
 }
 
-export default function FeaturedProducts({ header, subheader, products, viewAllPage, setProduct }: FeaturedProductsProps) {
+export default function FeaturedProducts({ header, subheader, products, viewAllPage, setProduct, locale }: FeaturedProductsProps) {
 
 	const { addItemToCart } = useCart();
+
+	const localLang = locale.localLang.text;
 
 	const addToCart = (item: ProductItem) => {
 		addItemToCart(item)
@@ -31,13 +40,13 @@ export default function FeaturedProducts({ header, subheader, products, viewAllP
 				<div className="flex gap-2 justify-between">
 					{
 						products.slice(0, 4).map((prod, index) => (
-							<Product product={prod} key={index} addToCart={addToCart} />
+							<Product product={prod} key={index} addToCart={addToCart} localLang={locale.localLang.text} localCurrency={locale.localCurrency} />
 						))
 					}
 				</div>
 				<div className="flex justify-center py-8">
 					<Link to={viewAllPage}>
-						<button className="w-fit border px-10 py-3 bg-black border-black text-white hover:bg-primary hover:border-primary hover:text-white transition duration-200">View all</button>
+						<button className="w-fit border px-10 py-3 bg-black border-black text-white hover:bg-primary hover:border-primary hover:text-white transition duration-200">{ localLang.featured_products_view_all }</button>
 					</Link>
 				</div>
 			</div>

@@ -2,7 +2,7 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
-export default function Contact() {
+export default function Contact({localLang, localCurrency}: { localLang: {text: any, lang: string}, localCurrency: string }) {
 	return (
 		<>
 			<NavBar />

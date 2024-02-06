@@ -5,7 +5,7 @@ import SearchHeader from "../components/SearchPage/SearchHeader";
 import SearchResults from "../components/SearchPage/SearchResults";
 import { useParams } from "react-router-dom";
 
-export default function Search() {
+export default function Search({localLang, localCurrency}: { localLang: {text: any, lang: string}, localCurrency: string }) {
 
 	const { search_query } = useParams();
 

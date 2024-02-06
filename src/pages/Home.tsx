@@ -9,21 +9,51 @@ import BuildYourPC from "../components/HomePage/BuildYourPC";
 import FeaturedBlogs from "../components/HomePage/FeaturedBlogs";
 import SubscribeToNewsletter from "../components/HomePage/SubscribeToNewsletter";
 
-export default function Home() {
+type HomeProps = {
+	locale: {
+		localLang: {
+			text: any,
+			lang: "english" | "french"
+		},
+		localCurrency: "cad" | "usd"
+	}
+	setLocale: Function,
+}
+
+export default function Home({locale, setLocale}: HomeProps) {
 
 	const [product, setProduct] = useState(null);
+	const localLang = locale.localLang.text;
 
 	return (
 		<>
-			<NavBar product={product} setProduct={setProduct} />
-			<Hero />
-			<FeaturedProducts header="Select products on sale" subheader="Free delivery on orders over $70" products={productsOnSale} viewAllPage={"/deals"} setProduct={setProduct} />
-			<PromoDisplay />
-			<BuildYourPC />
-			<FeaturedProducts header="Popular Products" subheader="Easy returns with 30-day return policy" products={popularProducts} viewAllPage={"/shop"} setProduct={setProduct} />
-			<FeaturedBlogs />
-			<SubscribeToNewsletter />
-			<Footer />
+			<NavBar
+				product={product}
+				setProduct={setProduct}
+				localLang={locale.localLang.text}
+				setLocale={setLocale}
+			/>
+			<Hero localLang={locale.localLang.text} />
+			<FeaturedProducts
+				header={localLang.featured_products_sale_header}
+				subheader={localLang.featured_products_sale_subheader}
+				products={productsOnSale}
+				viewAllPage={"/deals"}
+				setProduct={setProduct}
+				locale={locale}
+			/>
+			<PromoDisplay localLang={locale.localLang} />
+			<BuildYourPC localLang={locale.localLang.text} />
+			<FeaturedProducts
+				header={localLang.featured_products_pop_header}
+				subheader={localLang.featured_products_pop_subheader}
+				products={popularProducts} viewAllPage={"/shop"}
+				setProduct={setProduct}
+				locale={locale}
+			/>
+			<FeaturedBlogs localLang={locale.localLang} />
+			<SubscribeToNewsletter localLang={locale.localLang.text} />
+			<Footer localLang={locale.localLang.text} />
 		</>
 	)
 }

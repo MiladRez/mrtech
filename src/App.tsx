@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
@@ -13,26 +13,42 @@ import ProductInfo from './pages/ProductInfo';
 import Search from './pages/Search';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import { localityText } from './data/locality';
 
 export default function App() {
+
+	const localLangFromLocalStorage: {text: any, lang: "english" | "french"} = localStorage.locality
+		? (localStorage.locality === "Canada (FR)"
+			? {text: localityText.french, lang: "french"}
+			: {text: localityText.english, lang: "english"})
+		: { text: localityText.english, lang: "english" };
+	
+	const localCurrencyFromLocalStorage: "cad" | "usd" = localStorage.locality
+		? (localStorage.locality === "USA (EN)"
+			? "usd"
+			: "cad")
+		: "cad";
+	
+	const [locale, setLocale] = useState({localLang: localLangFromLocalStorage, localCurrency: localCurrencyFromLocalStorage});
+	
 	return (
 		<>
 			<CartProvider>
 				<Routes>
 					<Route path='/' element={<Navigate to='/home' />} />
-					<Route path='/login' element={<Login />} />
-					<Route path='/register' element={<Register />} />
-					<Route path='/home' element={<Home />} />
-					<Route path='/shop' element={<Shop />} />
-					<Route path='/deals' element={<Deals />} />
-					<Route path='/product/:product_name' element={<ProductInfo />} />
-					<Route path='/blog' element={<Blog />} />
-					<Route path='/blog/:blog_title' element={<BlogPost />} />
-					<Route path='/contact' element={<Contact />} />
-					<Route path='/cart' element={<Cart />} />
-					<Route path='/search' element={<Search />} />
-					<Route path='/search/:search_query' element={<Search />} />
-					<Route path='*' element={<Page404 />} />
+					<Route path='/login' element={<Login localLang={locale.localLang.text} />} />
+					<Route path='/register' element={<Register localLang={locale.localLang.text} />} />
+					<Route path='/home' element={<Home locale={locale} setLocale={setLocale} />} />
+					<Route path='/shop' element={<Shop locale={locale} setLocale={setLocale} />} />
+					<Route path='/deals' element={<Deals locale={locale} setLocale={setLocale} />} />
+					<Route path='/product/:product_name' element={<ProductInfo locale={locale} setLocale={setLocale} />} />
+					<Route path='/blog' element={<Blog localLang={locale.localLang} setLocale={setLocale} />} />
+					<Route path='/blog/:blog_title' element={<BlogPost localLang={locale.localLang} setLocale={setLocale} />} />
+					<Route path='/contact' element={<Contact locale={locale} setLocale={setLocale} />} />
+					<Route path='/cart' element={<Cart locale={locale} setLocale={setLocale} />} />
+					<Route path='/search' element={<Search locale={locale} setLocale={setLocale} />} />
+					<Route path='/search/:search_query' element={<Search locale={locale} setLocale={setLocale} />} />
+					<Route path='*' element={<Page404 locale={locale} />} />
 				</Routes>	
 			</CartProvider>
 		</>

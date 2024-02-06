@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import mrtechLogo from "../images/mrtech-logo.png";
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ localLang }: { localLang: any }) {
 	const [passwordHidden, setPasswordHidden] = useState(true);
 
 	return (
@@ -15,7 +15,7 @@ export default function Login() {
 							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<input
 									type="email"
-									placeholder="Email"
+									placeholder={localLang.login_email}
 									className="w-full border-neutral-400 text-sm focus:ring-0 peer"
 									required
 								/>
@@ -29,7 +29,7 @@ export default function Login() {
 							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<input
 									type={passwordHidden ? "password" : "text"}
-									placeholder="Password"
+									placeholder={localLang.login_password}
 									className="w-full border-neutral-400 text-sm focus:ring-0 peer"
 									required
 								/>
@@ -52,13 +52,13 @@ export default function Login() {
 							)}
 						</div>
 						<button className="mt-12 px-3 py-4 bg-black text-white border select-none hover:bg-primary hover:border-primary hover:text-white transition duration-200">
-							Sign In
+							{localLang.login_signin}
 						</button>
 					</form>
 					<p>
-						Don't have an account?
+						{localLang.login_dont_have_account}
 						<Link to="/register">
-							<span className="pl-1 text-primary cursor-pointer hover:text-blue-700">Register now</span>
+							<span className="pl-1 text-primary cursor-pointer hover:text-blue-700">{ localLang.login_register_now }</span>
 						</Link>
 						
 					</p>

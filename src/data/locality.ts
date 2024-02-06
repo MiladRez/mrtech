@@ -59,7 +59,8 @@ export const localityText = {
 
 		promo_display_shop_button: "Shop Now",
 
-		build_your_own_pc_header: "Build Your Own PC Setup",
+		build_your_own_pc_header_p1: "Build Your Own",
+		build_your_own_pc_header_p2: "PC Setup",
 		build_your_own_pc_button: "Build",
 
 		featured_blogs_header: "Our Latest Blogs",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function ProductListHeader({ title, desc }: { title: string, desc: string }) {
 	

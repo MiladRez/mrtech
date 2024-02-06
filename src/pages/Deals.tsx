@@ -5,9 +5,22 @@ import ProductList from "../components/Shop/Deals Page/ProductList";
 import Footer from "../components/Footer";
 import { productsOnSale } from "../data/products";
 
-export default function Deals() {
+type DealsProps = {
+	locale: {
+		localLang: {
+			text: any,
+			lang: "english" | "french"
+		},
+		localCurrency: "cad" | "usd"
+	},
+	setLocale: Function
+}
+
+export default function Deals({ locale, setLocale }: DealsProps) {
 
 	const [product, setProduct] = useState(null);
+
+	const localLang = locale.localLang.text;
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
@@ -15,10 +28,15 @@ export default function Deals() {
 
 	return (
 		<>
-			<NavBar product={product} setProduct={setProduct} />
-			<ProductListHeader title="Hottest Deals" desc="Score some of our top picks at unbelievably low prices." />
-			<ProductList products={productsOnSale} setProduct={setProduct} />
-			<Footer />
+			<NavBar
+				product={product}
+				setProduct={setProduct}
+				localLang={locale.localLang.text}
+				setLocale={setLocale}
+			/>
+			<ProductListHeader title={localLang.deals_header} desc={localLang.deals_subheader} />
+			<ProductList products={productsOnSale} setProduct={setProduct} locale={locale} />
+			<Footer localLang={locale.localLang.text} />
 		</>
 	)
 }
