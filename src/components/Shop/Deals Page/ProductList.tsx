@@ -4,16 +4,6 @@ import Product from "../../Product";
 import FilterDropdown from "./FilterDropdown";
 import { useCart } from "../../CartContext";
 
-const sortOrder: string[] = [
-	"Recently Added",
-	"Highest Rated",
-	"Best Selling",
-	"Name, A-Z",
-	"Name, Z-A",
-	"Price, Low-High",
-	"Price, High-Low"
-];
-
 type ProductListProps = {
 	products: ProductItem[],
 	setProduct: Function,
@@ -30,6 +20,16 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
 	const { addItemToCart } = useCart();
 
 	const localLang = locale.localLang.text;
+
+	const sortOrder: string[] = [
+		localLang.sort_opt_1,
+		localLang.sort_opt_2,
+		localLang.sort_opt_3,
+		localLang.sort_opt_4,
+		localLang.sort_opt_5,
+		localLang.sort_opt_6,
+		localLang.sort_opt_7
+	];
 
 	const [productsDisplay, setProductsDisplay] = useState(products);
 	const [filteredProductsByStock, setFilteredProductsByStock] = useState([] as ProductItem[]);
@@ -421,7 +421,7 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
 				</div>
 				<div className="col-span-3">
 					<div className="flex justify-end gap-4 items-center">
-						<p className="text-sm text-neutral-500">Sort by:</p>
+						<p className="text-sm text-neutral-500">{ localLang.sort_header }</p>
 						<select
 							name="sortOrder"
 							className="text-sm pr-1 text-neutral-500 cursor-pointer focus:outline-none hover:text-black hover:underline"
@@ -435,19 +435,19 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
 								);
 							})}
 						</select>
-						<p className="w-32 text-sm text-neutral-500 pl-12">{productsDisplay.length} products</p>
+						<p className="w-32 text-sm text-neutral-500 pl-12">{productsDisplay.length} {localLang.sort_products}</p>
 					</div>
 					{productsDisplay.length > 0 ? (
 						<div className="col-span-3 grid grid-cols-3 gap-y-8">
 							{productsDisplay.map((prod, index) => (
-								<Product product={prod} key={index} addToCart={addToCart} localLang={locale.localLang.text} localCurrency={locale.localCurrency} />
+								<Product product={prod} key={index} addToCart={addToCart} localLang={locale.localLang} localCurrency={locale.localCurrency} />
 							))}
 						</div>
 					) : (
 						<div className="flex flex-col items-center pt-32">
-							<h2>No products found matching the selected filters</h2>
+							<h2>{localLang.sort_no_products_found}</h2>
 							<h2 onClick={clearFilters} className="underline cursor-pointer hover:decoration-2 transition duration-200">
-								Clear filters
+								{localLang.sort_clear_filter}
 							</h2>
 						</div>
 					)}

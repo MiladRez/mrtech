@@ -30,7 +30,7 @@ export default function Home({locale, setLocale}: HomeProps) {
 			<NavBar
 				product={product}
 				setProduct={setProduct}
-				localLang={locale.localLang.text}
+				localLang={locale.localLang}
 				setLocale={setLocale}
 			/>
 			<Hero localLang={locale.localLang.text} />

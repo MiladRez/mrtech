@@ -5,7 +5,18 @@ import ResultsPageCard from "./ResultsPageCard";
 import { Blog, allBlogs } from "../../data/blogs";
 import ResultsBlogCard from "./ResultsBlogCard";
 
-export default function SearchResults({ searchQuery }: { searchQuery: string }) {
+type SearchResultsProps = {
+	searchQuery: string,
+	locale: {
+		localLang: {
+			text: any,
+			lang: "english" | "french"
+		},
+		localCurrency: "cad" | "usd"
+	}
+}
+
+export default function SearchResults({ searchQuery, locale }: SearchResultsProps) {
 	const getAllResults = () => {
 		let results = [] as React.JSX.Element[]
 		let atLeastOneProduct = false;
@@ -28,36 +39,36 @@ export default function SearchResults({ searchQuery }: { searchQuery: string }) 
 			});
 
 			allBlogs.map((blog: Blog) => {
-				const title = blog.title.toLowerCase();
-				const desc = blog.desc.toLowerCase();
+				const title = blog.title[locale.localLang.lang].toLowerCase();
+				const desc = blog.desc[locale.localLang.lang].toLowerCase();
 				const queryLC = queryTerm.toLowerCase();
 				if (title.includes(queryLC) || desc.includes(queryLC) && !blogsArr.includes(blog)) {
 					blogsArr = [...blogsArr, blog];
 				}
 			});
 
-			sitePages.map((page: string) => {
-				if (page.toLowerCase().includes(queryTerm.toLowerCase()) && !pagesArr.includes(page)) {
-					pagesArr = [...pagesArr, page];
+			sitePages.map((page: {english: string, french: string}) => {
+				if (page[locale.localLang.lang].toLowerCase().includes(queryTerm.toLowerCase()) && !pagesArr.includes(page[locale.localLang.lang])) {
+					pagesArr = [...pagesArr, page[locale.localLang.lang]];
 				}
 			});
 		});
 
 		// populate results array with query-matched products, blogs and pages
 		productsArr.map((prod) => {
-			results = [...results, <ResultsProductCard product={prod} />]
+			results = [...results, <ResultsProductCard product={prod} locale={locale} />]
 		});
 
 		blogsArr.map((blog) => {
-			results = [...results, <ResultsBlogCard blog={blog} />]
+			results = [...results, <ResultsBlogCard blog={blog} localLang={locale.localLang} />]
 		});
 
 		pagesArr.map((page) => {
-			results = [...results, <ResultsPageCard page={page} />]
+			results = [...results, <ResultsPageCard page={page} localLang={locale.localLang} />]
 		})
 
 		if (atLeastOneProduct) {
-			results = [...results, <ResultsPageCard page="Shop" />]
+			results = [...results, <ResultsPageCard page="Shop" localLang={locale.localLang} />]
 		}
 
 		return results;

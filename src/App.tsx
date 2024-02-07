@@ -9,11 +9,13 @@ import BlogPost from './pages/BlogPost';
 import Page404 from './pages/Page404';
 import { CartProvider } from './components/CartContext';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import ProductInfo from './pages/ProductInfo';
 import Search from './pages/Search';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { localityText } from './data/locality';
+
 
 export default function App() {
 
@@ -44,11 +46,12 @@ export default function App() {
 					<Route path='/product/:product_name' element={<ProductInfo locale={locale} setLocale={setLocale} />} />
 					<Route path='/blog' element={<Blog localLang={locale.localLang} setLocale={setLocale} />} />
 					<Route path='/blog/:blog_title' element={<BlogPost localLang={locale.localLang} setLocale={setLocale} />} />
-					<Route path='/contact' element={<Contact locale={locale} setLocale={setLocale} />} />
+					<Route path='/contact' element={<Contact localLang={locale.localLang} setLocale={setLocale} />} />
 					<Route path='/cart' element={<Cart locale={locale} setLocale={setLocale} />} />
+					<Route path='/checkout' element={<Checkout locale={locale} setLocale={setLocale} />} />
 					<Route path='/search' element={<Search locale={locale} setLocale={setLocale} />} />
 					<Route path='/search/:search_query' element={<Search locale={locale} setLocale={setLocale} />} />
-					<Route path='*' element={<Page404 locale={locale} />} />
+					<Route path='*' element={<Page404 localLang={locale.localLang.text} />} />
 				</Routes>	
 			</CartProvider>
 		</>

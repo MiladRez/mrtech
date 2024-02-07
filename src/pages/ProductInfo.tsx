@@ -40,13 +40,17 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 	// always displays to two decimal places
 	const price = product.id
 		? (locale.localCurrency === "cad"
-			? product.price[locale.localCurrency].toLocaleString("en-CA", { style: "currency", currency: "CAD" })
+			? locale.localLang.lang === "english"
+				? product.price[locale.localCurrency].toLocaleString("en-CA", {style: "currency", currency: "CAD"})
+				: product.price[locale.localCurrency].toLocaleString("fr-CA", {style: "currency", currency: "CAD"})
 			: product.price[locale.localCurrency].toLocaleString("en-US", { style: "currency", currency: "USD" }))
 		: null;
 	
 	const salePrice = product.id && product.salePrice
 		? (locale.localCurrency === "cad"
-			? product.salePrice[locale.localCurrency].toLocaleString("en-CA", { style: "currency", currency: "CAD" })
+			? locale.localLang.lang === "english"
+				? product.salePrice[locale.localCurrency].toLocaleString("en-CA", {style: "currency", currency: "CAD"})
+				: product.salePrice[locale.localCurrency].toLocaleString("fr-CA", {style: "currency", currency: "CAD"})
 			: product.salePrice[locale.localCurrency].toLocaleString("en-US", { style: "currency", currency: "USD" }))
 		: null;
 
@@ -152,7 +156,7 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 			<NavBar
 				product={productAddedToCart}
 				setProduct={setProductAddedToCart}
-				localLang={locale.localLang.text}
+				localLang={locale.localLang}
 				setLocale={setLocale}
 			/>
 			<section className="flex justify-center">
@@ -244,7 +248,7 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 									stock > 0
 										? "hover:ring-2 transition-all duration-200"
 										: "cursor-not-allowed"
-								} px-4 py-3 text-sm ring-1 ring-neutral-500`}
+								} px-4 py-4 text-sm ring-1 ring-neutral-500`}
 							>
 								{ localLang.product_info_add_to_cart }
 							</button>
@@ -253,7 +257,7 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 									stock > 0
 										? "hover:bg-primary hover:border-primary hover:text-white transition duration-200"
 										: "cursor-not-allowed"
-								} border border-black px-4 py-3 bg-black text-white text-sm`}
+								} border border-black px-4 py-4 bg-black text-white text-sm`}
 							>
 								{ localLang.product_info_buy_now }
 							</button>

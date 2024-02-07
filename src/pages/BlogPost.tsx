@@ -50,33 +50,33 @@ export default function BlogPost({localLang, setLocale}: { localLang: {text: any
 
 	return (		  
 		<>
-			<NavBar localLang={localLang.text} setLocale={setLocale} />
+			<NavBar localLang={localLang} setLocale={setLocale} />
 			<section className="flex justify-center">
 				<div className="flex flex-col max-w-screen-xl px-12 py-20">
 					<div className="flex flex-col gap-12">
 						<img src={ img ? img.toString() : "" } className="w-full h-[36rem] object-cover" />	
 						<div className="flex flex-col items-center">
 							<div className="w-2/3 flex flex-col gap-4">
-								<div className="relative flex items-end justify-between">
+								<div className="flex items-end justify-between">
 									<h2 className="text-4xl">{title}</h2>	
-									<div className="flex items-center gap-2 group cursor-pointer" onClick={ handleShareButtonClick }>
+									<div className="relative flex items-center gap-2 group cursor-pointer" onClick={ handleShareButtonClick }>
 										<p className="group-hover:underline">{ localLang.text.blog_share }</p>
 										<svg stroke="currentColor" strokeWidth={1.7} fill="none" className="w-5 h-5">
 											<use href="src/icons_sprite.svg#share" />
 										</svg>
-									</div>
-									<div id="copyLink" className={`${ copyLinkVisible ? "max-h-32 ring-1" : "max-h-0 ring-0" } absolute right-0 top-14 w-80 ring-neutral-500 hover:ring-2 transition-all duration-200 overflow-hidden`}>
-										<div className={`${ copiedToClipboardVisible ? "hidden" : "" } relative flex`}>
-											<label className="absolute top-1 left-4 text-neutral-500 text-[10px] pointer-events-none">{ localLang.text.blog_link }</label>
-											<p className="w-full pt-4 px-4 text-sm text-clip overflow-hidden whitespace-nowrap">{ window.location.href }</p>
-											<button className="bg-white px-3 py-3" onClick={handleCopyLinkButtonClick}>
-												<svg stroke="currentColor" strokeWidth={0.01} className="w-5 h-5 hover:scale-110 transition duration-100">
-													<use href="src/icons_sprite.svg#copy" />
-												</svg>
-											</button>	
-										</div>
-										<div className={`${ copiedToClipboardVisible ? "flex justify-center" : "hidden" }`}>
-											<p className="px-4 py-3 text-sm">{ localLang.text.blog_copied_to_clipboard }</p>	
+										<div id="copyLink" className={`${ copyLinkVisible ? "max-h-32 ring-1" : "max-h-0 ring-0" } absolute right-0 top-8 w-80 ring-neutral-500 hover:ring-2 transition-all duration-200 overflow-hidden`}>
+											<div className={`${ copiedToClipboardVisible ? "hidden" : "" } relative flex`}>
+												<label className="absolute top-1 left-4 text-neutral-500 text-[10px] pointer-events-none">{ localLang.text.blog_link }</label>
+												<p className="w-full pt-4 px-4 text-sm text-clip overflow-hidden whitespace-nowrap">{ window.location.href }</p>
+												<button className="bg-white px-3 py-3" onClick={handleCopyLinkButtonClick}>
+													<svg stroke="currentColor" strokeWidth={0.01} className="w-5 h-5 hover:scale-110 transition duration-100">
+														<use href="src/icons_sprite.svg#copy" />
+													</svg>
+												</button>	
+											</div>
+											<div className={`${ copiedToClipboardVisible ? "flex justify-center" : "hidden" }`}>
+												<p className="px-4 py-3 text-sm">{ localLang.text.blog_copied_to_clipboard }</p>	
+											</div>
 										</div>
 									</div>
 								</div>

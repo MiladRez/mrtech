@@ -40,7 +40,7 @@ export default function FeaturedProducts({ header, subheader, products, viewAllP
 				<div className="flex gap-2 justify-between">
 					{
 						products.slice(0, 4).map((prod, index) => (
-							<Product product={prod} key={index} addToCart={addToCart} localLang={locale.localLang.text} localCurrency={locale.localCurrency} />
+							<Product product={prod} key={index} addToCart={addToCart} localLang={locale.localLang} localCurrency={locale.localCurrency} />
 						))
 					}
 				</div>

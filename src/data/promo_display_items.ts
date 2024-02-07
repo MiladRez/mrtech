@@ -13,7 +13,7 @@ export const item1: PromoDisplayItem = {
 	img: USBHub,
 	header: {
 		english: "Items Up To 50% Off",
-		french: ""
+		french: "Articles jusqu'à 50% de réduction"
 	}
 }
 
@@ -21,6 +21,6 @@ export const item2: PromoDisplayItem = {
 	img: PreBuiltSystem,
 	header: {
 		english: "Pre-Built Systems",
-		french: ""
+		french: "Systèmes pré-assemblés"
 	}
 }

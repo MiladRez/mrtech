@@ -10,7 +10,7 @@ export default function Blog({localLang, setLocale}: { localLang: {text: any, la
 
 	return (
 		<>
-			<NavBar localLang={localLang.text} setLocale={setLocale} />
+			<NavBar localLang={localLang} setLocale={setLocale} />
 			<div className="flex justify-center">
 				<div className="flex flex-col gap-12 max-w-screen-xl px-12 py-20">
 					<h1 className="text-4xl">{ localLang.text.blog_header }</h1>
@@ -22,7 +22,7 @@ export default function Blog({localLang, setLocale}: { localLang: {text: any, la
 							<div className="flex flex-col items-center gap-2 px-2 pt-4">
 								<h2 className="text-xl group-hover:underline">{headerBlog.title[localLang.lang]}</h2>
 								<p className="text-xs text-neutral-500">{headerBlog.date[localLang.lang]}</p>
-								<p className="text-neutral-500 pt-2">{headerBlog.desc[localLang.lang]}</p>
+								<p className="text-neutral-500 pt-2 w-1/2 text-center">{headerBlog.desc[localLang.lang]}</p>
 							</div>		
 						</div>	
 					</Link>

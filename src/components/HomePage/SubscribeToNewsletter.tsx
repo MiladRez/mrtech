@@ -32,7 +32,7 @@ export default function SubscribeToNewsletter({ localLang }: { localLang: any })
 							</button>	
 						</div>
 					</div>
-					<div className="flex pt-24 gap-12">
+					<div className="w-full flex justify-between pt-24 gap-10">
 						{customerServices("free-delivery", localLang.newsletter_customer_service_1_header, localLang.newsletter_customer_service_1_subheader)}
 						{customerServices("money-back2", localLang.newsletter_customer_service_2_header, localLang.newsletter_customer_service_2_subheader)}
 						{customerServices("secure-payment", localLang.newsletter_customer_service_3_header, localLang.newsletter_customer_service_3_subheader)}

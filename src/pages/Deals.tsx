@@ -31,7 +31,7 @@ export default function Deals({ locale, setLocale }: DealsProps) {
 			<NavBar
 				product={product}
 				setProduct={setProduct}
-				localLang={locale.localLang.text}
+				localLang={locale.localLang}
 				setLocale={setLocale}
 			/>
 			<ProductListHeader title={localLang.deals_header} desc={localLang.deals_subheader} />

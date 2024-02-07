@@ -31,7 +31,7 @@ export default function Shop({ locale, setLocale }: ShopProps) {
 			<NavBar
 				product={product}
 				setProduct={setProduct}
-				localLang={locale.localLang.text}
+				localLang={locale.localLang}
 				setLocale={setLocale}
 			/>
 			<ProductListHeader title={localLang.shop_header} desc={localLang.shop_subheader} />

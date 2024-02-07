@@ -17,7 +17,10 @@ const siteLocality = new Map([
 type NavBarProps = {
 	product?: ProductItem | null,
 	setProduct?: Function,
-	localLang: any,
+	localLang: {
+		text: any,
+		lang: "english" | "french"
+	},
 	setLocale: Function
 }
 
@@ -34,6 +37,8 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 			? { name: localStorage.locality, img: siteLocality.get(localStorage.locality)?.flag }
 			: { name: "Canada (EN)", img: CanadaFlagIcon }
 	);
+
+	const text = localLang.text;
 
 	let img, name, manufacturer;
 
@@ -135,7 +140,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 									<svg className="w-3.5 h-3.5">
 										<use href="src/icons_sprite.svg#checkmark" />
 									</svg>
-									<p className="text-xs">{localLang.nav_prod_popup_noti}</p>
+									<p className="text-xs">{text.nav_prod_popup_noti}</p>
 								</div>
 								<div className="flex items-center">
 									<img src={img ? img.toString() : ""} className="w-28 px-4 py-4" />
@@ -147,14 +152,14 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 								<div className="flex flex-col items-center gap-2">
 									<a href="/cart" className="w-full">
 										<button className="w-full py-3 text-sm ring-1 ring-neutral-500 hover:ring-2 transition-all duration-200">
-											{localLang.nav_prod_popup_view_my_cart}
+											{text.nav_prod_popup_view_my_cart}
 										</button>
 									</a>
 									<button className="w-full py-3 bg-black text-white text-sm ring-1 ring-black hover:bg-primary hover:ring-2 hover:ring-primary hover:text-white transition duration-200">
-										{localLang.nav_prod_popup_checkout}
+										{text.nav_prod_popup_checkout}
 									</button>
 									<p onClick={closeItemAddedPopup} className="cursor-pointer pt-2 hover:underline">
-										{ localLang.nav_prod_popup_continue_shopping }
+										{ text.nav_prod_popup_continue_shopping }
 									</p>
 								</div>
 							</div>
@@ -168,16 +173,16 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 						<div className="pl-8">
 							<div className="flex items-center gap-8 text-sm">
 								<a href="/shop" className="hover:text-primary cursor-pointer">
-									{ localLang.nav_shop }
+									{ text.nav_shop }
 								</a>
 								<a href="/deals" className="hover:text-primary cursor-pointer">
-									{ localLang.nav_deals }
+									{ text.nav_deals }
 								</a>
 								<a href="/blog" className="hover:text-primary cursor-pointer">
-									{ localLang.nav_blog }
+									{ text.nav_blog }
 								</a>
 								<a href="/contact" className="hover:text-primary cursor-pointer">
-									{ localLang.nav_contact }
+									{ text.nav_contact }
 								</a>
 								<div>
 									<Dropdown
@@ -209,7 +214,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 									</Dropdown>
 								</div>
 								<a href="/login" className="uppercase cursor-pointer hover:text-primary">
-									{ localLang.nav_register_signin }
+									{ text.nav_register_signin }
 								</a>
 							</div>
 						</div>
@@ -250,7 +255,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 					} pt-40 transition-[max-height] duration-200 overflow-hidden`}
 				>
 					<div className="max-w-screen-xl px-12">
-						<SearchBar searchBarInput={searchBarInput} search={search} searchResults={true} query="" />
+						<SearchBar searchBarInput={searchBarInput} search={search} searchResults={true} query="" localLang={localLang} />
 					</div>
 				</div>
 			</section>
