@@ -48,6 +48,10 @@ export default function BlogPost({localLang, setLocale}: { localLang: {text: any
 		})
 	}, [blog_title]);
 
+	useEffect(() => {
+		console.log(copiedToClipboardVisible)
+	}, [copiedToClipboardVisible])
+
 	return (		  
 		<>
 			<NavBar localLang={localLang} setLocale={setLocale} />

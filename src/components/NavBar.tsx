@@ -1,12 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import mrtechLogo from "../images/mrtech-logo.png";
-import { Dropdown } from "flowbite-react";
+import {Dropdown} from "flowbite-react";
 import CanadaFlagIcon from "../images/canada-flag.png";
 import USAFlagIcon from "../images/usa-flag.png";
-import { useCart } from "./CartContext";
-import { ProductItem } from "../data/products";
+import {useCart} from "./CartContext";
+import {ProductItem} from "../data/products";
 import SearchBar from "./SearchBar";
-import { localityText } from "../data/locality";
+import {localityText} from "../data/locality";
+import AddedToCartPopup from "./AddedToCartPopup";
+import {useNavigate} from "react-router-dom";
 
 const siteLocality = new Map([
 	["Canada (EN)", {locale: {text: localityText.english, lang: "english"}, currency: "cad", flag: CanadaFlagIcon}],
@@ -15,38 +17,31 @@ const siteLocality = new Map([
 ]);
 
 type NavBarProps = {
-	product?: ProductItem | null,
-	setProduct?: Function,
+	product?: ProductItem | null;
+	setProduct?: Function;
 	localLang: {
-		text: any,
-		lang: "english" | "french"
-	},
-	setLocale: Function
-}
+		text: any;
+		lang: "english" | "french";
+	};
+	setLocale: Function;
+};
 
-export default function NavBar({ product, setProduct, localLang, setLocale }: NavBarProps) {
-	const { numOfItemsInCart } = useCart();
+export default function NavBar({product, setProduct, localLang, setLocale}: NavBarProps) {
+	const {numOfItemsInCart, clearCart} = useCart();
 
 	const searchBarInput = useRef<HTMLInputElement>(null);
+	const navigate = useNavigate();
 
 	const [prevScrollPos, setPrevScrollPos] = useState(0);
 	const [visible, setVisible] = useState(true);
 	const [search, setSearch] = useState(false);
 	const [locality, setLocality] = useState(
 		localStorage.locality
-			? { name: localStorage.locality, img: siteLocality.get(localStorage.locality)?.flag }
-			: { name: "Canada (EN)", img: CanadaFlagIcon }
+			? {name: localStorage.locality, img: siteLocality.get(localStorage.locality)?.flag}
+			: {name: "Canada (EN)", img: CanadaFlagIcon}
 	);
 
 	const text = localLang.text;
-
-	let img, name, manufacturer;
-
-	if (product) {
-		img = product.img;
-		name = product.name;
-		manufacturer = product.manufacturer;
-	}
 
 	const handleScroll = () => {
 		const currentScrollPos = window.scrollY;
@@ -58,7 +53,6 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 				setVisible(true);
 			}
 		}
-
 		setPrevScrollPos(currentScrollPos);
 	};
 
@@ -101,6 +95,20 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 		document.removeEventListener("mouseup", closeWhenClickedOutsideCartPopup);
 	};
 
+	const handleLocalityChange = (locale: string) => {
+		let proceed = confirm(`Go to MRtech-${locale.replace(/ /g, "")} site? \n(This action will clear your cart.)`);
+		if (proceed) {
+			setLocality({name: locale, img: siteLocality.get(locale)?.flag})
+			localStorage.setItem("locality", locale);
+			setLocale({
+				localLang: siteLocality.get(locale)?.locale,
+				localCurrency: siteLocality.get(locale)?.currency
+			});
+			clearCart();
+			navigate("/");
+		}
+	}
+
 	useEffect(() => {
 		product ? document.addEventListener("mouseup", closeWhenClickedOutsideCartPopup) : null;
 
@@ -111,60 +119,26 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 
 	useEffect(() => {
 		localStorage.setItem("locality", locality.name!);
-		setLocale({ localLang: siteLocality.get(locality.name)?.locale, localCurrency: siteLocality.get(locality.name)?.currency });
-	}, [locality]);
+		setLocale({
+			localLang: siteLocality.get(locality.name)?.locale,
+			localCurrency: siteLocality.get(locality.name)?.currency
+		});
+	}, []);
 
 	return (
 		<>
 			<nav
-				className={`fixed ${visible ? "max-h-24" : "max-h-0 overflow-hidden"} w-screen flex justify-center bg-stone-50 border-b z-20 transition-[max-height] duration-300`}
+				className={`fixed ${
+					visible ? "max-h-24" : "max-h-0 overflow-hidden"
+				} w-screen flex justify-center bg-stone-50 border-b z-20 transition-[max-height] duration-300`}
 			>
 				<div className="relative flex w-full max-w-screen-xl justify-between px-12 py-4">
-					{/* cart added popup */}
-					<div className="absolute left-0 top-0 w-full h-full px-12 py-4 flex justify-end pointer-events-none">
-						<div
-							id="cartPopup"
-							className={`fixed ${product ? "" : "hidden"} ${
-								visible ? "top-24" : "top-0"
-							} border-x border-b shadow-xl w-96 bg-white transition-[top] duration-300 pointer-events-auto`}
-						>
-							<div className="relative flex flex-col gap-2 px-12 py-8">
-								<svg
-									onClick={closeItemAddedPopup}
-									stroke="currentColor"
-									className="absolute top-0 right-0 mx-8 my-8 w-5 h-5 cursor-pointer hover:scale-125 transition duration-200"
-								>
-									<use href="src/icons_sprite.svg#cross" />
-								</svg>
-								<div className="flex items-center gap-2">
-									<svg className="w-3.5 h-3.5">
-										<use href="src/icons_sprite.svg#checkmark" />
-									</svg>
-									<p className="text-xs">{text.nav_prod_popup_noti}</p>
-								</div>
-								<div className="flex items-center">
-									<img src={img ? img.toString() : ""} className="w-28 px-4 py-4" />
-									<div className="flex flex-col gap-1">
-										<p className="text-sm">{name}</p>
-										<p className="text-xs text-neutral-500">{manufacturer}</p>
-									</div>
-								</div>
-								<div className="flex flex-col items-center gap-2">
-									<a href="/cart" className="w-full">
-										<button className="w-full py-3 text-sm ring-1 ring-neutral-500 hover:ring-2 transition-all duration-200">
-											{text.nav_prod_popup_view_my_cart}
-										</button>
-									</a>
-									<button className="w-full py-3 bg-black text-white text-sm ring-1 ring-black hover:bg-primary hover:ring-2 hover:ring-primary hover:text-white transition duration-200">
-										{text.nav_prod_popup_checkout}
-									</button>
-									<p onClick={closeItemAddedPopup} className="cursor-pointer pt-2 hover:underline">
-										{ text.nav_prod_popup_continue_shopping }
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
+					<AddedToCartPopup
+						product={product}
+						visible={visible}
+						closeItemAddedPopup={closeItemAddedPopup}
+						localLang={text}
+					/>
 					{/* navbar pages */}
 					<div className="flex items-center">
 						<a href="/home">
@@ -173,16 +147,16 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 						<div className="pl-8">
 							<div className="flex items-center gap-8 text-sm">
 								<a href="/shop" className="hover:text-primary cursor-pointer">
-									{ text.nav_shop }
+									{text.nav_shop}
 								</a>
 								<a href="/deals" className="hover:text-primary cursor-pointer">
-									{ text.nav_deals }
+									{text.nav_deals}
 								</a>
 								<a href="/blog" className="hover:text-primary cursor-pointer">
-									{ text.nav_blog }
+									{text.nav_blog}
 								</a>
 								<a href="/contact" className="hover:text-primary cursor-pointer">
-									{ text.nav_contact }
+									{text.nav_contact}
 								</a>
 								<div>
 									<Dropdown
@@ -199,9 +173,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 											.filter(localeName => localeName != locality.name)
 											.map((locale, index) => (
 												<Dropdown.Item
-													onClick={() =>
-														setLocality({ name: locale, img: siteLocality.get(locale)?.flag })
-													}
+													onClick={() => handleLocalityChange(locale)}
 													key={index}
 													className="pr-5"
 												>
@@ -214,7 +186,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 									</Dropdown>
 								</div>
 								<a href="/login" className="uppercase cursor-pointer hover:text-primary">
-									{ text.nav_register_signin }
+									{text.nav_register_signin}
 								</a>
 							</div>
 						</div>
@@ -249,18 +221,20 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 					search ? "bg-black/50 pointer-events-auto" : ""
 				} w-screen h-screen flex justify-center z-20 pointer-events-none`}
 			>
-				<div
-					className={`${
-						search ? "max-h-min" : "max-h-0"
-					} pt-40 transition-[max-height] duration-200 overflow-hidden`}
-				>
+				<div className={`${search ? "max-h-min" : "max-h-0"} pt-40 transition-[max-height] duration-200 overflow-hidden`}>
 					<div className="max-w-screen-xl px-12">
-						<SearchBar searchBarInput={searchBarInput} search={search} searchResults={true} query="" localLang={localLang} />
+						<SearchBar
+							searchBarInput={searchBarInput}
+							search={search}
+							searchResults={true}
+							query=""
+							localLang={localLang}
+						/>
 					</div>
 				</div>
 			</section>
 			{/* nav is fixed but still want it to take up space */}
-			<section className={`invisible h-24`}></section>
+			<section className="invisible h-24"></section>
 		</>
 	);
 }

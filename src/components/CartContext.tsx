@@ -7,10 +7,11 @@ type CartContextType = {
 	totalCost: number,
 	addItemToCart: Function,
 	removeItemFromCart: Function,
-	updateItemQuantity: Function
+	updateItemQuantity: Function,
+	clearCart: Function
 }
 
-const CartContext = createContext<CartContextType>({cart: new Map(), numOfItemsInCart: 0, totalCost: 0, addItemToCart: Function, removeItemFromCart: Function, updateItemQuantity: Function });
+const CartContext = createContext<CartContextType>({cart: new Map(), numOfItemsInCart: 0, totalCost: 0, addItemToCart: Function, removeItemFromCart: Function, updateItemQuantity: Function, clearCart: Function });
 
 export function CartProvider({ children } : { children: ReactNode }) {
 	const [cart, setCart] = useState(new Map<ProductItem, number>(localStorage.cart ? JSON.parse(localStorage.cart) : null));
@@ -85,8 +86,18 @@ export function CartProvider({ children } : { children: ReactNode }) {
 		setTotalCost(totalCost + (itemPrice * quantityDiff));
 	}
 
+	const clearCart = () => {
+		setCart(new Map());
+		setNumOfItemsInCart(0);
+		setTotalCost(0.00);
+		
+		localStorage.removeItem("cart");
+		localStorage.removeItem("numOfItemsInCart");
+		localStorage.removeItem("totalCost");
+	}
+
 	return (
-		<CartContext.Provider value={{ cart, numOfItemsInCart, totalCost, addItemToCart, removeItemFromCart, updateItemQuantity }}>
+		<CartContext.Provider value={{ cart, numOfItemsInCart, totalCost, addItemToCart, removeItemFromCart, updateItemQuantity, clearCart }}>
 			{children}
 		</CartContext.Provider>
 	);

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {ProductItem} from "../../data/products";
+import {getInLocalLangAndCurrency} from "../../data/products";
 
 type ResultsProductCardProps = {
 	product: ProductItem,
@@ -17,18 +18,10 @@ export default function ResultsProductCard({ product, locale }: ResultsProductCa
 	const {name, img, manufacturer, stock} = product; 
 
 	// always displays to two decimal places
-	const price = locale.localCurrency === "cad"
-		? locale.localLang.lang === "english"
-			? product.price[locale.localCurrency].toLocaleString("en-CA", {style: "currency", currency: "CAD"})
-			: product.price[locale.localCurrency].toLocaleString("fr-CA", {style: "currency", currency: "CAD"})
-		: product.price[locale.localCurrency].toLocaleString("en-US", { style: "currency", currency: "USD" });
+	const price = getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, product.price[locale.localCurrency]);
 
 	const salePrice = product.salePrice
-		? locale.localCurrency === "cad"
-			? locale.localLang.lang === "english"
-				? product.salePrice[locale.localCurrency].toLocaleString("en-CA", {style: "currency", currency: "CAD"})
-				: product.salePrice[locale.localCurrency].toLocaleString("fr-CA", {style: "currency", currency: "CAD"})
-			: product.salePrice[locale.localCurrency].toLocaleString("en-US", { style: "currency", currency: "USD" })
+		? getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, product.salePrice[locale.localCurrency])
 		: null;
 
 	return (

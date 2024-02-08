@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import FeaturedProducts from "../components/HomePage/FeaturedProducts";
-import { allProducts } from "../data/products";
+import { ProductItem, allProducts } from "../data/products";
 import CartList from "../components/CartPage/CartList";
 
 type CartProps = {
@@ -19,11 +19,14 @@ type CartProps = {
 export default function Cart({locale, setLocale}: CartProps) {
 
 	const [product, setProduct] = useState(null);
+	const [freqBoughtTogetherList, setFreqBoughtTogetherList] = useState([] as ProductItem[]);
 
 	const localLang = locale.localLang.text;
 
-	const randomProductsList = allProducts.sort(() => 0.5 - Math.random());
-	let freqBoughtTogetherList = randomProductsList.slice(0, 4);
+	useEffect(() => {
+		const randomProductsList = allProducts.sort(() => 0.5 - Math.random());
+		setFreqBoughtTogetherList(randomProductsList.slice(0, 4));
+	}, []);
 
 	return (
 		<>

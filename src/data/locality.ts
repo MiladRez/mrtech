@@ -41,7 +41,8 @@ export const localityText = {
 		footer_section_6_link2: "iOS App",
 
 		footer_signup_email_header: "Be the first to know",
-		footer_signup_email_subheader: "Sign up to stay in the loop about the hottest deals, coolest new products, and exclusive sales events.",
+		footer_signup_email_subheader:
+			"Sign up to stay in the loop about the hottest deals, coolest new products, and exclusive sales events.",
 		footer_signup_email: "Email Address",
 		footer_signup_email_button: "Sign Up",
 
@@ -65,7 +66,7 @@ export const localityText = {
 
 		featured_blogs_header: "Our Latest Blogs",
 		featured_blogs_subheader: "Trending Tech Talks",
-		
+
 		newsletter_header: "Subscribe to our Newsletter",
 		newsletter_subheader: "Subscribe now and get 10% off your first purchase",
 		newsletter_email: "Email",
@@ -95,7 +96,7 @@ export const localityText = {
 		sort_products: "products",
 		sort_no_products_found: "No products found matching the selected filters",
 		sort_clear_filter: "Clear filters",
-		
+
 		filter_1_header: "Availability",
 		filter_1_checkbox_1: "In stock",
 		filter_1_checkbox_2: "Out of stock",
@@ -179,6 +180,37 @@ export const localityText = {
 		cart_freq_bought_together_header: "Frequently bought together",
 		cart_freq_bought_together_subheader: "Save with bundled products",
 
+		checkout_contact_header: "Contact",
+		checkout_contact_input: "Email or mobile phone number",
+		checkout_contact_checkbox: "Email me with news and offers",
+		checkout_delivery_header: "Delivery",
+		checkout_delivery_country: "Country/Region",
+		checkout_delivery_firstname: "First name",
+		checkout_delivery_lastname: "Last name",
+		checkout_delivery_address: "Address",
+		checkout_delivery_address_note: "Add a house number if you have one",
+		checkout_delivery_city: "City",
+		checkout_delivery_province: "Province/Territory",
+		checkout_delivery_postalcode: "Postal code",
+		checkout_delivery_save_info: "Save this information for next time",
+		checkout_shipping_header: "Shipping method",
+		checkout_shipping_method_1_name: "Economy",
+		checkout_shipping_method_1_fee: "Free",
+		checkout_shipping_method_1_eta: "3 to 5 business days",
+		checkout_shipping_method_2_name: "Express",
+		checkout_shipping_method_2_fee: "$4.99",
+		checkout_shipping_method_2_eta: "1 to 2 business days",
+		checkout_payment_header: "Payment",
+		checkout_payment_subheader: "All transactions are secure and encrypted.",
+		checkout_payment_store_closed: "This store can't accept payments right now.",
+		checkout_pay_now_button: "Pay now",
+		checkout_subtotal: "Subtotal",
+		checkout_taxes: "Taxes",
+		checkout_shipping: "Shipping",
+		checkout_shipping_free: "Free",
+		checkout_shipping_add_address: "Enter shipping address",
+		checkout_total: "Total",
+
 		page_404: "Page Not Found"
 	},
 	french: {
@@ -247,7 +279,7 @@ export const localityText = {
 
 		featured_blogs_header: "Nos Derniers Blogues",
 		featured_blogs_subheader: "Conférences Tech Tendances",
-		
+
 		newsletter_header: "Abonnez-vous à notre Newsletter",
 		newsletter_subheader: "Abonnez-vous maintenant et obtenez 10% de réduction sur votre premier achat",
 		newsletter_email: "Courriel",
@@ -277,7 +309,7 @@ export const localityText = {
 		sort_products: "produits",
 		sort_no_products_found: "Aucun produit trouvé correspondant aux filtres sélectionnés",
 		sort_clear_filter: "Effacer les filtres",
-		
+
 		filter_1_header: "Disponibilité",
 		filter_1_checkbox_1: "En stock",
 		filter_1_checkbox_2: "Rupture de stock",
@@ -361,6 +393,107 @@ export const localityText = {
 		cart_freq_bought_together_header: "Fréquemment achetés ensemble",
 		cart_freq_bought_together_subheader: "Économisez avec des produits regroupés",
 
+		checkout_contact_header: "Contact",
+		checkout_contact_input: "Courriel ou numéro de téléphone portable",
+		checkout_contact_checkbox: "Envoyez-moi des nouvelles et des offres par courriel",
+		checkout_delivery_header: "Livraison",
+		checkout_delivery_country: "Pays/Région",
+		checkout_delivery_firstname: "Prénom",
+		checkout_delivery_lastname: "Nom de famille",
+		checkout_delivery_address: "Adresse",
+		checkout_delivery_address_note: "Ajoutez un numéro de maison si vous en avez un",
+		checkout_delivery_city: "Ville",
+		checkout_delivery_province: "Province/Territoire",
+		checkout_delivery_postalcode: "Code postal",
+		checkout_delivery_save_info: "Enregistrer ces informations pour la prochaine fois",
+		checkout_shipping_header: "Expédition",
+		checkout_shipping_method_1_name: "Economie",
+		checkout_shipping_method_1_fee: "Gratuit",
+		checkout_shipping_method_1_eta: "3 à 5 jours ouvrables",
+		checkout_shipping_method_2_name: "Express",
+		checkout_shipping_method_2_fee: "4,99 $",
+		checkout_shipping_method_2_eta: "1 à 2 jours ouvrables",
+		checkout_payment_header: "Paiement",
+		checkout_payment_subheader: "Toutes les transactions sont sécurisées et cryptées.",
+		checkout_payment_store_closed: "Ce magasin ne peut pas accepter les paiements pour le moment.",
+		checkout_pay_now_button: "Payez maintenant",
+		checkout_subtotal: "Sous-total",
+		checkout_taxes: "Impôts",
+		checkout_shipping: "Expédition",
+		checkout_shipping_free: "Gratuit",
+		checkout_shipping_add_address: "Entrez l'adresse de livraison",
+		checkout_total: "Total",
+
 		page_404: "Page non trouvée"
 	}
-}
+};
+
+export const provincesAndStates = {
+	cad: [
+		"Alberta",
+		"British Columbia",
+		"Manitoba",
+		"New Brunswick",
+		"Newfoundland and Labrador",
+		"Northwest Territories",
+		"Nova Scotia",
+		"Nunavut",
+		"Ontario",
+		"Prince Edward Island",
+		"Quebec",
+		"Saskatchewan",
+		"Yukon"
+	],
+	usd: [
+		"Alabama",
+		"Alaska",
+		"Arizona",
+		"Arkansas",
+		"California",
+		"Colorado",
+		"Connecticut",
+		"Delaware",
+		"Florida",
+		"Georgia",
+		"Hawaii",
+		"Idaho",
+		"Illinois",
+		"Indiana",
+		"Iowa",
+		"Kansas",
+		"Kentucky",
+		"Louisiana",
+		"Maine",
+		"Maryland",
+		"Massachusetts",
+		"Michigan",
+		"Minnesota",
+		"Mississippi",
+		"Missouri",
+		"Montana",
+		"Nebraska",
+		"Nevada",
+		"New Hampshire",
+		"New Jersey",
+		"New Mexico",
+		"New York",
+		"North Carolina",
+		"North Dakota",
+		"Ohio",
+		"Oklahoma",
+		"Oregon",
+		"Pennsylvania",
+		"Rhode Island",
+		"South Carolina",
+		"South Dakota",
+		"Tennessee",
+		"Texas",
+		"Utah",
+		"Vermont",
+		"Virginia",
+		"Washington",
+		"West Virginia",
+		"Wisconsin",
+		"Wyoming"
+	]
+};

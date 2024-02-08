@@ -8,7 +8,10 @@ export default {
 		extend: {
 			colors: {
 				primary: "#138BFC"
-			}
+			},
+			fontFamily: {
+				'sans': ["Sora", "sans-serif"]		
+			},
 		},
 	},
 	variants: {

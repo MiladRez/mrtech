@@ -1,6 +1,7 @@
 import React from "react";
 import { ProductItem } from "../data/products";
 import { Link } from "react-router-dom";
+import {getInLocalLangAndCurrency} from "../data/products";
 
 type ProductProps = {
 	product: ProductItem,
@@ -17,18 +18,10 @@ export default function Product({ product, addToCart, localLang, localCurrency }
 	const {img, name, manufacturer, stock} = product;
 
 	// always displays to two decimal places
-	const price = localCurrency === "cad"
-		? (localLang.lang === "english"
-			? product.price[localCurrency].toLocaleString("en-CA", {style: "currency", currency: "CAD"})
-			: product.price[localCurrency].toLocaleString("fr-CA", {style: "currency", currency: "CAD"}))
-		: product.price[localCurrency].toLocaleString("en-US", { style: "currency", currency: "USD" });
+	const price = getInLocalLangAndCurrency(localCurrency, localLang.lang, product.price[localCurrency]);
 	
 	const salePrice = product.salePrice
-		? localCurrency === "cad"
-			? (localLang.lang === "english")
-				? product.salePrice[localCurrency].toLocaleString("en-CA", {style: "currency", currency: "CAD"})
-				: product.salePrice[localCurrency].toLocaleString("fr-CA", {style: "currency", currency: "CAD"})
-			: product.salePrice[localCurrency].toLocaleString("en-US", { style: "currency", currency: "USD" })
+		? getInLocalLangAndCurrency(localCurrency, localLang.lang, product.salePrice[localCurrency])
 		: null;
 
 	const handleAddProductToCart = () => {
@@ -40,7 +33,7 @@ export default function Product({ product, addToCart, localLang, localCurrency }
 	return (
 		<div className="flex flex-col justify-between w-72 group">
 			<Link to={`/product/${encodeURIComponent(name)}`}>
-				<div className="flex flex-col h-full justify-between gap-4 pb-5">
+				<div className="flex flex-col h-[27rem] justify-between pb-5">
 					<div>
 						<div className="relative">
 							<img src={img.toString()} className={`w-72 px-6 py-6 group-hover:scale-105 transition duration-300 ${stock > 0 ? "" : "grayscale"}`} />

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import FeaturedProducts from "../components/HomePage/FeaturedProducts";
 import { ProductItem, allProducts } from "../data/products";
 import StarRatings from "react-star-ratings";
 import { useCart } from "../components/CartContext";
+import {getInLocalLangAndCurrency} from "../data/products";
 
 type ProductInfoProps = {
 	locale: {
@@ -39,19 +40,11 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 
 	// always displays to two decimal places
 	const price = product.id
-		? (locale.localCurrency === "cad"
-			? locale.localLang.lang === "english"
-				? product.price[locale.localCurrency].toLocaleString("en-CA", {style: "currency", currency: "CAD"})
-				: product.price[locale.localCurrency].toLocaleString("fr-CA", {style: "currency", currency: "CAD"})
-			: product.price[locale.localCurrency].toLocaleString("en-US", { style: "currency", currency: "USD" }))
+		? getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, product.price[locale.localCurrency])
 		: null;
 	
 	const salePrice = product.id && product.salePrice
-		? (locale.localCurrency === "cad"
-			? locale.localLang.lang === "english"
-				? product.salePrice[locale.localCurrency].toLocaleString("en-CA", {style: "currency", currency: "CAD"})
-				: product.salePrice[locale.localCurrency].toLocaleString("fr-CA", {style: "currency", currency: "CAD"})
-			: product.salePrice[locale.localCurrency].toLocaleString("en-US", { style: "currency", currency: "USD" }))
+		? getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, product.salePrice[locale.localCurrency])
 		: null;
 
 	const handleQuantityDecreaseClick = () => {
@@ -252,15 +245,18 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 							>
 								{ localLang.product_info_add_to_cart }
 							</button>
-							<button
-								className={`${
-									stock > 0
-										? "hover:bg-primary hover:border-primary hover:text-white transition duration-200"
-										: "cursor-not-allowed"
-								} border border-black px-4 py-4 bg-black text-white text-sm`}
-							>
-								{ localLang.product_info_buy_now }
-							</button>
+							<Link to={`${stock > 0 ? `/checkout/${encodeURIComponent(name)}` : ""}`}>
+								<button
+									onClick={handleAddProductToCart}
+									className={`${
+										stock > 0
+											? "hover:bg-primary hover:border-primary hover:text-white transition duration-200"
+											: "cursor-not-allowed"
+									} w-full border border-black px-4 py-4 bg-black text-white text-sm`}
+								>
+									{ localLang.product_info_buy_now }
+								</button>
+							</Link>
 						</div>
 						<div className="py-4">
 							<ul className="flex flex-col gap-2">

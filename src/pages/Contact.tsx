@@ -23,19 +23,19 @@ export default function Contact({localLang, setLocale}: {localLang: {text: any, 
 								<svg className="w-5 h-5">
 									<use href="src/icons_sprite.svg#phone" />
 								</svg>
-								<h3 className="font-bold">(123)-456-7890</h3>
+								<h3 className="font-semibold">(123)-456-7890</h3>
 							</a>
 							<a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrtech@business.com" className="flex items-center gap-2 w-fit transition duration-200 hover:text-primary cursor-pointer">
 								<svg className="w-5 h-5">
 									<use href="src/icons_sprite.svg#mail" />
 								</svg>
-								<h3 className="font-bold">mrtech@business.com</h3>
+								<h3 className="font-semibold">mrtech@business.com</h3>
 							</a>
 						</div>
 					</div>
 					<form className='flex flex-col gap-6 w-full sm:px-10 lg:px-0 items-end'>
 						<div className='flex flex-col w-full'>
-							<label htmlFor="fullName" className='font-bold text-sm'>
+							<label htmlFor="fullName" className='text-sm'>
 								{ text.contact_full_name }
 							</label>
 							<div className="relative focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
@@ -44,7 +44,7 @@ export default function Contact({localLang, setLocale}: {localLang: {text: any, 
 							</div>
 						</div>
 						<div className='flex flex-col w-full'>
-							<label htmlFor="emailAddress" className='font-bold'>
+							<label htmlFor="emailAddress" className="text-sm">
 								{ text.contact_email }
 							</label>
 							<div className="relative focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
@@ -53,7 +53,7 @@ export default function Contact({localLang, setLocale}: {localLang: {text: any, 
 							</div>
 						</div>
 						<div className='flex flex-col w-full'>
-							<label htmlFor="phoneNumber" className='font-bold'>
+							<label htmlFor="phoneNumber" className="text-sm">
 								{ text.contact_phone_number }
 							</label>
 							<div className="relative focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
@@ -62,7 +62,7 @@ export default function Contact({localLang, setLocale}: {localLang: {text: any, 
 							</div>	
 						</div>
 						<div className='flex flex-col w-full'>
-							<label htmlFor="message" className='font-bold'>
+							<label htmlFor="message" className="text-sm">
 								{ text.contact_message }
 							</label>
 							<div className="relative focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
@@ -75,7 +75,7 @@ export default function Contact({localLang, setLocale}: {localLang: {text: any, 
 								<div className="absolute top-0 w-full h-full pointer-events-none border-2 border-transparent peer-focus:border-blue-800 transition-[border-color] duration-[400ms]"></div>
 							</div>
 						</div>
-						<button className='w-full bg-primary py-5 text-lg font-bold text-white rounded hover:bg-blue-800 transition duration-300 group mt-2'>
+						<button className='w-full bg-primary py-5 text-lg text-white rounded hover:bg-blue-800 transition duration-300 group mt-2'>
 							{ text.contact_send_message }
 							<svg fill="none" strokeWidth={1.5} stroke="currentColor" className="w-10 h-6 inline text-white group-hover:translate-x-1 transition duration-200">
 								<use href="src/icons_sprite.svg#send" />

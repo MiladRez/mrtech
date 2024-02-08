@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import {useCart} from "../CartContext";
 import {ProductItem} from "../../data/products";
 import CartProductDisplay from "./CartProductDisplay";
+import {getInLocalLangAndCurrency} from "../../data/products";
+import {Link} from "react-router-dom";
 
 type CartListProps = {
 	locale: {
@@ -18,12 +20,7 @@ export default function CartList({locale}: CartListProps) {
 
 	const localLang = locale.localLang.text;
 
-	const subtotal =
-		locale.localCurrency === "cad"
-			? locale.localLang.lang === "english"
-				? totalCost.toLocaleString("en-CA", {style: "currency", currency: "CAD"})
-				: totalCost.toLocaleString("fr-CA", {style: "currency", currency: "CAD"})
-			: totalCost.toLocaleString("en-US", {style: "currency", currency: "USD"});
+	const subtotal = getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, totalCost);
 
 	const removeFromCart = (item: ProductItem) => {
 		removeItemFromCart(item);
@@ -81,11 +78,12 @@ export default function CartList({locale}: CartListProps) {
 								{subtotal} {locale.localCurrency === "cad" ? "CAD" : "USD"}
 							</p>
 						</div>
-
 						<p className="text-xs text-neutral-500">{localLang.cart_taxes_and_shipping}</p>
-						<button className="border px-4 py-4 bg-black border border-black text-white text-sm hover:bg-primary hover:border-primary hover:text-white transition duration-200">
-							{localLang.cart_checkout}
-						</button>
+						<Link to="/checkout">
+							<button className="w-full border px-4 py-4 bg-black border border-black text-white text-sm hover:bg-primary hover:border-primary hover:text-white transition duration-200">
+								{localLang.cart_checkout}
+							</button>
+						</Link>
 					</div>
 				</div>
 			</div>

@@ -49,6 +49,7 @@ export default function App() {
 					<Route path='/contact' element={<Contact localLang={locale.localLang} setLocale={setLocale} />} />
 					<Route path='/cart' element={<Cart locale={locale} setLocale={setLocale} />} />
 					<Route path='/checkout' element={<Checkout locale={locale} setLocale={setLocale} />} />
+					<Route path='/checkout/:product_name' element={<Checkout locale={locale} setLocale={setLocale} />} />
 					<Route path='/search' element={<Search locale={locale} setLocale={setLocale} />} />
 					<Route path='/search/:search_query' element={<Search locale={locale} setLocale={setLocale} />} />
 					<Route path='*' element={<Page404 localLang={locale.localLang.text} />} />

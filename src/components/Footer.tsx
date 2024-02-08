@@ -23,7 +23,7 @@ export default function Footer({ localLang }: { localLang: any }) {
 								<input name="emailAddress" className="w-full px-2 py-3 border border-neutral-400 text-sm focus:outline-none peer" placeholder={localLang.footer_signup_email} />
 								<div className="absolute top-0 w-full h-full pointer-events-none border-2 border-transparent peer-focus:border-blue-800 transition-[border-color] duration-[400ms]"></div>
 							</div>
-							<button className="w-32 border border-primary px-4 py-3 text-white text-sm bg-primary font-bold hover:bg-blue-800 hover:border-blue-800 transition duration-300">{ localLang.footer_signup_email_button }</button>
+							<button className="w-32 border border-primary px-4 py-3 text-white text-sm bg-primary hover:bg-blue-800 hover:border-blue-800 transition duration-300">{ localLang.footer_signup_email_button }</button>
 						</div>
 						<div className="flex justify-between pt-4">
 							<svg stroke="currentColor" strokeWidth={0.5} className="w-6 h-6 hover:fill-primary hover:text-primary cursor-pointer" >

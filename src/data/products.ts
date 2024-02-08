@@ -41,11 +41,11 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Razer",
 		price: {
 			cad: 279.99,
-			usd: 1
+			usd: 199.99
 		},
 		salePrice: {
 			cad: 199.99,
-			usd: 1,
+			usd: 149.99,
 		},
 		stock: 1347,
 		rating: 4.4,
@@ -80,7 +80,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Corsair",
 		price: {
 			cad: 119.99,
-			usd: 1
+			usd: 79.99
 		},
 		stock: 491,
 		rating: 4.9,
@@ -115,11 +115,11 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "NVIDIA",
 		price: {
 			cad: 2099.99,
-			usd: 1
+			usd: 1499.99
 		},
 		salePrice: {
 			cad: 1949.99,
-			usd: 1
+			usd: 1299.99
 		},
 		stock: 12,
 		rating: 4.8,
@@ -152,7 +152,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Asus",
 		price: {
 			cad: 219.99,
-			usd: 1
+			usd: 159.99
 		},
 		stock: 74,
 		rating: 4.7,
@@ -185,11 +185,11 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "AMD",
 		price: {
 			cad: 599.99,
-			usd: 1
+			usd: 449.99
 		},
 		salePrice: {
 			cad: 499.99,
-			usd: 1
+			usd: 349.99
 		},
 		stock: 2,
 		rating: 4.3,
@@ -218,11 +218,11 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Intel",
 		price: {
 			cad: 799.99,
-			usd: 1
+			usd: 599.99
 		},
 		salePrice: {
 			cad: 599.99,
-			usd: 1
+			usd: 399.99
 		},
 		stock: 874,
 		rating: 4.6,
@@ -257,7 +257,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Thermaltake",
 		price: {
 			cad: 49.99,
-			usd: 1
+			usd: 34.99
 		},
 		stock: 280,
 		rating: 3.5,
@@ -284,7 +284,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Samsung",
 		price: {
 			cad: 199.99,
-			usd: 1
+			usd: 149.99
 		},
 		stock: 53,
 		rating: 4.1,
@@ -315,11 +315,11 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "MSI",
 		price: {
 			cad: 199.99,
-			usd: 1
+			usd: 149.99
 		},
 		salePrice: {
 			cad: 150.00,
-			usd: 1
+			usd: 99.99
 		},
 		stock: 0,
 		rating: 5.0,
@@ -352,7 +352,7 @@ export const allProducts: ProductItem[] = [
 		manufacturer: "Asus",
 		price: {
 			cad: 549.98,
-			usd: 1
+			usd: 409.98
 		},
 		stock: 902,
 		rating: 4.5,
@@ -427,3 +427,13 @@ export const sitePages: {english: string, french: string}[] = [
 		french: "Contact"
 	}
 ]
+
+export function getInLocalLangAndCurrency(localCurrency: string, localLang: string, price: number) {
+	return (
+		localCurrency === "cad"
+			? localLang === "english"
+				? price.toLocaleString("en-CA", {style: "currency", currency: "CAD"})
+				: price.toLocaleString("fr-CA", {style: "currency", currency: "CAD"})
+			: price.toLocaleString("en-US", {style: "currency", currency: "USD"})
+	)
+}

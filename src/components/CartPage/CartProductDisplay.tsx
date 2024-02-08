@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {ProductItem, allProducts} from "../../data/products";
 import {Link} from "react-router-dom";
+import {getInLocalLangAndCurrency} from "../../data/products";
 
 type CartProductDisplayProps = {
 	product: ProductItem;
@@ -134,11 +135,7 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
 				</div>
 			</div>
 			<p className="text-sm text-right select-none">
-				{locale.localCurrency === "cad"
-					? locale.localLang.lang === "english"
-						? productCost.toLocaleString("en-CA", {style: "currency", currency: "CAD"})
-						: productCost.toLocaleString("fr-CA", {style: "currency", currency: "CAD"})
-					: productCost.toLocaleString("en-US", {style: "currency", currency: "USD"})}{" "}
+				{ getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, productCost) }
 				{locale.localCurrency === "cad" ? " CAD" : " USD"}
 			</p>
 		</div>

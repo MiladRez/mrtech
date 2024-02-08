@@ -1,7 +1,6 @@
 import React, {LegacyRef, useEffect, useState} from "react";
 import {ProductItem, allProducts, searchQuerySuggestions, sitePages} from "../data/products";
 import {Blog, allBlogs} from "../data/blogs";
-import {localityText} from "../data/locality";
 
 type SearchBarProps = {
 	searchBarInput?: LegacyRef<HTMLInputElement>;
