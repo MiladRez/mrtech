@@ -48,10 +48,6 @@ export default function BlogPost({localLang, setLocale}: { localLang: {text: any
 		})
 	}, [blog_title]);
 
-	useEffect(() => {
-		console.log(copiedToClipboardVisible)
-	}, [copiedToClipboardVisible])
-
 	return (		  
 		<>
 			<NavBar localLang={localLang} setLocale={setLocale} />
@@ -62,12 +58,14 @@ export default function BlogPost({localLang, setLocale}: { localLang: {text: any
 						<div className="flex flex-col items-center">
 							<div className="w-2/3 flex flex-col gap-4">
 								<div className="flex items-end justify-between">
-									<h2 className="text-4xl">{title}</h2>	
-									<div className="relative flex items-center gap-2 group cursor-pointer" onClick={ handleShareButtonClick }>
-										<p className="group-hover:underline">{ localLang.text.blog_share }</p>
-										<svg stroke="currentColor" strokeWidth={1.7} fill="none" className="w-5 h-5">
-											<use href="src/icons_sprite.svg#share" />
-										</svg>
+									<h2 className="text-4xl">{title}</h2>
+									<div className="relative">
+										<div className="flex items-center gap-2 group cursor-pointer" onClick={ handleShareButtonClick }>
+											<p className="group-hover:underline">{ localLang.text.blog_share }</p>
+											<svg stroke="currentColor" strokeWidth={1.7} fill="none" className="w-5 h-5">
+												<use href="src/icons_sprite.svg#share" />
+											</svg>
+										</div>	
 										<div id="copyLink" className={`${ copyLinkVisible ? "max-h-32 ring-1" : "max-h-0 ring-0" } absolute right-0 top-8 w-80 ring-neutral-500 hover:ring-2 transition-all duration-200 overflow-hidden`}>
 											<div className={`${ copiedToClipboardVisible ? "hidden" : "" } relative flex`}>
 												<label className="absolute top-1 left-4 text-neutral-500 text-[10px] pointer-events-none">{ localLang.text.blog_link }</label>
