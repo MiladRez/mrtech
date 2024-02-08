@@ -11,7 +11,7 @@ export default function BlogPost({localLang, setLocale}: { localLang: {text: any
 	const [copyLinkVisible, setCopyLinkVisible] = useState(false);
 	const [copiedToClipboardVisible, setCopiedToClipboardVisible] = useState(false);
 
-	const { img } = blog;
+	const { img, author } = blog;
 	const title = blog.id ? blog.title[localLang.lang] : null;
 	const date = blog.id ? blog.date[localLang.lang] : null;
 	const content = blog.id ? blog.content[localLang.lang] : null;
@@ -82,7 +82,11 @@ export default function BlogPost({localLang, setLocale}: { localLang: {text: any
 										</div>
 									</div>
 								</div>
-								<p className="text-xs text-neutral-500 pt-4">{date}</p>
+								<div className="flex items-center gap-2 pt-4">
+									<p className="text-xs text-neutral-500">{date}</p>	
+									<p className="text-sm pb-px">~</p>
+									<p className="text-sm pb-px">{author}</p>	
+								</div>
 								<p className="text-neutral-800 pt-4 whitespace-pre-line leading-loose">{content}</p>	
 							</div>
 						</div>		

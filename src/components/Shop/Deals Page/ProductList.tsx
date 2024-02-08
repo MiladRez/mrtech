@@ -36,6 +36,8 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
 	const [productsDisplay, setProductsDisplay] = useState(products);
 	const [filteredProductsByStock, setFilteredProductsByStock] = useState([] as ProductItem[]);
 	const [filteredProductsByPrice, setFilteredProductsByPrice] = useState([] as ProductItem[]);
+	const [filteredProductsByInputtedPriceRange, setFilteredProductsByInputtedPriceRange] = useState([] as ProductItem[]);
+	const [noMatchToInputtedPriceRange, setNoMatchToInputtedPriceRange] = useState(false);
 	const [selectedSortOrder, setSelectedSortOrder] = useState(localLang.sort_opt_1);
 
 	const addToCart = (item: ProductItem) => {
@@ -106,21 +108,45 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
 	};
 
 	useEffect(() => {
-		if (filteredProductsByStock.length > 0 || filteredProductsByPrice.length > 0) {
+		if (filteredProductsByStock.length > 0 || filteredProductsByPrice.length > 0 || filteredProductsByInputtedPriceRange.length > 0) {
+			// if no availability filters have been checked but at least one price filter(including user inputted prince range) is checked
 			if (filteredProductsByStock.length === 0) {
-				return sortByProductProperty(selectedSortOrder, filteredProductsByPrice);
+				return sortByProductProperty(
+					selectedSortOrder,
+					[
+						...filteredProductsByPrice,
+						...filteredProductsByInputtedPriceRange.filter(prod => !filteredProductsByPrice.includes(prod))
+					]);
 			}
+			// if no price filters have been checked and at least one availability filter is checked
 			if (filteredProductsByPrice.length === 0) {
-				return sortByProductProperty(selectedSortOrder, filteredProductsByStock);
+				// if "Apply Price Range" button has been clicked and its been determined that there is no match to user inputted price range
+				if (noMatchToInputtedPriceRange) {
+					return sortByProductProperty(selectedSortOrder, []);
+				// if user hasn't inputted manual price range
+				} else if (filteredProductsByInputtedPriceRange.length === 0) {
+					return sortByProductProperty(selectedSortOrder, filteredProductsByStock);
+				}
+				// if user has inputted manual price range and it matches a result
+				return sortByProductProperty(
+					selectedSortOrder,
+					filteredProductsByStock.filter(prod => filteredProductsByInputtedPriceRange.includes(prod)));
 			}
+			// if both filters have been checked
 			return sortByProductProperty(
 				selectedSortOrder,
-				filteredProductsByStock.filter(prod => filteredProductsByPrice.includes(prod))
+				filteredProductsByStock.filter(prod => [
+					...filteredProductsByPrice,
+					...filteredProductsByInputtedPriceRange.filter(prod => !filteredProductsByPrice.includes(prod))
+				].includes(prod))
 			);
 		} else {
+			if (noMatchToInputtedPriceRange) {
+				return sortByProductProperty(selectedSortOrder, []);
+			}
 			return sortByProductProperty(selectedSortOrder, products);
 		}
-	}, [filteredProductsByStock, filteredProductsByPrice]);
+	}, [filteredProductsByStock, filteredProductsByPrice, filteredProductsByInputtedPriceRange]);
 
 	useEffect(() => {
 		sortByProductProperty(selectedSortOrder, productsDisplay);
@@ -130,8 +156,37 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
 		<section className="flex justify-center pb-16">
 			<div className="w-full max-w-screen-xl px-12 grid grid-cols-4 gap-4">
 				<div className="col-span-1 border-r">
-					<FilterDropdown openFilter={true} title={localLang.filter_1_header} content={<AvailabilityFilter products={products} filteredProductsByStock={filteredProductsByStock} setFilteredProductsByStock={setFilteredProductsByStock} localLang={localLang} />} />
-					<FilterDropdown openFilter={false} title={localLang.filter_2_header} content={<PriceFilter products={products} filteredProductsByPrice={filteredProductsByPrice} setFilteredProductsByPrice={setFilteredProductsByPrice} localLang={localLang} localCurrency={locale.localCurrency} />} />
+					<FilterDropdown
+						openFilter={true}
+						title={localLang.filter_1_header}
+						content={
+							<AvailabilityFilter
+								products={products}
+								filteredProductsByStock={filteredProductsByStock}
+								setFilteredProductsByStock={setFilteredProductsByStock}
+								localLang={localLang}
+								filteredProductsByPrice={filteredProductsByPrice}
+								filteredProductsByInputtedPriceRange={filteredProductsByInputtedPriceRange}
+								noMatchToInputtedPriceRange={noMatchToInputtedPriceRange}
+							/>
+						}
+					/>
+					<FilterDropdown
+						openFilter={false}
+						title={localLang.filter_2_header}
+						content={
+							<PriceFilter
+								products={products}
+								filteredProductsByPrice={filteredProductsByPrice}
+								setFilteredProductsByPrice={setFilteredProductsByPrice}
+								localLang={localLang}
+								localCurrency={locale.localCurrency}
+								setNoMatchToInputtedPriceRange={setNoMatchToInputtedPriceRange}
+								setFilteredProductsByInputtedPriceRange={setFilteredProductsByInputtedPriceRange}
+								filteredProductsByStock={filteredProductsByStock}
+							/>
+						}
+					/>
 				</div>
 				<div className="col-span-3">
 					<div className="flex justify-end gap-4 items-center">

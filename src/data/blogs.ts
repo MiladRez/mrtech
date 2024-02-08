@@ -6,6 +6,7 @@ import SSDvsHDD from "../images/ssd-vs-hdd.png";
 export type Blog = {
 	id: string;
 	img: File;
+	author: string,
 	title: {
 		english: string,
 		french: string
@@ -28,6 +29,7 @@ export const allBlogs: Blog[] = [
 	{
 		id: "1",
 		img: VRHeadset,
+		author: "Martin Davida",
 		title: {
 			english: "Best Budget VR Headsets",
 			french: "Meilleurs Casques de Réalité Virtuelle Abordables"
@@ -49,6 +51,7 @@ export const allBlogs: Blog[] = [
 	{
 		id: "2",
 		img: CommunitySTEM,
+		author: "Kari Robin",
 		title: {
 			english: "Community Partnership Series",
 			french: "Série de Partenariats Communautaires"
@@ -70,6 +73,7 @@ export const allBlogs: Blog[] = [
 	{
 		id: "3",
 		img: IPhone,
+		author: "Jafar Paulinus",
 		title: {
 			english: "Maximizing Battery Life on iOS 17",
 			french: "Optimisation de la durée de vie de la batterie sur iOS 17"
@@ -91,6 +95,7 @@ export const allBlogs: Blog[] = [
 	{
 		id: "4",
 		img: SSDvsHDD,
+		author: "Liv Batel",
 		title: {
 			english: "SSD vs. HDD - Which one is right for you?",
 			french: "SSD vs. HDD - Lequel est fait pour vous?"

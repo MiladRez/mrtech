@@ -81,11 +81,19 @@ export default function SearchResults({searchQuery, locale}: SearchResultsProps)
 		<section className="flex justify-center">
 			<div className="w-full max-w-screen-xl px-12 py-12">
 				<div className="grid grid-cols-4 gap-2">
-					{getAllResults().map((result, index) => (
-						<div key={index} className="">
-							{result}
-						</div>
-					))}
+					{
+						getAllResults().length > 0
+							?
+							getAllResults().map((result, index) => (
+							<div key={index} className="">
+								{result}
+							</div>
+							))
+							: 
+							<div className="col-span-4">
+								<p className="text-neutral-500">No results found for "{searchQuery}". Check the spelling or use a different word or phrase.</p>
+							</div>
+					}
 				</div>
 			</div>
 		</section>

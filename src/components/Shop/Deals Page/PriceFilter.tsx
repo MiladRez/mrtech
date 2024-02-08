@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ProductItem} from "../../../data/products";
 import Checkbox from "./Checkbox";
 
@@ -7,13 +7,18 @@ type PriceFilterProps = {
 	filteredProductsByPrice: ProductItem[],
 	setFilteredProductsByPrice: Function,
 	localLang: any,
-	localCurrency: "cad" | "usd"
+	localCurrency: "cad" | "usd",
+	setNoMatchToInputtedPriceRange: Function,
+	setFilteredProductsByInputtedPriceRange: Function,
+	filteredProductsByStock: ProductItem[]
 }
 
-export default function PriceFilter({ products, filteredProductsByPrice, setFilteredProductsByPrice, localLang, localCurrency }: PriceFilterProps) {
+export default function PriceFilter({ products, filteredProductsByPrice, setFilteredProductsByPrice, localLang, localCurrency, setNoMatchToInputtedPriceRange, setFilteredProductsByInputtedPriceRange, filteredProductsByStock }: PriceFilterProps) {
 	const [disabledApplyPriceRangeButton, setDisabledApplyPriceRangeButton] = useState(true);
 	const [minPrice, setMinPrice] = useState(0);
 	const [maxPrice, setMaxPrice] = useState(10000);
+	const [prevMinPrice, setPrevMinPrice] = useState(0);
+	const [prevMaxPrice, setPrevMaxPrice] = useState(10000);
 	let minPriceInput = document.getElementById("min-price") as HTMLInputElement;
 	let maxPriceInput = document.getElementById("max-price") as HTMLInputElement;
 
@@ -28,7 +33,10 @@ export default function PriceFilter({ products, filteredProductsByPrice, setFilt
 
 	const handleMinPriceInput = (event: any) => {
 		if (event.target.value === "") {
-			setDisabledApplyPriceRangeButton(true);
+			if (maxPriceInput.value === "") {
+				handleClearPriceRangeButton();
+				setDisabledApplyPriceRangeButton(true);
+			}
 		} else {
 			setDisabledApplyPriceRangeButton(false);
 		}
@@ -42,7 +50,10 @@ export default function PriceFilter({ products, filteredProductsByPrice, setFilt
 
 	const handleMaxPriceInput = (event: any) => {
 		if (event.target.value === "") {
-			setDisabledApplyPriceRangeButton(true);
+			if (minPriceInput.value === "") {
+				handleClearPriceRangeButton();
+				setDisabledApplyPriceRangeButton(true);
+			}
 		} else {
 			setDisabledApplyPriceRangeButton(false);
 		}
@@ -68,67 +79,73 @@ export default function PriceFilter({ products, filteredProductsByPrice, setFilt
 		}
 	};
 
+	const numOfProductsByFilter = (filter: ProductItem[]) => {
+		return filteredProductsByStock.length > 0
+			? (filteredProductsByStock.filter(prod => filter.includes(prod))).length
+			: (products.filter(prod => filter.includes(prod))).length;
+	}
+
 	const priceRanges = [
 		{
 			id: "pr-lt200",
-			name: `${localLang.filter_2_checkbox_pr1} (${priceRangeFilter(0, 200).length})`,
-			disabled: priceRangeFilter(0, 200).length === 0,
+			name: `${localLang.filter_2_checkbox_pr1} (${numOfProductsByFilter(priceRangeFilter(0, 200))})`,
+			disabled: numOfProductsByFilter(priceRangeFilter(0, 200)) === 0,
 			filterFunc: () =>
 				filterByPrice(priceRangeFilter(0, 200), setIsPR_lessThan200_Checked, isPR_lessThan200_Checked),
 			isChecked: isPR_lessThan200_Checked
 		},
 		{
 			id: "pr-200to300",
-			name: `${localLang.filter_2_checkbox_pr2} (${priceRangeFilter(200, 300).length})`,
-			disabled: priceRangeFilter(200, 300).length === 0,
+			name: `${localLang.filter_2_checkbox_pr2} (${numOfProductsByFilter(priceRangeFilter(200, 300))})`,
+			disabled: numOfProductsByFilter(priceRangeFilter(200, 300)) === 0,
 			filterFunc: () =>
 				filterByPrice(priceRangeFilter(200, 300), setIsPR_200to300_Checked, isPR_200to300_Checked),
 			isChecked: isPR_200to300_Checked
 		},
 		{
 			id: "pr-300to400",
-			name: `${localLang.filter_2_checkbox_pr3} (${priceRangeFilter(300, 400).length})`,
-			disabled: priceRangeFilter(300, 400).length === 0,
+			name: `${localLang.filter_2_checkbox_pr3} (${numOfProductsByFilter(priceRangeFilter(300, 400))})`,
+			disabled: numOfProductsByFilter(priceRangeFilter(300, 400)) === 0,
 			filterFunc: () =>
 				filterByPrice(priceRangeFilter(300, 400), setIsPR_300to400_Checked, isPR_300to400_Checked),
 			isChecked: isPR_300to400_Checked
 		},
 		{
 			id: "pr-400to600",
-			name: `${localLang.filter_2_checkbox_pr4} (${priceRangeFilter(400, 600).length})`,
-			disabled: priceRangeFilter(400, 600).length === 0,
+			name: `${localLang.filter_2_checkbox_pr4} (${numOfProductsByFilter(priceRangeFilter(400, 600))})`,
+			disabled: numOfProductsByFilter(priceRangeFilter(400, 600)) === 0,
 			filterFunc: () =>
 				filterByPrice(priceRangeFilter(400, 600), setIsPR_400to600_Checked, isPR_400to600_Checked),
 			isChecked: isPR_400to600_Checked
 		},
 		{
 			id: "pr-600to800",
-			name: `${localLang.filter_2_checkbox_pr5} (${priceRangeFilter(600, 800).length})`,
-			disabled: priceRangeFilter(600, 800).length === 0,
+			name: `${localLang.filter_2_checkbox_pr5} (${numOfProductsByFilter(priceRangeFilter(600, 800))})`,
+			disabled: numOfProductsByFilter(priceRangeFilter(600, 800)) === 0,
 			filterFunc: () =>
 				filterByPrice(priceRangeFilter(600, 800), setIsPR_600to800_Checked, isPR_600to800_Checked),
 			isChecked: isPR_600to800_Checked
 		},
 		{
 			id: "pr-800to1000",
-			name: `${localLang.filter_2_checkbox_pr6} (${priceRangeFilter(800, 1000).length})`,
-			disabled: priceRangeFilter(800, 1000).length === 0,
+			name: `${localLang.filter_2_checkbox_pr6} (${numOfProductsByFilter(priceRangeFilter(800, 1000))})`,
+			disabled: numOfProductsByFilter(priceRangeFilter(800, 1000)) === 0,
 			filterFunc: () =>
 				filterByPrice(priceRangeFilter(800, 1000), setIsPR_800to1000_Checked, isPR_800to1000_Checked),
 			isChecked: isPR_800to1000_Checked
 		},
 		{
 			id: "pr-1000to1200",
-			name: `${localLang.filter_2_checkbox_pr7} (${priceRangeFilter(1000, 1200).length})`,
-			disabled: priceRangeFilter(1000, 1200).length === 0,
+			name: `${localLang.filter_2_checkbox_pr7} (${numOfProductsByFilter(priceRangeFilter(1000, 1200))})`,
+			disabled: numOfProductsByFilter(priceRangeFilter(1000, 1200)) === 0,
 			filterFunc: () =>
 				filterByPrice(priceRangeFilter(1000, 1200), setIsPR_1000to1200_Checked, isPR_1000to1200_Checked),
 			isChecked: isPR_1000to1200_Checked
 		},
 		{
 			id: "pr-1200andUp",
-			name: `${localLang.filter_2_checkbox_pr8} (${priceRangeFilter(1200).length})`,
-			disabled: priceRangeFilter(1200).length === 0,
+			name: `${localLang.filter_2_checkbox_pr8} (${numOfProductsByFilter(priceRangeFilter(1200))})`,
+			disabled: numOfProductsByFilter(priceRangeFilter(1200)) === 0,
 			filterFunc: () =>
 				filterByPrice(priceRangeFilter(1200), setIsPR_1200andUp_Checked, isPR_1200andUp_Checked),
 			isChecked: isPR_1200andUp_Checked
@@ -138,19 +155,10 @@ export default function PriceFilter({ products, filteredProductsByPrice, setFilt
 	const filterByPrice = (prodsInPriceRange: ProductItem[], setChecked: Function, isChecked: boolean) => {
 		if (isChecked) {
 			setChecked(false);
-			// add back the manually inputted price range if price range has been applied
-			if (minPriceInput.value != "" || maxPriceInput.value != "") {
-				let removedFilterList = filteredProductsByPrice.filter(prod => !prodsInPriceRange.includes(prod));
-				setFilteredProductsByPrice([
-					...removedFilterList,
-					...priceRangeFilter(minPrice, maxPrice).filter(prod => !removedFilterList.includes(prod))
-				]);
-			} else {
-				// return list of filtered products not in "prodsInPriceRange" array
-				setFilteredProductsByPrice(
-					filteredProductsByPrice.filter(prod => !prodsInPriceRange.includes(prod))
-				);
-			}
+			// return list of filtered products not in "prodsInPriceRange" array
+			setFilteredProductsByPrice(
+				filteredProductsByPrice.filter(prod => !prodsInPriceRange.includes(prod))
+			);
 		} else {
 			setChecked(true);
 			// return new list with previous value of filtered products and "prodsInPriceRange" array
@@ -162,20 +170,24 @@ export default function PriceFilter({ products, filteredProductsByPrice, setFilt
 	};
 
 	const handleApplyPriceRangeButton = () => {
-		setFilteredProductsByPrice([
-			...filteredProductsByPrice,
-			...priceRangeFilter(minPrice, maxPrice).filter(prod => !filteredProductsByPrice.includes(prod))
-		]);
+		setPrevMinPrice(minPrice);
+		setPrevMaxPrice(maxPrice);
+		if (filteredProductsByPrice.length === 0 && priceRangeFilter(minPrice, maxPrice).length === 0) {
+			setNoMatchToInputtedPriceRange(true);
+		} else {
+			setNoMatchToInputtedPriceRange(false);
+		}
+		setFilteredProductsByInputtedPriceRange(priceRangeFilter(minPrice, maxPrice));
 	};
 
 	const handleClearPriceRangeButton = () => {
-		setFilteredProductsByPrice(
-			filteredProductsByPrice.filter(prod => !priceRangeFilter(minPrice, maxPrice).includes(prod))
-		);
+		setNoMatchToInputtedPriceRange(false);
+		setFilteredProductsByInputtedPriceRange([]);
 		setMinPrice(0);
 		setMaxPrice(10000);
 		minPriceInput.value = "";
 		maxPriceInput.value = "";
+		setDisabledApplyPriceRangeButton(true);
 	};
 
 	return (
