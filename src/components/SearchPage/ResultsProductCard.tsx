@@ -27,9 +27,9 @@ export default function ResultsProductCard({ product, locale }: ResultsProductCa
 	return (
 		<>
 			<Link to={`/product/${encodeURIComponent(name)}`}>
-				<div className="flex flex-col h-96 justify-between gap-4 group border px-4 py-4">
+				<div className="flex flex-col sm:h-96 justify-between group border px-4 py-4">
 					<div>
-						<div className="relative">
+						<div className="relative flex justify-center">
 							<img src={img.toString()} className={`${stock > 0 ? "" : "grayscale"} w-72 px-6 py-6 group-hover:scale-105 transition duration-300`} />
 							<div className={`${salePrice ? "" : "hidden"} absolute bg-blue-800 text-sm text-white border px-4 py-1 rounded-2xl bottom-2 left-0`}>{locale.localLang.text.product_sale}</div>	
 							<div className={`${stock > 0 ? "hidden" : ""} absolute bg-neutral-600 text-sm text-white border px-4 py-1 rounded-2xl bottom-2 right-0`}>{locale.localLang.text.product_out_of_stock}</div>	

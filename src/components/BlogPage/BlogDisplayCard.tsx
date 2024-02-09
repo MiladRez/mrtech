@@ -16,7 +16,6 @@ export default function BlogDisplayCard({blog, localLang}: {blog: Blog, localLan
 						<p className="text-sm">~</p>
 						<p className="text-xs">{blog.author}</p>
 					</div>
-					
 					<p className="text-neutral-500 pt-2">{blog.desc[localLang]}</p>
 				</div>
 			</div>

@@ -31,12 +31,12 @@ export default function Product({ product, addToCart, localLang, localCurrency }
 	}
 
 	return (
-		<div className="flex flex-col justify-between w-72 group">
+		<div className="flex flex-col justify-between w-40 sm:w-72 group">
 			<Link to={`/product/${encodeURIComponent(name)}`}>
-				<div className="flex flex-col h-[27rem] justify-between pb-5">
+				<div className="flex flex-col sm:h-[27rem] justify-between pb-5 gap-1 sm:gap-0">
 					<div>
 						<div className="relative">
-							<img src={img.toString()} className={`w-72 px-6 py-6 group-hover:scale-105 transition duration-300 ${stock > 0 ? "" : "grayscale"}`} />
+							<img src={img.toString()} className={`px-6 py-6 group-hover:scale-105 transition duration-300 ${stock > 0 ? "" : "grayscale"}`} />
 							<div className={`${salePrice ? "" : "hidden"} absolute bg-blue-800 text-sm text-white border px-4 py-1 rounded-2xl bottom-2 left-0`}>{ localLang.text.product_sale }</div>	
 							<div className={`${stock > 0 ? "hidden" : ""} absolute bg-neutral-600 text-sm text-white border px-4 py-1 rounded-2xl bottom-2 right-0`}>{ localLang.text.product_out_of_stock }</div>	
 						</div>
@@ -46,8 +46,8 @@ export default function Product({ product, addToCart, localLang, localCurrency }
 						</div>	
 					</div>
 					<div className="inline-flex items-center">
-						<p className={`${salePrice ? "text-sm line-through text-neutral-500 pr-4" : ""}`}>{price} { localCurrency === "cad" ? "CAD" : "USD" }</p>		
-						<p className={`${salePrice ? "" : "hidden"}`}>{salePrice} { localCurrency === "cad" ? "CAD" : "USD" }</p>					
+						<p className={`${salePrice ? "text-xs sm:text-sm line-through text-neutral-500 pr-4" : ""}`}>{price} { localCurrency === "cad" ? "CAD" : "USD" }</p>		
+						<p className={`${salePrice ? "text-sm sm:text-base" : "hidden"}`}>{salePrice} { localCurrency === "cad" ? "CAD" : "USD" }</p>					
 					</div>
 				</div>	
 			</Link>

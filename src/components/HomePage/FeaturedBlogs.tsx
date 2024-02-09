@@ -10,7 +10,7 @@ export default function FeaturedBlogs({ localLang }: { localLang: { text: any, l
 					<h2 className="text-4xl">{ localLang.text.featured_blogs_header }</h2>
 					<p className="text-neutral-500">{ localLang.text.featured_blogs_subheader }</p>	
 				</div>
-				<div className="grid grid-cols-3 gap-2 justify-between">
+				<div className="grid md:grid-cols-2 xl:grid-cols-3 gap-12 md:gap-4 xl:gap-2 justify-between">
 					{allBlogs.slice(0,3).map((blog, index) => (
 						<BlogDisplayCard blog={blog} key={index} localLang={localLang.lang} />
 					))}		

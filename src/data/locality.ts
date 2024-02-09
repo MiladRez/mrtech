@@ -1,11 +1,13 @@
 export const localityText = {
 	english: {
+		nav_home: "Home",
 		nav_shop: "Shop",
 		nav_deals: "Deals",
 		nav_blog: "Blog",
 		nav_contact: "Contact",
 		nav_register_signin: "Register / Sign In",
 		nav_search: "Search",
+		nav_cart: "Cart",
 
 		nav_prod_popup_noti: "Item added to your cart",
 		nav_prod_popup_view_my_cart: "View my cart",
@@ -214,12 +216,14 @@ export const localityText = {
 		page_404: "Page Not Found"
 	},
 	french: {
+		nav_home: "Maison",
 		nav_shop: "Magasin",
 		nav_deals: "Offres",
 		nav_blog: "Blogue",
 		nav_contact: "Contact",
 		nav_register_signin: "Enregistrer / Connecter",
 		nav_search: "Recherche",
+		nav_cart: "Panier",
 
 		nav_prod_popup_noti: "Informations de l'article ajoutées à votre panier",
 		nav_prod_popup_view_my_cart: "Voir mon panier",

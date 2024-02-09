@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 export default {
 	content: [
 		"./src/**/*.{js,ts,jsx,tsx}",
@@ -12,6 +15,9 @@ export default {
 			fontFamily: {
 				'sans': ["Sora", "sans-serif"]		
 			},
+			screens: {
+				'big': '900px',
+			}
 		},
 	},
 	variants: {

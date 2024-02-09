@@ -1,101 +1,100 @@
 import React from "react";
-import {ProductItem, allProducts, sitePages} from "../../data/products";
+import { ProductItem, allProducts, sitePages } from "../../data/products";
 import ResultsProductCard from "./ResultsProductCard";
 import ResultsPageCard from "./ResultsPageCard";
-import {Blog, allBlogs} from "../../data/blogs";
+import { Blog, allBlogs } from "../../data/blogs";
 import ResultsBlogCard from "./ResultsBlogCard";
 
 type SearchResultsProps = {
-	searchQuery: string;
-	locale: {
-		localLang: {
-			text: any;
-			lang: "english" | "french";
-		};
-		localCurrency: "cad" | "usd";
-	};
+    searchQuery: string;
+    locale: {
+        localLang: {
+            text: any;
+            lang: "english" | "french";
+        };
+        localCurrency: "cad" | "usd";
+    };
 };
 
-export default function SearchResults({searchQuery, locale}: SearchResultsProps) {
-	const getAllResults = () => {
-		let results = [] as React.JSX.Element[];
-		let atLeastOneProduct = false;
+export default function SearchResults({ searchQuery, locale }: SearchResultsProps) {
+    const getAllResults = () => {
+        if (!searchQuery) {
+            return [];
+        }
 
-		// if query input has space (" "), will treat each term as query, returns array of terms
-		// else returns array with single element query
-		let searchQueryArr = searchQuery.split(" ");
+        let results = [] as React.JSX.Element[];
+        let atLeastOneProduct = false;
 
-		// store query-matched products, blogs, and pages in their respective arrays
-		let productsArr = [] as ProductItem[];
-		let blogsArr = [] as Blog[];
-		let pagesArr = [] as string[];
+        // if query input has space (" "), will treat each term as query, returns array of terms
+        // else returns array with single element query
+        let searchQueryArr = searchQuery.split(" ");
 
-		searchQueryArr.forEach(queryTerm => {
-			allProducts.map((prod: ProductItem) => {
-				if (prod.name.toLowerCase().includes(queryTerm.toLowerCase()) && !productsArr.includes(prod)) {
-					productsArr = [...productsArr, prod];
-					atLeastOneProduct = true;
-				}
-			});
+        // store query-matched products, blogs, and pages in their respective arrays
+        let productsArr = [] as ProductItem[];
+        let blogsArr = [] as Blog[];
+        let pagesArr = [] as string[];
 
-			allBlogs.map((blog: Blog) => {
-				const title = blog.title[locale.localLang.lang].toLowerCase();
-				const desc = blog.desc[locale.localLang.lang].toLowerCase();
-				const queryLC = queryTerm.toLowerCase();
-				if (title.includes(queryLC) || (desc.includes(queryLC) && !blogsArr.includes(blog))) {
-					blogsArr = [...blogsArr, blog];
-				}
-			});
+        searchQueryArr.forEach((queryTerm) => {
+            allProducts.map((prod: ProductItem) => {
+                if (prod.name.toLowerCase().includes(queryTerm.toLowerCase()) && !productsArr.includes(prod)) {
+                    productsArr = [...productsArr, prod];
+                    atLeastOneProduct = true;
+                }
+            });
 
-			sitePages.map((page: {english: string; french: string}) => {
-				if (
-					page[locale.localLang.lang].toLowerCase().includes(queryTerm.toLowerCase()) &&
-					!pagesArr.includes(page[locale.localLang.lang])
-				) {
-					pagesArr = [...pagesArr, page[locale.localLang.lang]];
-				}
-			});
-		});
+            allBlogs.map((blog: Blog) => {
+                const title = blog.title[locale.localLang.lang].toLowerCase();
+                const desc = blog.desc[locale.localLang.lang].toLowerCase();
+                const queryLC = queryTerm.toLowerCase();
+                if (title.includes(queryLC) || (desc.includes(queryLC) && !blogsArr.includes(blog))) {
+                    blogsArr = [...blogsArr, blog];
+                }
+            });
 
-		// populate results array with query-matched products, blogs and pages
-		productsArr.map(prod => {
-			results = [...results, <ResultsProductCard product={prod} locale={locale} />];
-		});
+            sitePages.map((page: { english: string; french: string }) => {
+                if (page[locale.localLang.lang].toLowerCase().includes(queryTerm.toLowerCase()) && !pagesArr.includes(page[locale.localLang.lang])) {
+                    pagesArr = [...pagesArr, page[locale.localLang.lang]];
+                }
+            });
+        });
 
-		blogsArr.map(blog => {
-			results = [...results, <ResultsBlogCard blog={blog} localLang={locale.localLang} />];
-		});
+        // populate results array with query-matched products, blogs and pages
+        productsArr.map((prod) => {
+            results = [...results, <ResultsProductCard product={prod} locale={locale} />];
+        });
 
-		pagesArr.map(page => {
-			results = [...results, <ResultsPageCard page={page} localLang={locale.localLang} />];
-		});
+        blogsArr.map((blog) => {
+            results = [...results, <ResultsBlogCard blog={blog} localLang={locale.localLang} />];
+        });
 
-		if (atLeastOneProduct && !pagesArr.includes("Shop") && !pagesArr.includes("Magasin")) {
-			results = [...results, <ResultsPageCard page="Shop" localLang={locale.localLang} />];
-		}
+        pagesArr.map((page) => {
+            results = [...results, <ResultsPageCard page={page} localLang={locale.localLang} />];
+        });
 
-		return results;
-	};
+        if (atLeastOneProduct && !pagesArr.includes("Shop") && !pagesArr.includes("Magasin")) {
+            results = [...results, <ResultsPageCard page="Shop" localLang={locale.localLang} />];
+        }
 
-	return (
-		<section className="flex justify-center">
-			<div className="w-full max-w-screen-xl px-12 py-12">
-				<div className="grid grid-cols-4 gap-2">
-					{
-						getAllResults().length > 0
-							?
-							getAllResults().map((result, index) => (
-							<div key={index} className="">
-								{result}
-							</div>
-							))
-							: 
-							<div className="col-span-4">
-								<p className="text-neutral-500">No results found for "{searchQuery}". Check the spelling or use a different word or phrase.</p>
-							</div>
-					}
-				</div>
-			</div>
-		</section>
-	);
+        return results;
+    };
+
+    return (
+        <section className="flex justify-center">
+            <div className="w-full max-w-screen-xl px-12 py-12">
+                <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-2">
+                    {getAllResults().length > 0 ? (
+                        getAllResults().map((result, index) => (
+                            <div key={index} className="">
+                                {result}
+                            </div>
+                        ))
+                    ) : (
+                        <div className="col-span-4">
+                            <p className="text-neutral-500 text-center sm:text-start">No results found for "{searchQuery}". Check the spelling or use a different word or phrase.</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </section>
+    );
 }
