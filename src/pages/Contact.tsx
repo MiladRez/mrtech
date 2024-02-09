@@ -10,12 +10,12 @@ export default function Contact({localLang, setLocale}: {localLang: {text: any, 
 		<>
 			<NavBar localLang={localLang} setLocale={setLocale} />
 			<section className="flex justify-center">
-				<div className="flex justify-between gap-24 max-w-screen-xl px-12 py-20">
-					<div className="w-full flex flex-col gap-6">
+				<div className="flex flex-col big:flex-row justify-between gap-24 max-w-screen-xl px-12 py-10 sm:py-20">
+					<div className="w-full flex flex-col gap-6 items-center lg:items-start">
 						<h1 className='text-2xl sm:text-4xl font-bold text-center lg:text-start'>
 							{ text.contact_header }
 						</h1>
-						<p className='text-stone-600 text-center w-4/5 lg:text-start'>
+						<p className='text-stone-600 text-center w-4/5 lg:text-start text-sm sm:text-base'>
 							{ text.contact_subheader }
 						</p>
 						<div className="flex flex-col gap-2 pt-2">

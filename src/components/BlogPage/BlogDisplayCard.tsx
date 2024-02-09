@@ -7,7 +7,7 @@ export default function BlogDisplayCard({blog, localLang}: {blog: Blog, localLan
 		<Link to={`/blog/${encodeURIComponent(blog.title["english"])}`} >
 			<div className="group">
 				<div className="overflow-hidden">
-					<img src={blog.img.toString()} className="w-full h-56 object-cover group-hover:scale-105 transition duration-300" />
+					<img src={blog.img.toString()} className="w-full md:h-56 object-cover group-hover:scale-105 transition duration-300" />
 				</div>
 				<div className="flex flex-col gap-2 pt-4 px-2">
 					<h2 className="text-xl group-hover:underline">{blog.title[localLang]}</h2>
@@ -16,7 +16,7 @@ export default function BlogDisplayCard({blog, localLang}: {blog: Blog, localLan
 						<p className="text-sm">~</p>
 						<p className="text-xs">{blog.author}</p>
 					</div>
-					<p className="text-neutral-500 pt-2">{blog.desc[localLang]}</p>
+					<p className="text-neutral-500 pt-2 text-sm md:text-base">{blog.desc[localLang]}</p>
 				</div>
 			</div>
 		</Link>

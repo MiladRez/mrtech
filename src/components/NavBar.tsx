@@ -130,7 +130,8 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
                 localCurrency: siteLocality.get(locale)?.currency,
             });
             clearCart();
-            navigate("/");
+			navigate("/");
+			document.body.style.overflow = "scroll";
         }
     };
 
@@ -280,9 +281,14 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
                         </div>
                         <a href="/cart" className="flex gap-2 hover:text-primary transition duration-200">
                             {text.nav_prod_popup_view_my_cart}
-                            <svg stroke="currentColor" className="w-5 h-5 cursor-pointer hover:fill-current">
-                                <use href="src/icons_sprite.svg#cart" />
-                            </svg>
+                            <div className="relative">
+								<svg stroke="currentColor" className="w-5 h-5 cursor-pointer hover:fill-current">
+									<use href="src/icons_sprite.svg#cart" />
+								</svg>
+								<div className={`${numOfItemsInCart > 0 ? "" : "hidden"} ${numOfItemsInCart >= 10 ? "w-4" : "w-3.5"} absolute -top-1.5 left-3 h-3.5 rounded-xl bg-white border border-black flex justify-center items-center group-hover:border-primary`}>
+									<p className={`text-[8px] pt-px ${numOfItemsInCart >= 10 ? "pl-px" : ""}`}>{numOfItemsInCart}</p>
+								</div>
+							</div>
                         </a>
                         <a href="/login" className="hover:text-primary transition duration-200 py-6">
                             {text.nav_register_signin}

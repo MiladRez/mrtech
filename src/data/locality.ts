@@ -83,6 +83,8 @@ export const localityText = {
 
 		shop_header: "Shop",
 		shop_subheader: "All of the products we offer.",
+		shop_filter: "Filter",
+		shop_apply_filters_button: "Apply Filters",
 
 		deals_header: "Hottest Deals",
 		deals_subheader: "Score some of our top picks at unbelievably low prices.",
@@ -96,7 +98,7 @@ export const localityText = {
 		sort_opt_6: "Price, Low-High",
 		sort_opt_7: "Price, High-Low",
 		sort_products: "products",
-		sort_no_products_found: "No products found matching the selected filters",
+		sort_no_products_found: "No products found matching the selected filters.",
 		sort_clear_filter: "Clear filters",
 
 		filter_1_header: "Availability",
@@ -298,6 +300,8 @@ export const localityText = {
 
 		shop_header: "Magasin",
 		shop_subheader: "Tous les produits que nous proposons.",
+		shop_filter: "Filtre",
+		shop_apply_filters_button: "Appliquer",
 
 		deals_header: "Chaudes Offres",
 		deals_subheader: "Profitez de nos sélections incontournables à des prix incroyablement bas.",
@@ -311,7 +315,7 @@ export const localityText = {
 		sort_opt_6: "Prix, Bas-Haut",
 		sort_opt_7: "Prix, Haut-Bas",
 		sort_products: "produits",
-		sort_no_products_found: "Aucun produit trouvé correspondant aux filtres sélectionnés",
+		sort_no_products_found: "Aucun produit trouvé correspondant aux filtres sélectionnés.",
 		sort_clear_filter: "Effacer les filtres",
 
 		filter_1_header: "Disponibilité",

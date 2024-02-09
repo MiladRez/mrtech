@@ -33,6 +33,7 @@
   "prettier": {
 	"experimentalTernaries": true,
 	"tabWidth": 4,
-	"printWidth": 9000
+	"printWidth": 9000,
+	"singleAttributePerLine": true
   }
 }
