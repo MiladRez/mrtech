@@ -124,10 +124,10 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
     }, [search]);
 
     return (
-        <div className="relative w-full md:w-[42rem] pointer-events-auto group/searchbarAndResults">
+        <div className="relative w-full md:w-[42rem] pointer-events-auto">
             {/* search bar */}
-            <form id="searchBar" action={`/search/${queryDisplay}`} className={`relative ${search ? "ring-1 ring-neutral-500 group-hover/searchbarAndResults:ring-2 transition duration-200" : "ring-0"} w-full flex`}>
-                <input id="searchBarInput" ref={searchBarInput} value={queryDisplay} className="w-full px-6 pt-2 outline-none rounded-none peer" onChange={(event) => searchAlgo(event.target.value)} />
+            <form id="searchBar" action={`/search/${queryDisplay}`} className={`relative ${search ? "ring-2 ring-neutral-500" : "ring-0"} w-full flex`}>
+                <input id="searchBarInput" ref={searchBarInput} value={queryDisplay} className="w-full px-6 pt-4 sm:pt-2 text-sm sm:text-base outline-none rounded-none peer" onChange={(event) => searchAlgo(event.target.value)} />
                 <label htmlFor="searchBarInput" className={`absolute left-6 ${queryDisplay != "" ? "top-1 text-[10px] duration-0" : "top-3.5 peer-focus:top-1 peer-focus:text-[10px]"} text-neutral-500 pointer-events-none transition-all duration-200`}>
                     {localLang.text.nav_search}
                 </label>
@@ -138,9 +138,9 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
                 </button>
             </form>
             {/* search results */}
-            <div className={`absolute ${queryDisplay != "" && searchResultsDisplay ? "ring-1 ring-neutral-500 group-hover/searchbarAndResults:ring-2 transition duration-200" : "hidden"} top-13 z-10 w-full h-auto bg-white overflow-hidden`}>
-                <div className="flex flex-col sm:flex-row gap-4">
-                    <div className={`flex flex-col sm:w-2/5 ${suggestions.length > 0 || pages.length > 0 ? "py-2" : ""}`}>
+            <div className={`absolute ${queryDisplay != "" && searchResultsDisplay ? "ring-2 ring-neutral-500" : "hidden"} z-10 w-full max-h-[32rem] sm:h-auto bg-white overflow-auto sm:overflow-hidden mb-20`}>
+                <div className="flex flex-col sm:flex-row sm:gap-4">
+                    <div className={`flex flex-col sm:w-2/5 ${suggestions.length > 0 || pages.length > 0 ? "pt-2 sm:py-2" : ""}`}>
                         <div className={`flex flex-col ${suggestions.length > 0 ? "" : "hidden"}`}>
                             <p className="text-[11px] uppercase text-primary py-2 mx-6 border-b border-primary/50 tracking-wider">{localLang.text.search_suggestions}</p>
                             <div className="">
@@ -168,7 +168,7 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
                             </div>
                         </div>
                     </div>
-                    <div className={`flex flex-col sm:w-3/5 ${products.length > 0 ? "py-2" : "hidden"}`}>
+                    <div className={`flex flex-col sm:w-3/5 ${products.length > 0 ? "pb-2 sm:py-2" : "hidden"}`}>
                         <p className="text-[11px] uppercase text-primary py-2 mx-6 border-b border-primary/50 tracking-wider">{localLang.text.search_products}</p>
                         <div className="">
                             {products.map((prod, index) => (

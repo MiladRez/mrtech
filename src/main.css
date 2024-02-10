@@ -25,3 +25,7 @@
       scrollbar-width: none; /* Firefox */
     }
 }
+
+body {
+	-webkit-overflow-scrolling: touch;
+}

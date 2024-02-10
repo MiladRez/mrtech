@@ -15,9 +15,9 @@ export default function BlogPost({ localLang, setLocale }: { localLang: { text: 
     const date = blog.id ? blog.date[localLang.lang] : null;
     const content = blog.id ? blog.content[localLang.lang] : null;
 
-    // useEffect(() => {
-    // 	window.scrollTo(0, 0)
-    // }, [])
+    useEffect(() => {
+    	window.scrollTo(0, 0)
+    }, [])
 
     useEffect(() => {
         allBlogs.forEach((blog) => {
