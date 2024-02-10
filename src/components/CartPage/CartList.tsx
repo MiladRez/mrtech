@@ -34,7 +34,7 @@ export default function CartList({locale}: CartListProps) {
 		<section className="flex justify-center">
 			<div className="w-full max-w-screen-xl px-12 py-6 md:py-12">
 				<div className="flex justify-between items-end py-4 md:py-8">
-					<h1 className="text-4xl">{localLang.cart_header}</h1>
+					<h1 className="text-4xl sm:w-auto">{localLang.cart_header}</h1>
 					<a href="/shop">
 						<p className="text-sm hover:underline">{localLang.cart_continue_shopping}</p>
 					</a>
@@ -45,7 +45,7 @@ export default function CartList({locale}: CartListProps) {
 						<p className="text-xs uppercase text-neutral-500">{localLang.cart_quantity}</p>
 						<p className="text-right text-xs uppercase text-neutral-500">{localLang.cart_total}</p>
 					</div>
-					<div className={`border-y flex flex-col ${cart.size > 0 ? "" : "items-center"} justify-center gap-6 md:gap-12 py-6 md:py-12`}>
+					<div className={`border-y flex flex-col ${cart.size > 0 ? "py-6" : "py-32 items-center"} justify-center gap-6 md:gap-12 md:py-12`}>
 						{cart.size > 0 ? (
 							Array.from(cart.keys()).map((prod, index) => (
 								<CartProductDisplay
@@ -63,9 +63,11 @@ export default function CartList({locale}: CartListProps) {
 									<p className="text-lg">{localLang.cart_empty_header}</p>
 									<p className="text-neutral-500">{localLang.cart_empty_subheader}</p>
 								</div>
-								<svg className="w-16 h-16">
-									<use href="src/icons_sprite.svg#addToCart" />
-								</svg>
+								<a href="/shop">
+									<svg className="w-16 h-16">
+										<use href="src/icons_sprite.svg#addToCart" />
+									</svg>
+								</a>
 							</div>
 						)}
 					</div>
@@ -75,7 +77,8 @@ export default function CartList({locale}: CartListProps) {
 						<div className="flex justify-end">
 							<p className="px-8">{localLang.cart_subtotal}</p>
 							<p>
-								{subtotal} {locale.localCurrency === "cad" ? "CAD" : "USD"}
+								<span className="pr-2">{locale.localCurrency === "cad" ? "CAD" : "USD"}</span>
+								{subtotal}
 							</p>
 						</div>
 						<p className="text-xs text-neutral-500">{localLang.cart_taxes_and_shipping}</p>

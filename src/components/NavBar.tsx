@@ -167,10 +167,14 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
         <>
             <nav className={`fixed ${navVisible ? "max-h-24 border-b" : "max-h-0 overflow-hidden"} w-screen flex justify-center bg-stone-50 z-20 transition-[max-height] duration-300`}>
                 <div className="relative flex w-full max-w-screen-xl justify-between items-center px-12 py-4">
-                    <AddedToCartPopup product={product} visible={navVisible} closeItemAddedPopup={closeItemAddedPopup} localLang={text} />
+					<AddedToCartPopup product={product} visible={navVisible} closeItemAddedPopup={closeItemAddedPopup} localLang={text} />
+					{/* hamburger menu */}
+					<svg stroke="currentColor" onClick={handleMenuClick} className="w-8 h-8 cursor-pointer hover:text-primary md:hidden transition duration-200">
+							<use href="src/icons_sprite.svg#menu" />
+						</svg>
                     {/* navbar pages */}
-                    <div className="flex items-center">
-                        <a href="/home">
+					<div className="flex items-center">
+                        <a href="/home" className="pl-10">
                             <img src={mrtechLogo} className="w-20" />
                         </a>
                         <div className="pl-8 hidden md:flex">
@@ -217,7 +221,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
                         </div>
                     </div>
                     {/* search and cart */}
-                    <div className="items-center gap-6 hidden md:flex">
+                    <div className="flex items-center gap-6">
                         <svg stroke="currentColor" className="w-[1.4rem] h-[1.4rem] cursor-pointer hover:fill-current hover:text-primary" onClick={handleSearchButtonClick}>
                             <use href="src/icons_sprite.svg#search" />
                         </svg>
@@ -230,10 +234,6 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
                             </div>
                         </a>
                     </div>
-                    {/* hamburger menu */}
-                    <svg stroke="currentColor" onClick={handleMenuClick} className="w-8 h-8 cursor-pointer hover:text-primary md:hidden transition duration-200">
-                        <use href="src/icons_sprite.svg#menu" />
-                    </svg>
                 </div>
             </nav>
             {/* mobile nav */}

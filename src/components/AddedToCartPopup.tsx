@@ -38,7 +38,7 @@ export default function AddedToCartPopup({product, visible, closeItemAddedPopup,
 						<svg className="w-3 h-3 pb-px sm:w-3.5 sm:h-3.5">
 							<use href="src/icons_sprite.svg#checkmark" />
 						</svg>
-						<p className="text-[10px] sm:text-xs max-w-64">{localLang.nav_prod_popup_noti}</p>
+						<p className="text-[10px] sm:text-xs max-w-40 sm:max-w-64">{localLang.nav_prod_popup_noti}</p>
 					</div>
 					<div className="flex items-center">
 						<img src={img ? img.toString() : ""} className="w-28 px-4 py-4" />

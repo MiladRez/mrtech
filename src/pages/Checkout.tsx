@@ -105,17 +105,19 @@ export default function Checkout({locale, setLocale}: CheckoutProps) {
 		<>
 			<NavBar localLang={locale.localLang} setLocale={setLocale} />
 			<section className="relative flex justify-center -mt-24">
-				<div className="absolute w-full h-full flex pointer-events-none">
+				<div className="hidden lg:flex absolute w-full h-full pointer-events-none">
 					<div className="w-3/5 h-full"></div>
 					<div className="w-2/5 h-full bg-stone-100"></div>
 				</div>
-				<div className="w-full max-w-screen-xl flex">
-					<div className="w-3/5 flex flex-col gap-8 px-12 pt-44 pb-20">
+				<div className="w-full max-w-screen-xl flex flex-col lg:flex-row">
+					<div className="lg:w-3/5 flex flex-col gap-8 px-12 pt-[8.5rem] sm:pt-44 pb-12 lg:pb-20">
 						<ContactSection localLang={localLang} />
 						<DeliverySection handleDeliverySelection={handleDeliverySelection} locale={locale} />
-						<PaymentSection localLang={localLang} />
+						<div className="hidden lg:inline">
+							<PaymentSection localLang={localLang} />
+						</div>
 					</div>
-					<div className="w-2/5 border-l px-12 pt-44 pb-20 bg-stone-100">
+					<div className="lg:w-2/5 border-l px-12 py-12 lg:pt-44 lg:pb-20 bg-stone-100">
 						<div className="sticky top-32 flex flex-col gap-8">
 							<div className="flex flex-col gap-2">
 								{product.id ? (
@@ -134,7 +136,7 @@ export default function Checkout({locale, setLocale}: CheckoutProps) {
 											</div>
 											<p className="text-sm line-clamp-2">{product.name}</p>
 										</div>
-										<p className="text-sm">{productPrice}</p>
+										<p className="text-sm">{getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, productPrice)}</p>
 									</div>
 								) : (
 									Array.from(cart.keys()).map((prod, index) => (
@@ -189,6 +191,9 @@ export default function Checkout({locale, setLocale}: CheckoutProps) {
 								</div>
 							</div>
 						</div>
+					</div>
+					<div className="lg:hidden px-12 py-12">
+						<PaymentSection localLang={localLang} />
 					</div>
 				</div>
 			</section>

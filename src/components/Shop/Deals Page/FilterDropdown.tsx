@@ -11,7 +11,7 @@ export default function FilterDropdown({openFilter, title, content}: FilterDropd
 	const [filterOpen, setFilterOpen] = useState(openFilter)
 
 	return (
-		<div className="border-x border-y xl:border-x-0 xl:border-t-0 xl:border-b py-3 bg-white">
+		<div className="border-x border-b xl:border-x-0 xl:border-t-0 xl:border-b py-3 bg-white">
 			<div onClick={() => setFilterOpen(!filterOpen)} className="flex justify-between items-center pr-4 group cursor-pointer select-none">
 				<h3 className="font-medium group-hover:text-primary pl-4 xl:pl-0">{title}</h3>
 				<svg stroke="currentColor" strokeWidth={1.6} className={`w-7 h-7 group-hover:text-primary ${filterOpen ? "rotate-180" : ""}`}>

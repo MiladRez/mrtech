@@ -32,8 +32,8 @@ export default function Blog({localLang, setLocale}: { localLang: {text: any, la
 					</Link>
 					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-4 xl:gap-2 justify-between">
 						{allBlogs.slice(1).map((blog, index) => (
-							<div className="border px-4 py-4 shadow-lg">
-								<BlogDisplayCard blog={blog} key={index} localLang={localLang.lang} />
+							<div key={index} className="border px-4 py-4 shadow-lg">
+								<BlogDisplayCard blog={blog} localLang={localLang.lang} />
 							</div>
 						))}		
 					</div>

@@ -76,7 +76,7 @@ export default function DeliverySection({handleDeliverySelection, locale}: Deliv
 						<svg fill="none" className="w-[1.1rem] h-[1.1rem]">
 							<use href="src/icons_sprite.svg#info" />
 						</svg>
-						<p className="text-sm">{localLang.checkout_delivery_address_note}</p>
+						<p className="text-xs sm:text-sm">{localLang.checkout_delivery_address_note}</p>
 					</div>
 				</div>
 				<div className="w-full flex gap-4 pt-2">
@@ -87,7 +87,7 @@ export default function DeliverySection({handleDeliverySelection, locale}: Deliv
 							{localLang.checkout_delivery_city}
 						</label>
 					</div>
-					<div className="relative w-full rounded ring-1 ring-neutral-300 py-2 shadow">
+					<div className="relative w-full rounded ring-1 ring-neutral-300 py-2 shadow overflow-hidden">
 						<select id="province" className="w-full border-none pt-4 pb-0 text-sm focus:ring-0">
 							{provincesAndStates[locale.localCurrency].map((provState, index) => (
 								<option key={index}>
@@ -133,10 +133,10 @@ export default function DeliverySection({handleDeliverySelection, locale}: Deliv
 					} border rounded px-6 py-4 shadow hover:bg-black/10 transition duration-200 cursor-pointer`}
 				>
 					<div className="flex justify-between">
-						<p className="">{localLang.checkout_shipping_method_1_name}</p>
+						<p className="text-sm sm:text-base">{localLang.checkout_shipping_method_1_name}</p>
 						<p className="text-sm font-semibold">{localLang.checkout_shipping_method_1_fee}</p>
 					</div>
-					<p className="text-sm text-neutral-500 pt-1">{localLang.checkout_shipping_method_1_eta}</p>
+					<p className="text-xs sm:text-sm text-neutral-500 pt-1">{localLang.checkout_shipping_method_1_eta}</p>
 				</div>
 				<div
 					onClick={() => handleShippingMethodSelection("$4.99")}
@@ -145,10 +145,10 @@ export default function DeliverySection({handleDeliverySelection, locale}: Deliv
 					} border rounded px-6 py-4 shadow hover:bg-black/10 transition duration-200 cursor-pointer`}
 				>
 					<div className="flex justify-between">
-						<p className="">{localLang.checkout_shipping_method_2_name}</p>
+						<p className="text-sm sm:text-base">{localLang.checkout_shipping_method_2_name}</p>
 						<p className="text-sm font-semibold">{localLang.checkout_shipping_method_2_fee}</p>
 					</div>
-					<p className="text-sm text-neutral-500 pt-1">{localLang.checkout_shipping_method_2_eta}</p>
+					<p className="text-xs sm:text-sm text-neutral-500 pt-1">{localLang.checkout_shipping_method_2_eta}</p>
 				</div>
 			</div>
 		</section>

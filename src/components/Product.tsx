@@ -44,12 +44,13 @@ export default function Product({ product, addToCart, localLang, localCurrency }
                     </div>
                     <div className="inline-flex items-center">
                         <p className={`${salePrice ? "text-xs sm:text-sm line-through text-neutral-500 pr-4" : "text-sm sm:text-base"} pl-1 sm:pl-2`}>
-                            {price}
-                            <span className="hidden sm:inline">{localCurrency === "cad" ? "CAD" : "USD"}</span>
+							<span className="hidden sm:inline whitespace-pre-wrap">{localCurrency === "cad" ? "CAD  " : "USD  "}</span>
+							{price}
                         </p>
                         <p className={`${salePrice ? "text-sm sm:text-base" : "hidden"}`}>
-                            {salePrice}
-                            <span className="hidden sm:inline">{localCurrency === "cad" ? "CAD" : "USD"}</span>
+							<span className="hidden sm:inline pr-2">{localCurrency === "cad" ? "CAD" : "USD"}</span>
+							{salePrice}
+                            
                         </p>
                     </div>
                 </div>

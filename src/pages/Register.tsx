@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import mrtechLogo from "../images/mrtech-logo.png";
 import { Link } from "react-router-dom";
 
@@ -53,10 +53,14 @@ export default function Register({ localLang }: { localLang: any }) {
 		}
 	};
 
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, []);
+
 	return (
 		<>
-			<div className="h-screen my-12 flex justify-center items-center">
-				<div className="w-[36rem] flex flex-col items-center gap-12 border px-16 py-12 bg-stone-50 shadow-xl">
+			<div className="h-screen sm:my-12 flex justify-center items-center">
+				<div className="w-full h-full sm:w-[36rem] flex flex-col items-center gap-12 border px-12 sm:px-16 py-12 bg-stone-50 shadow-xl">
 					<img src={mrtechLogo} className="w-44" />
 					<form action="/" className="flex flex-col w-full gap-2">
 						<div className="flex flex-col pr-[2.15rem] pb-8 gap-2">

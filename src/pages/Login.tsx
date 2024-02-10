@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import mrtechLogo from "../images/mrtech-logo.png";
 import { Link } from "react-router-dom";
 
 export default function Login({ localLang }: { localLang: any }) {
 	const [passwordHidden, setPasswordHidden] = useState(true);
 
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, []);
+
 	return (
 		<>
 			<div className="h-screen flex justify-center items-center">
-				<div className="w-[36rem] flex flex-col items-center gap-12 border px-16 py-12 bg-stone-50 shadow-xl">
+				<div className="w-full h-full sm:h-auto sm:w-[36rem] flex flex-col items-center justify-center gap-12 border px-12 sm:px-16 py-12 bg-stone-50 shadow-xl">
 					<img src={mrtechLogo} className="w-44" />
 					<form action="/home" className="flex flex-col w-full gap-2">
 						<div className="flex items-center gap-2">

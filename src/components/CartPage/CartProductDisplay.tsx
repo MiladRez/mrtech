@@ -77,7 +77,7 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
     }, [quantity]);
 
     return (
-        <div className="grid grid-cols-2 md:grid-cols-5 items-center gap-y-2 sm:gap-y-6 md:gap-y-0 border md:border-none px-4 py-4 md:px-0 md:py-0">
+        <div className="grid grid-cols-2 md:grid-cols-5 items-center gap-y-6 md:gap-y-0 border md:border-none px-4 py-4 md:px-0 md:py-0">
             <div className="col-span-2 md:col-span-3">
                 <Link
                     to={`/product/${encodeURIComponent(product.name)}`}
@@ -98,7 +98,7 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
                                 >
                                     <use href="src/icons_sprite.svg#checkmark" />
                                 </svg>
-                                <p className="text-[10px] md:text-xs px-1">{localLang.cart_available_to_ship}</p>
+                                <p className="text-[10px] md:text-xs px-1 max-w-40 sm:max-w-full">{localLang.cart_available_to_ship}</p>
                             </div>
                             <div className="flex items-center">
                                 <svg
@@ -107,7 +107,7 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
                                 >
                                     <use href="src/icons_sprite.svg#checkmark" />
                                 </svg>
-                                <p className="text-[10px] md:text-xs px-1">{localLang.cart_available_at_nearby_stores}</p>
+                                <p className="text-[10px] md:text-xs px-1 max-w-40 sm:max-w-full">{localLang.cart_available_at_nearby_stores}</p>
                             </div>
                         </div>
                     </div>
@@ -149,9 +149,9 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
                     </svg>
                 </div>
             </div>
-            <p className="text-sm text-right select-none">
+			<p className="text-sm text-right select-none">
+				<span className="pr-2">{locale.localCurrency === "cad" ? "CAD" : "USD"}</span>
                 {getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, productCost)}
-                {locale.localCurrency === "cad" ? " CAD" : " USD"}
             </p>
         </div>
     );

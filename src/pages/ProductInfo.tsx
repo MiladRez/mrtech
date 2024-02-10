@@ -153,14 +153,15 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 				setLocale={setLocale}
 			/>
 			<section className="flex justify-center">
-				<div className="flex max-w-screen-xl px-12 py-12">
-					<div className="w-2/3 flex flex-col items-center">
-						<img src={img ? img.toString() : ""} className="w-3/5 sticky top-32 border px-8 py-8" />
+				<div className="flex flex-col big:flex-row items-center big:items-start max-w-screen-xl px-12 py-12">
+					<div className="big:w-1/2 xl:w-2/3 flex flex-col items-center">
+						<img src={img ? img.toString() : ""} className="sm:w-4/5 big:w-3/5 sticky top-32 border px-8 py-8" />
 					</div>
-					<div className="w-1/3 flex flex-col gap-8">
+					<div className="big:w-1/2 xl:w-1/3 flex flex-col gap-8 my-5 big:my-0">
 						<div className="flex flex-col gap-2">
-							<p className="text-xs uppercase text-neutral-500">{manufacturer}</p>
-							<h1 className="text-4xl">{name}</h1>
+							<p className="text-xs uppercase text-neutral-500 hidden big:inline">{manufacturer}</p>
+							<h1 className="text-lg sm:text-2xl big:text-4xl">{name}</h1>
+							<p className="text-xs uppercase text-neutral-500 big:hidden">{manufacturer}</p>
 							<div className="flex gap-2">
 								<StarRatings
 									rating={rating}
@@ -168,19 +169,25 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 									starDimension="20px"
 									starSpacing="1px"
 								/>
-								<p className="pt-0.5 font-bold">
+								<p className="pt-0.5 font-semibold">
 									{rating} <span className="font-light">({numOfReviews} { localLang.product_info_reviews })</span>
 								</p>
 							</div>
-							<div className="flex pt-4 text-xl font-bold">
-								<p className={`${salePrice ? "text-sm line-through text-neutral-500 pr-4" : ""}`}>
-									{price} {locale.localCurrency === "cad" ? "CAD" : "USD"}
-								</p>
-								<p className={`${salePrice ? "" : "hidden"}`}>{salePrice} {locale.localCurrency === "cad" ? "CAD" : "USD"}</p>
+							<div className="flex items-center pt-4 font-semibold">
+								<div className="w-full sm:w-auto flex">
+									<p className={`${salePrice ? "text-sm line-through text-neutral-500 pr-4 pt-px" : ""}`}>
+										<span className="whitespace-pre-wrap">{locale.localCurrency === "cad" ? "CAD  " : "USD  "}</span>
+										{price}
+									</p>
+									<p className={`${salePrice ? "text-lg" : "hidden"}`}>
+										<span className="pr-2">{locale.localCurrency === "cad" ? "CAD" : "USD"}</span>
+										{salePrice}
+									</p>
+								</div>
 								<div
 									className={`${
 										salePrice ? "" : "hidden"
-									} bg-blue-800 text-sm text-white border px-4 py-1 rounded-2xl mx-4`}
+									} bg-blue-800 text-sm text-white border px-4 py-1 rounded-2xl sm:mx-4 w-fit big:w-auto`}
 								>
 									{ localLang.product_sale }
 								</div>
@@ -188,7 +195,7 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 						</div>
 						<div className="flex flex-col gap-2">
 							<p className="text-xs text-neutral-500">{ localLang.product_info_quantity }</p>
-							<div className="flex items-center">
+							<div className="flex items-center justify-between sm:justify-start">
 								<div className="flex items-center">
 									<div
 										className={`${
@@ -228,7 +235,7 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 								<div
 									className={`${
 										stock > 0 ? "hidden" : ""
-									} bg-neutral-600 text-sm text-white border px-4 py-1 rounded-2xl mx-4`}
+									} bg-neutral-600 text-sm text-white border px-4 py-1 rounded-2xl sm:mx-4 text-center`}
 								>
 									{ localLang.product_out_of_stock }
 								</div>

@@ -79,17 +79,13 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
     // mobile view filter button click
     const handleFilterButtonClick = () => {
         setFilterPopup(true);
-        document.addEventListener("mouseup", closeWhenClickedOutsideFilterPopup);
         document.body.style.overflow = "hidden";
-    };
-
-    const closeWhenClickedOutsideFilterPopup = (event: any) => {
-        if (!event.composedPath().includes(document.querySelector("#filterPopup"))) {
-            setFilterPopup(false);
-            document.removeEventListener("mouseup", closeWhenClickedOutsideFilterPopup);
-            document.body.style.overflow = "scroll";
-        }
-    };
+	};
+	
+	const handleApplyFiltersButtonClick = () => {
+		setFilterPopup(false);
+		document.body.style.overflow = "scroll";
+	}
 
     useEffect(() => {
         if (filteredProductsByStock.length > 0 || filteredProductsByPrice.length > 0 || filteredProductsByInputtedPriceRange.length > 0) {
@@ -127,7 +123,7 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
 
     useEffect(() => {
         sortByProductProperty(selectedSortOrder, productsDisplay);
-    }, [selectedSortOrder]);
+	}, [selectedSortOrder]);
 
     return (
         <section className="flex justify-center pb-16">
@@ -179,10 +175,10 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
                             </div>
                         </button>
                     </div>
-                    <div className={`${filterPopup ? "" : "hidden"} fixed top-0 left-0 w-screen h-screen z-10 bg-black/50 flex flex-col items-center justify-center`}>
+                    <div className={`${filterPopup ? "" : "hidden"} xl:hidden fixed top-0 left-0 w-screen h-screen z-10 bg-white flex flex-col pt-24`}>
                         <div
                             id="filterPopup"
-                            className="max-h-[26rem] no-scrollbar overflow-auto"
+                            className="w-full h-full no-scrollbar overflow-auto mb-20"
                         >
                             <FilterDropdown
                                 openFilter={true}
@@ -211,12 +207,13 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
                                         localCurrency={locale.localCurrency}
                                         setNoMatchToInputtedPriceRange={setNoMatchToInputtedPriceRange}
                                         setFilteredProductsByInputtedPriceRange={setFilteredProductsByInputtedPriceRange}
-                                        filteredProductsByStock={filteredProductsByStock}
+										filteredProductsByStock={filteredProductsByStock}
+										setFilterPopup={setFilterPopup}
                                     />
                                 }
                             />
                         </div>
-                        <button className="sm:hidden absolute mt-[32rem] px-4 py-4 bg-black text-white text-sm">{localLang.shop_apply_filters_button}</button>
+                        <button onClick={handleApplyFiltersButtonClick} className="sm:hidden absolute bottom-24 right-10 px-4 py-4 bg-black text-white text-sm">{localLang.shop_apply_filters_button}</button>
                     </div>
                     <div className="flex justify-between sm:justify-end items-center">
                         <div className="flex items-center pr-2">

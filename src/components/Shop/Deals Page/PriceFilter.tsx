@@ -10,15 +10,14 @@ type PriceFilterProps = {
 	localCurrency: "cad" | "usd",
 	setNoMatchToInputtedPriceRange: Function,
 	setFilteredProductsByInputtedPriceRange: Function,
-	filteredProductsByStock: ProductItem[]
+	filteredProductsByStock: ProductItem[],
+	setFilterPopup?: Function
 }
 
-export default function PriceFilter({ products, filteredProductsByPrice, setFilteredProductsByPrice, localLang, localCurrency, setNoMatchToInputtedPriceRange, setFilteredProductsByInputtedPriceRange, filteredProductsByStock }: PriceFilterProps) {
+export default function PriceFilter({ products, filteredProductsByPrice, setFilteredProductsByPrice, localLang, localCurrency, setNoMatchToInputtedPriceRange, setFilteredProductsByInputtedPriceRange, filteredProductsByStock, setFilterPopup }: PriceFilterProps) {
 	const [disabledApplyPriceRangeButton, setDisabledApplyPriceRangeButton] = useState(true);
 	const [minPrice, setMinPrice] = useState(0);
 	const [maxPrice, setMaxPrice] = useState(10000);
-	const [prevMinPrice, setPrevMinPrice] = useState(0);
-	const [prevMaxPrice, setPrevMaxPrice] = useState(10000);
 	let minPriceInput = document.getElementById("min-price") as HTMLInputElement;
 	let maxPriceInput = document.getElementById("max-price") as HTMLInputElement;
 
@@ -170,14 +169,15 @@ export default function PriceFilter({ products, filteredProductsByPrice, setFilt
 	};
 
 	const handleApplyPriceRangeButton = () => {
-		setPrevMinPrice(minPrice);
-		setPrevMaxPrice(maxPrice);
 		if (filteredProductsByPrice.length === 0 && priceRangeFilter(minPrice, maxPrice).length === 0) {
 			setNoMatchToInputtedPriceRange(true);
 		} else {
 			setNoMatchToInputtedPriceRange(false);
 		}
 		setFilteredProductsByInputtedPriceRange(priceRangeFilter(minPrice, maxPrice));
+		if (setFilterPopup) {
+			setFilterPopup(false);
+		}
 	};
 
 	const handleClearPriceRangeButton = () => {
@@ -192,7 +192,7 @@ export default function PriceFilter({ products, filteredProductsByPrice, setFilt
 
 	return (
 		<div className="">
-			<div className="flex justify-between items-center gap-2">
+			<div className="flex xl:justify-between items-center gap-2">
 				<div className="flex flex-col gap-1 pl-1">
 					<label htmlFor="min-price" className="text-sm text-neutral-500 select-none">
 						Min
