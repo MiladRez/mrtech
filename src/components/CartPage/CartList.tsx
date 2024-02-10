@@ -73,7 +73,7 @@ export default function CartList({locale}: CartListProps) {
 					</div>
 				</div>
 				<div className={`${cart.size > 0 ? "" : "hidden"} flex justify-end pt-16 pb-8`}>
-					<div className="flex flex-col gap-8 text-right md:w-1/4">
+					<div className="flex flex-col gap-8 text-right md:w-1/4 select-none">
 						<div className="flex justify-end">
 							<p className="px-8">{localLang.cart_subtotal}</p>
 							<p>

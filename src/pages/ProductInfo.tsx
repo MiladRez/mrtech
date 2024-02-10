@@ -152,7 +152,7 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 				localLang={locale.localLang}
 				setLocale={setLocale}
 			/>
-			<section className="flex justify-center">
+			<section className="flex justify-center select-none">
 				<div className="flex flex-col big:flex-row items-center big:items-start max-w-screen-xl px-12 py-12">
 					<div className="big:w-1/2 xl:w-2/3 flex flex-col items-center">
 						<img src={img ? img.toString() : ""} className="sm:w-4/5 big:w-3/5 sticky top-32 border px-8 py-8" />
@@ -266,7 +266,7 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 							</Link>
 						</div>
 						<div className="py-4">
-							<ul className="flex flex-col gap-2">
+							<ul className="flex flex-col gap-2 select-none">
 								{product.id
 									? product.features[locale.localLang.lang].map((feature, index) => (
 											<li key={index} className="list-disc">

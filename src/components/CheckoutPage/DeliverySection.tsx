@@ -130,7 +130,7 @@ export default function DeliverySection({handleDeliverySelection, locale}: Deliv
 					onClick={() => handleShippingMethodSelection("Free")}
 					className={`${
 						shippingMethod === "Free" ? "bg-black/10" : ""
-					} border rounded px-6 py-4 shadow hover:bg-black/10 transition duration-200 cursor-pointer`}
+					} border rounded px-6 py-4 shadow hover:bg-black/10 transition duration-200 cursor-pointer select-none`}
 				>
 					<div className="flex justify-between">
 						<p className="text-sm sm:text-base">{localLang.checkout_shipping_method_1_name}</p>
@@ -142,7 +142,7 @@ export default function DeliverySection({handleDeliverySelection, locale}: Deliv
 					onClick={() => handleShippingMethodSelection("$4.99")}
 					className={`${
 						shippingMethod === "$4.99" ? "bg-black/10" : ""
-					} border rounded px-6 py-4 shadow hover:bg-black/10 transition duration-200 cursor-pointer`}
+					} border rounded px-6 py-4 shadow hover:bg-black/10 transition duration-200 cursor-pointer select-none`}
 				>
 					<div className="flex justify-between">
 						<p className="text-sm sm:text-base">{localLang.checkout_shipping_method_2_name}</p>

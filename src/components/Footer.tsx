@@ -3,7 +3,7 @@ import FooterColumn from "./FooterColumn";
 
 export default function Footer({ localLang }: { localLang: any }) {
     return (
-        <footer className="bg-neutral-100">
+        <footer className="bg-neutral-100 select-none">
             <div className="flex justify-center border">
                 <div className="w-full max-w-screen-xl grid lg:grid-cols-3 px-12">
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:col-span-2 gap-8 py-12">

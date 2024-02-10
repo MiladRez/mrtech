@@ -85,10 +85,10 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
                 >
                     <img
                         src={product.img.toString()}
-                        className="w-32 h-32"
+                        className="w-32 h-32 select-none"
                     />
                     <div className="flex flex-col gap-2 justify-center pl-4 md:pl-10">
-                        <p className="group-hover:underline line-clamp-2 text-sm md:text-base">{product.name}</p>
+                        <p className="group-hover:underline line-clamp-2 text-sm md:text-base select-none">{product.name}</p>
                         <p className="text-xs md:text-sm text-neutral-500">{product.manufacturer}</p>
                         <div className="select-none">
                             <div className="flex items-center">
@@ -113,7 +113,7 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
                     </div>
                 </Link>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center select-none">
                 <div className="w-40 flex items-center justify-between ring-1 ring-neutral-500 hover:ring-2 transition duration-200">
                     <div
                         onClick={handleQuantityDecreaseClick}

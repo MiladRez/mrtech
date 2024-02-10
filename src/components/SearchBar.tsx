@@ -127,7 +127,7 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
         <div className="relative w-full md:w-[42rem] pointer-events-auto">
             {/* search bar */}
             <form id="searchBar" action={`/search/${queryDisplay}`} className={`relative ${search ? "ring-2 ring-neutral-500" : "ring-0"} w-full flex`}>
-                <input id="searchBarInput" ref={searchBarInput} value={queryDisplay} className="w-full px-6 pt-4 sm:pt-2 text-sm sm:text-base outline-none rounded-none peer" onChange={(event) => searchAlgo(event.target.value)} />
+                <input id="searchBarInput" ref={searchBarInput} value={queryDisplay} autoComplete="off" className="w-full px-6 pt-4 sm:pt-2 text-sm sm:text-base outline-none rounded-none peer" onChange={(event) => searchAlgo(event.target.value)} />
                 <label htmlFor="searchBarInput" className={`absolute left-6 ${queryDisplay != "" ? "top-1 text-[10px] duration-0" : "top-3.5 peer-focus:top-1 peer-focus:text-[10px]"} text-neutral-500 pointer-events-none transition-all duration-200`}>
                     {localLang.text.nav_search}
                 </label>

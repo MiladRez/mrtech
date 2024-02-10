@@ -32,7 +32,7 @@ export default function FeaturedProducts({ header, subheader, products, viewAllP
 
 	return (
 		<section className="flex justify-center">
-			<div className="w-full flex flex-col items-center max-w-screen-xl px-12 py-10">
+			<div className="w-full flex flex-col items-center max-w-screen-xl px-12 py-10 select-none">
 				<div className="flex flex-col gap-4 items-center py-8">
 					<h1 className="text-4xl text-center">{header}</h1>
 					<p className="text-center">{subheader}</p>
