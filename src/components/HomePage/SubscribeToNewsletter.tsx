@@ -1,11 +1,12 @@
 import React from "react";
+import iconsSprite from "../../icons_sprite.svg";
 
 export default function SubscribeToNewsletter({ localLang }: { localLang: any }) {
 	const customerServices = (icon: string, title: string, desc: string) => {
 		return (
 			<div className="flex items-center">
 				<svg className="w-12 h-12 sm:w-8 sm:h-8 mr-4 sm:mx-4 mt-2 fill-primary">
-					<use href={`src/icons_sprite.svg#${icon}`} />
+					<use href={`${iconsSprite}#${icon}`} />
 				</svg>
 				<div className="flex flex-col gap-2">
 					<h3 className="uppercase font-bold">{title}</h3>
@@ -27,7 +28,7 @@ export default function SubscribeToNewsletter({ localLang }: { localLang: any })
 							<label htmlFor="newsletterEmail" className="absolute top-3 left-4 text-neutral-400 pointer-events-none peer-focus:text-[10px] peer-focus:top-1 transition-all duration-200">{ localLang.newsletter_email }</label>
 							<button className="px-2 py-3">
 								<svg stroke="currentColor" className="w-6 h-6 hover:scale-125 transition duration-200">
-									<use href="src/icons_sprite.svg#right-arrow" />
+									<use href={`${iconsSprite}#right-arrow`} />
 								</svg>
 							</button>	
 						</div>

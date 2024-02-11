@@ -1,6 +1,7 @@
 import React, { LegacyRef, useEffect, useState } from "react";
 import { ProductItem, allProducts, searchQuerySuggestions, sitePages } from "../data/products";
-import { Blog, allBlogs } from "../data/blogs";
+import {Blog, allBlogs} from "../data/blogs";
+import iconsSprite from "../icons_sprite.svg";
 
 type SearchBarProps = {
     searchBarInput?: LegacyRef<HTMLInputElement>;
@@ -133,7 +134,7 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
                 </label>
                 <button type="submit" className="bg-white px-6 py-4 group/magnifyingGlassButton">
                     <svg stroke="currentColor" strokeWidth={1} className="w-5 h-5 group-hover/magnifyingGlassButton:scale-125 transition duration-200">
-                        <use href="src/icons_sprite.svg#search" />
+                        <use href={`${iconsSprite}#search`} />
                     </svg>
                 </button>
             </form>
@@ -186,7 +187,7 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
                             {localLang.text.search_search_for} "{queryDisplay}"
                         </p>
                         <svg stroke="currentColor" className="w-8 h-8 group-hover/toSearchPage:translate-x-1 transition duration-200">
-                            <use href="src/icons_sprite.svg#right-arrow" />
+                            <use href={`${iconsSprite}#right-arrow`} />
                         </svg>
                     </a>
                 </div>

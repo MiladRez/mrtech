@@ -4,6 +4,7 @@ import {ProductItem} from "../../data/products";
 import CartProductDisplay from "./CartProductDisplay";
 import {getInLocalLangAndCurrency} from "../../data/products";
 import {Link} from "react-router-dom";
+import iconsSprite from "../../icons_sprite.svg";
 
 type CartListProps = {
 	locale: {
@@ -65,7 +66,7 @@ export default function CartList({locale}: CartListProps) {
 								</div>
 								<a href="/shop">
 									<svg className="w-16 h-16">
-										<use href="src/icons_sprite.svg#addToCart" />
+										<use href={`${iconsSprite}#addToCart`} />
 									</svg>
 								</a>
 							</div>

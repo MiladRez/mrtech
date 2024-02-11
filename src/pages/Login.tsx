@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import mrtechLogo from "../images/mrtech-logo.png";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import iconsSprite from "../icons_sprite.svg";
 
 export default function Login({ localLang }: { localLang: any }) {
 	const [passwordHidden, setPasswordHidden] = useState(true);
@@ -26,7 +27,7 @@ export default function Login({ localLang }: { localLang: any }) {
 								<div className="absolute top-0 w-full h-full pointer-events-none border-2 border-transparent peer-focus:border-blue-800 transition-[border-color] duration-[400ms]"></div>
 							</div>
 							<svg className="w-7 h-7 px-0.5">
-								<use href="src/icons_sprite.svg#email" />
+								<use href={`${iconsSprite}#email`} />
 							</svg>
 						</div>
 						<div className="flex items-center gap-2">
@@ -44,14 +45,14 @@ export default function Login({ localLang }: { localLang: any }) {
 									className="w-7 h-7 cursor-pointer"
 									onClick={() => setPasswordHidden(!passwordHidden)}
 								>
-									<use href="src/icons_sprite.svg#eye-show" />
+									<use href={`${iconsSprite}#eye-show`} />
 								</svg>
 							) : (
 								<svg
 									className="w-7 h-7 cursor-pointer"
 									onClick={() => setPasswordHidden(!passwordHidden)}
 								>
-									<use href="src/icons_sprite.svg#eye-close" />
+									<use href={`${iconsSprite}#eye-close`} />
 								</svg>
 							)}
 						</div>

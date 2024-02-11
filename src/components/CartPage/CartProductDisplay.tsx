@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ProductItem, allProducts } from "../../data/products";
 import { Link } from "react-router-dom";
-import { getInLocalLangAndCurrency } from "../../data/products";
+import {getInLocalLangAndCurrency} from "../../data/products";
+import iconsSprite from "../../icons_sprite.svg";
 
 type CartProductDisplayProps = {
     product: ProductItem;
@@ -96,7 +97,7 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
                                     fill="#16a34a"
                                     className="w-3.5 h-3.5"
                                 >
-                                    <use href="src/icons_sprite.svg#checkmark" />
+                                    <use href={`${iconsSprite}#checkmark`} />
                                 </svg>
                                 <p className="text-[10px] md:text-xs px-1 max-w-40 sm:max-w-full">{localLang.cart_available_to_ship}</p>
                             </div>
@@ -105,7 +106,7 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
                                     fill="#16a34a"
                                     className="w-3.5 h-3.5"
                                 >
-                                    <use href="src/icons_sprite.svg#checkmark" />
+                                    <use href={`${iconsSprite}#checkmark`} />
                                 </svg>
                                 <p className="text-[10px] md:text-xs px-1 max-w-40 sm:max-w-full">{localLang.cart_available_at_nearby_stores}</p>
                             </div>
@@ -120,7 +121,7 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
                         className={`${disabled ? "cursor-not-allowed" : "cursor-pointer hover:bg-black/10"} px-4 py-4`}
                     >
                         <svg className="w-4 h-4">
-                            <use href="src/icons_sprite.svg#minus" />
+                            <use href={`${iconsSprite}#minus`} />
                         </svg>
                     </div>
                     <input
@@ -136,7 +137,7 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
                         className="px-4 py-4 cursor-pointer hover:bg-black/10"
                     >
                         <svg className="w-3.5 h-4">
-                            <use href="src/icons_sprite.svg#plus" />
+                            <use href={`${iconsSprite}#plus`} />
                         </svg>
                     </div>
                 </div>
@@ -145,7 +146,7 @@ export default function CartProductDisplay({ product, quantityAmount, removeFrom
                         onClick={handleRemoveProductButtonClick}
                         className="w-5 h-5 cursor-pointer hover:scale-110 hover:fill-rose-700"
                     >
-                        <use href="src/icons_sprite.svg#trash" />
+                        <use href={`${iconsSprite}#trash`} />
                     </svg>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {provincesAndStates} from "../../data/locality";
+import iconsSprite from "../../icons_sprite.svg";
 
 type DeliverySectionProps = {
 	handleDeliverySelection: Function;
@@ -74,7 +75,7 @@ export default function DeliverySection({handleDeliverySelection, locale}: Deliv
 					</div>
 					<div className="flex items-center gap-1">
 						<svg fill="none" className="w-[1.1rem] h-[1.1rem]">
-							<use href="src/icons_sprite.svg#info" />
+							<use href={`${iconsSprite}#info`} />
 						</svg>
 						<p className="text-xs sm:text-sm">{localLang.checkout_delivery_address_note}</p>
 					</div>

@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import iconsSprite from "../icons_sprite.svg";
 
 export default function Contact({localLang, setLocale}: {localLang: {text: any, lang: "english" | "french"}, setLocale: Function}) {
 
@@ -21,13 +22,13 @@ export default function Contact({localLang, setLocale}: {localLang: {text: any, 
 						<div className="flex flex-col gap-2 pt-2">
 							<a href="tel:1234567890" className="flex items-center gap-2 w-fit transition duration-200 hover:text-primary cursor-pointer">
 								<svg className="w-5 h-5">
-									<use href="src/icons_sprite.svg#phone" />
+									<use href={`${iconsSprite}#phone`} />
 								</svg>
 								<h3 className="font-semibold">(123)-456-7890</h3>
 							</a>
 							<a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrtech@business.com" className="flex items-center gap-2 w-fit transition duration-200 hover:text-primary cursor-pointer">
 								<svg className="w-5 h-5">
-									<use href="src/icons_sprite.svg#mail" />
+									<use href={`${iconsSprite}#mail`} />
 								</svg>
 								<h3 className="font-semibold">mrtech@business.com</h3>
 							</a>
@@ -78,7 +79,7 @@ export default function Contact({localLang, setLocale}: {localLang: {text: any, 
 						<button className='w-full bg-primary py-5 text-lg text-white rounded hover:bg-blue-800 transition duration-300 group mt-2'>
 							{ text.contact_send_message }
 							<svg fill="none" strokeWidth={1.5} stroke="currentColor" className="w-10 h-6 inline text-white group-hover:translate-x-1 transition duration-200">
-								<use href="src/icons_sprite.svg#send" />
+								<use href={`${iconsSprite}#send`} />
 							</svg>
 						</button>
 					</form>

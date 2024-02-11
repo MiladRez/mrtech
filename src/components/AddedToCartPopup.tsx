@@ -1,5 +1,6 @@
 import React from "react";
 import {ProductItem} from "../data/products";
+import iconsSprite from "../icons_sprite.svg";
 
 type AddedToCartPopupProps = {
 	product: ProductItem | null | undefined,
@@ -32,11 +33,11 @@ export default function AddedToCartPopup({product, visible, closeItemAddedPopup,
 						stroke="currentColor"
 						className="absolute top-0 right-0 mx-4 my-3 sm:mx-6 sm:my-6 w-5 h-5 cursor-pointer hover:scale-125 transition duration-200"
 					>
-						<use href="src/icons_sprite.svg#cross" />
+						<use href={`${iconsSprite}#cross`} />
 					</svg>
 					<div className="flex items-center gap-2">
 						<svg className="w-3 h-3 pb-px sm:w-3.5 sm:h-3.5">
-							<use href="src/icons_sprite.svg#checkmark" />
+							<use href={`${iconsSprite}#checkmark`} />
 						</svg>
 						<p className="text-[10px] sm:text-xs max-w-40 sm:max-w-64">{localLang.nav_prod_popup_noti}</p>
 					</div>

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ProductItem } from "../../../data/products";
-import Product from "../../Product";
+import { ProductItem } from "../../data/products";
+import Product from "../Product";
 import FilterDropdown from "./FilterDropdown";
-import { useCart } from "../../CartContext";
+import { useCart } from "../CartContext";
 import AvailabilityFilter from "./AvailabilityFilter";
 import PriceFilter from "./PriceFilter";
+import iconsSprite from "../../icons_sprite.svg";
 
 type ProductListProps = {
     products: ProductItem[];
@@ -80,12 +81,12 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
     const handleFilterButtonClick = () => {
         setFilterPopup(true);
         document.body.style.overflow = "hidden";
-	};
-	
-	const handleApplyFiltersButtonClick = () => {
-		setFilterPopup(false);
-		document.body.style.overflow = "scroll";
-	}
+    };
+
+    const handleApplyFiltersButtonClick = () => {
+        setFilterPopup(false);
+        document.body.style.overflow = "scroll";
+    };
 
     useEffect(() => {
         if (filteredProductsByStock.length > 0 || filteredProductsByPrice.length > 0 || filteredProductsByInputtedPriceRange.length > 0) {
@@ -123,7 +124,7 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
 
     useEffect(() => {
         sortByProductProperty(selectedSortOrder, productsDisplay);
-	}, [selectedSortOrder]);
+    }, [selectedSortOrder]);
 
     return (
         <section className="flex justify-center pb-16">
@@ -169,7 +170,7 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
                         >
                             <div className="flex justify-center pr-2 gap-2 group hover:text-primary">
                                 <svg className="w-6 h-6 group-hover:fill-primary">
-                                    <use href="src/icons_sprite.svg#filter" />
+                                    <use href={`${iconsSprite}#filter`} />
                                 </svg>
                                 {localLang.shop_filter}
                             </div>
@@ -207,13 +208,18 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
                                         localCurrency={locale.localCurrency}
                                         setNoMatchToInputtedPriceRange={setNoMatchToInputtedPriceRange}
                                         setFilteredProductsByInputtedPriceRange={setFilteredProductsByInputtedPriceRange}
-										filteredProductsByStock={filteredProductsByStock}
-										setFilterPopup={setFilterPopup}
+                                        filteredProductsByStock={filteredProductsByStock}
+                                        setFilterPopup={setFilterPopup}
                                     />
                                 }
                             />
                         </div>
-                        <button onClick={handleApplyFiltersButtonClick} className="sm:hidden absolute bottom-24 right-10 px-4 py-4 bg-black text-white text-sm">{localLang.shop_apply_filters_button}</button>
+                        <button
+                            onClick={handleApplyFiltersButtonClick}
+                            className="sm:hidden absolute bottom-24 right-10 px-4 py-4 bg-black text-white text-sm"
+                        >
+                            {localLang.shop_apply_filters_button}
+                        </button>
                     </div>
                     <div className="flex justify-between sm:justify-end items-center">
                         <div className="flex items-center pr-2">

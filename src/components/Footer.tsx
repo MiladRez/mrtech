@@ -1,5 +1,6 @@
 import React from "react";
 import FooterColumn from "./FooterColumn";
+import iconsSprite from "../icons_sprite.svg";
 
 export default function Footer({ localLang }: { localLang: any }) {
     return (
@@ -57,7 +58,7 @@ export default function Footer({ localLang }: { localLang: any }) {
                                         strokeWidth={0.5}
                                         className="w-6 h-6 hover:fill-primary hover:text-primary cursor-pointer"
                                     >
-                                        <use href="src/icons_sprite.svg#facebook" />
+                                        <use href={`${iconsSprite}#facebook`} />
                                     </svg>
                                 </a>
                                 <a
@@ -69,7 +70,7 @@ export default function Footer({ localLang }: { localLang: any }) {
                                         strokeWidth={0.1}
                                         className="w-6 h-6 hover:fill-primary hover:text-primary cursor-pointer"
                                     >
-                                        <use href="src/icons_sprite.svg#instagram" />
+                                        <use href={`${iconsSprite}#instagram`} />
                                     </svg>
                                 </a>
                                 <a
@@ -81,7 +82,7 @@ export default function Footer({ localLang }: { localLang: any }) {
                                         strokeWidth={0.5}
                                         className="w-6 h-6 hover:fill-primary hover:text-primary cursor-pointer"
                                     >
-                                        <use href="src/icons_sprite.svg#linkedin" />
+                                        <use href={`${iconsSprite}#linkedin`} />
                                     </svg>
                                 </a>
                                 <a
@@ -93,7 +94,7 @@ export default function Footer({ localLang }: { localLang: any }) {
                                         strokeWidth={0.5}
                                         className="w-6 h-6 hover:fill-primary hover:text-primary cursor-pointer"
                                     >
-                                        <use href="src/icons_sprite.svg#pinterest" />
+                                        <use href={`${iconsSprite}#pinterest`} />
                                     </svg>
                                 </a>
                                 <a
@@ -105,7 +106,7 @@ export default function Footer({ localLang }: { localLang: any }) {
                                         strokeWidth={0.5}
                                         className="w-4 h-4 mt-1 hover:fill-primary hover:text-primary cursor-pointer"
                                     >
-                                        <use href="src/icons_sprite.svg#twitterx" />
+                                        <use href={`${iconsSprite}#twitterx`} />
                                     </svg>
                                 </a>
                                 <a href="https://www.youtube.com/MRtechCA" target="_blank">
@@ -114,7 +115,7 @@ export default function Footer({ localLang }: { localLang: any }) {
                                         strokeWidth={0.5}
                                         className="w-6 h-6 hover:fill-primary hover:text-primary cursor-pointer"
                                     >
-                                        <use href="src/icons_sprite.svg#youtube" />
+                                        <use href={`${iconsSprite}#youtube`} />
                                     </svg>
                                 </a>
                             </div>

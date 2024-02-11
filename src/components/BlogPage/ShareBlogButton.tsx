@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import iconsSprite from "../../icons_sprite.svg";
 
 type ShareBlogButtonProps = {
 	id: number,
@@ -37,7 +38,7 @@ export default function ShareBlogButton({id, copyLinkVisible, setCopyLinkVisible
 			<div className="flex items-center gap-2 group cursor-pointer" onClick={handleShareButtonClick}>
 				<p className="text-sm md:text-base group-hover:underline">{localLang.blog_share}</p>
 				<svg stroke="currentColor" strokeWidth={1.7} fill="none" className="w-4 h-4 mb-1 md:mb-0 md:w-5 md:h-5">
-					<use href="src/icons_sprite.svg#share" />
+					<use href={`${iconsSprite}#share`} />
 				</svg>
 			</div>
 			<div id={`copyLink${id}`} className={`${copyLinkVisible ? "max-h-32 ring-1" : "max-h-0 ring-0"} absolute right-0 top-8 w-80 bg-white ring-neutral-500 hover:ring-2 transition-all duration-200 overflow-hidden`}>
@@ -46,7 +47,7 @@ export default function ShareBlogButton({id, copyLinkVisible, setCopyLinkVisible
 					<p className="w-full pt-4 px-4 text-xs md:text-sm text-clip overflow-hidden whitespace-nowrap">{window.location.href}</p>
 					<button className="bg-white px-3 py-3" onClick={handleCopyLinkButtonClick}>
 						<svg stroke="currentColor" strokeWidth={0.01} className="w-4 h-4 md:w-5 md:h-5 hover:scale-110 transition duration-100">
-							<use href="src/icons_sprite.svg#copy" />
+							<use href={`${iconsSprite}#copy`} />
 						</svg>
 					</button>
 				</div>

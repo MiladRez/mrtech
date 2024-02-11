@@ -9,7 +9,6 @@ import SearchBar from "./SearchBar";
 import { localityText } from "../data/locality";
 import AddedToCartPopup from "./AddedToCartPopup";
 import {useNavigate} from "react-router-dom";
-
 import iconsSprite from "../icons_sprite.svg";
 
 const siteLocality = new Map([
@@ -181,7 +180,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
                         onClick={handleMenuClick}
                         className="w-8 h-8 cursor-pointer hover:text-primary md:hidden transition duration-200"
                     >
-                        <use href="src/icons_sprite.svg#menu" />
+                        <use href={`${iconsSprite}#menu`} />
                     </svg>
                     {/* navbar pages */}
                     <div className="flex items-center">
@@ -279,7 +278,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
                                 stroke="currentColor"
                                 className="w-6 h-6 cursor-pointer hover:fill-current"
                             >
-                                <use href="src/icons_sprite.svg#cart" />
+                                <use href={`${iconsSprite}#cart`} />
                             </svg>
                             <div className={`${numOfItemsInCart > 0 ? "" : "hidden"} ${numOfItemsInCart >= 10 ? "w-5" : "w-4"} absolute -top-1.5 left-3.5 h-4 rounded-xl bg-white border border-black flex justify-center items-center group-hover:border-primary`}>
                                 <p className="text-xs pl-px">{numOfItemsInCart}</p>
@@ -314,7 +313,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
                             onClick={handleMenuClose}
                             className="w-6 h-6 cursor-pointer hover:rotate-90 hover:scale-110 transition duration-200"
                         >
-                            <use href="src/icons_sprite.svg#cross" />
+                            <use href={`${iconsSprite}#cross`} />
                         </svg>
                     </div>
                     <a

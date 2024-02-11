@@ -1,5 +1,6 @@
 import React from "react";
-import { PromoDisplayItem } from "../../data/promo_display_items";
+import {PromoDisplayItem} from "../../data/promo_display_items";
+import iconsSprite from "../../icons_sprite.svg";
 
 export default function PromoDisplayCard({ item, localLang }: { item: PromoDisplayItem, localLang: { text: any, lang: "english" | "french" } }) {
 
@@ -11,7 +12,7 @@ export default function PromoDisplayCard({ item, localLang }: { item: PromoDispl
 				<div className="flex items-center group cursor-pointer w-fit">
 					<a href="/shop" className="text-sm md:text-base uppercase pr-2 font-light group-hover:text-primary">{ localLang.text.promo_display_shop_button }</a>
 					<svg stroke="currentColor" className="w-6 h-6 group-hover:translate-x-1 group-hover:fill-current group-hover:text-primary transition-transform duration-300">
-						<use href="src/icons_sprite.svg#right-arrow" />
+						<use href={`${iconsSprite}#right-arrow`} />
 					</svg>					
 				</div>
 			</div>

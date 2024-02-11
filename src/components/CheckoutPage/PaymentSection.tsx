@@ -1,4 +1,5 @@
 import React from "react";
+import iconsSprite from "../../icons_sprite.svg";
 
 export default function PaymentSection({ localLang }: { localLang: any }) {
 	return (
@@ -7,10 +8,10 @@ export default function PaymentSection({ localLang }: { localLang: any }) {
 			<p className="text-sm text-neutral-500 pb-2">{localLang.checkout_payment_subheader}</p>
 			<div className="relative flex flex-col items-center rounded bg-stone-100 py-6">
 				<svg fill="#a3a3a3" className="w-14 h-14 mt-4 mb-2">
-					<use href="src/icons_sprite.svg#cash" />
+					<use href={`${iconsSprite}#cash`} />
 				</svg>
 				<svg fill="#f5f5f4" stroke="#a3a3a3" strokeWidth={1.5} className="absolute top-8 ml-14 w-8 h-8">
-					<use href="src/icons_sprite.svg#warning" />
+					<use href={`${iconsSprite}#warning`} />
 				</svg>
 				<p className="text-sm text-neutral-500">{localLang.checkout_payment_store_closed}</p>
 			</div>

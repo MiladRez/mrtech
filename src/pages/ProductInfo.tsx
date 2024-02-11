@@ -7,6 +7,7 @@ import { ProductItem, allProducts } from "../data/products";
 import StarRatings from "react-star-ratings";
 import { useCart } from "../components/CartContext";
 import {getInLocalLangAndCurrency} from "../data/products";
+import iconsSprite from "../icons_sprite.svg";
 
 type ProductInfoProps = {
 	locale: {
@@ -209,7 +210,7 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 											} px-4 py-4`}
 										>
 											<svg className="w-4 h-4">
-												<use href="src/icons_sprite.svg#minus" />
+												<use href={`${iconsSprite}#minus`} />
 											</svg>
 										</div>
 										<input
@@ -227,7 +228,7 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 											} px-4 py-4`}
 										>
 											<svg className="w-3.5 h-4">
-												<use href="src/icons_sprite.svg#plus" />
+												<use href={`${iconsSprite}#plus`} />
 											</svg>
 										</div>
 									</div>

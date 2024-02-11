@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import mrtechLogo from "../images/mrtech-logo.png";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import iconsSprite from "../icons_sprite.svg";
 
 export default function Register({ localLang }: { localLang: any }) {
 	const [passwordHidden, setPasswordHidden] = useState(true);
@@ -57,6 +58,25 @@ export default function Register({ localLang }: { localLang: any }) {
 		window.scrollTo(0, 0)
 	}, []);
 
+	const passwordValidity = (name: string, metRequirement: boolean) => {
+		return (
+			<div className="flex justify-between gap-1">
+				<p>{name}</p>
+				{checkPasswordValidity ? (
+					metRequirement ? (
+						<svg fill="#16a34a" className="w-3 h-3">
+							<use href={`${iconsSprite}#checkmark`} />
+						</svg>
+					) : (
+						<svg stroke="#b91c1c" className="w-3 h-3">
+							<use href={`${iconsSprite}#cross`} />
+						</svg>
+					)
+				) : null}
+			</div>
+		);
+	}
+
 	return (
 		<>
 			<div className="h-screen sm:my-12 flex justify-center items-center">
@@ -103,7 +123,7 @@ export default function Register({ localLang }: { localLang: any }) {
 								<div className="absolute top-0 w-full h-full pointer-events-none border-2 border-transparent peer-focus:border-blue-800 transition-[border-color] duration-[400ms]"></div>
 							</div>
 							<svg className="w-7 h-7 px-0.5">
-								<use href="src/icons_sprite.svg#email" />
+								<use href={`${iconsSprite}#email`} />
 							</svg>
 						</div>
 						<div className="flex items-center gap-2">
@@ -122,88 +142,23 @@ export default function Register({ localLang }: { localLang: any }) {
 									className="w-7 h-7 cursor-pointer"
 									onClick={() => setPasswordHidden(!passwordHidden)}
 								>
-									<use href="src/icons_sprite.svg#eye-show" />
+									<use href={`${iconsSprite}#eye-show`} />
 								</svg>
 							) : (
 								<svg
 									className="w-7 h-7 cursor-pointer"
 									onClick={() => setPasswordHidden(!passwordHidden)}
 								>
-									<use href="src/icons_sprite.svg#eye-close" />
+									<use href={`${iconsSprite}#eye-close`} />
 								</svg>
 							)}
 						</div>
 						<div className="w-56 text-xs text-neutral-500 flex flex-col gap-0.5 select-none">
-							<div className="flex justify-between gap-1">
-								<p className="">{ localLang.register_pw_req_1 }</p>
-								{checkPasswordValidity ? (
-									containsMinChars ? (
-										<svg fill="#16a34a" className="w-3 h-3">
-											<use href="src/icons_sprite.svg#checkmark" />
-										</svg>
-									) : (
-										<svg stroke="#b91c1c" className="w-3 h-3">
-											<use href="src/icons_sprite.svg#cross" />
-										</svg>
-									)
-								) : null}
-							</div>
-							<div className="flex justify-between gap-1">
-								<p>{ localLang.register_pw_req_2 }</p>
-								{checkPasswordValidity ? (
-									containsNum ? (
-										<svg fill="#16a34a" className="w-3 h-3">
-											<use href="src/icons_sprite.svg#checkmark" />
-										</svg>
-									) : (
-										<svg stroke="#b91c1c" className="w-3 h-3">
-											<use href="src/icons_sprite.svg#cross" />
-										</svg>
-									)
-								) : null}
-							</div>
-							<div className="flex justify-between gap-1">
-								<p>{ localLang.register_pw_req_3 }</p>
-								{checkPasswordValidity ? (
-									containsSpecialChar ? (
-										<svg fill="#16a34a" className="w-3 h-3">
-											<use href="src/icons_sprite.svg#checkmark" />
-										</svg>
-									) : (
-										<svg stroke="#b91c1c" className="w-3 h-3">
-											<use href="src/icons_sprite.svg#cross" />
-										</svg>
-									)
-								) : null}
-							</div>
-							<div className="flex justify-between gap-1">
-								<p>{ localLang.register_pw_req_4 }</p>
-								{checkPasswordValidity ? (
-									containsUpperChar ? (
-										<svg fill="#16a34a" className="w-3 h-3">
-											<use href="src/icons_sprite.svg#checkmark" />
-										</svg>
-									) : (
-										<svg stroke="#b91c1c" className="w-3 h-3">
-											<use href="src/icons_sprite.svg#cross" />
-										</svg>
-									)
-								) : null}
-							</div>
-							<div className="flex justify-between gap-1">
-								<p>{ localLang.register_pw_req_5 }</p>
-								{checkPasswordValidity ? (
-									containsLowerChar ? (
-										<svg fill="#16a34a" className="w-3 h-3">
-											<use href="src/icons_sprite.svg#checkmark" />
-										</svg>
-									) : (
-										<svg stroke="#b91c1c" className="w-3 h-3">
-											<use href="src/icons_sprite.svg#cross" />
-										</svg>
-									)
-								) : null}
-							</div>
+							{passwordValidity(localLang.register_pw_req_1, containsMinChars)}
+							{passwordValidity(localLang.register_pw_req_2, containsNum)}
+							{passwordValidity(localLang.register_pw_req_3, containsSpecialChar)}
+							{passwordValidity(localLang.register_pw_req_4, containsUpperChar)}
+							{passwordValidity(localLang.register_pw_req_5, containsLowerChar)}
 						</div>
 						<button
 							disabled={isValidPassword ? false : true}
