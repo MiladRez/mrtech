@@ -21,7 +21,7 @@ export default function SubscribeToNewsletter({ localLang }: { localLang: any })
 			<div className="flex justify-center py-16">
 				<div className="flex flex-col items-center w-full max-w-screen-xl px-12">
 					<div className="flex flex-col items-center gap-6">
-						<h2 className="text-4xl text-center">{ localLang.newsletter_header }</h2>
+						<h2 className="text-3xl md:text-4xl text-center">{ localLang.newsletter_header }</h2>
 						<p className="text-neutral-500 text-center pt-2">{ localLang.newsletter_subheader }</p>
 						<div className="relative flex justify-center w-full sm:w-3/4 group ring-1 ring-neutral-500 hover:ring-2 transition duration-200">
 							<input id="newsletterEmail" className="w-full px-4 pt-2 outline-none peer" />
