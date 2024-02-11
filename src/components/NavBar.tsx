@@ -8,7 +8,9 @@ import { ProductItem } from "../data/products";
 import SearchBar from "./SearchBar";
 import { localityText } from "../data/locality";
 import AddedToCartPopup from "./AddedToCartPopup";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+
+import iconsSprite from "../icons_sprite.svg";
 
 const siteLocality = new Map([
     [
@@ -267,7 +269,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
                             className="w-[1.4rem] h-[1.4rem] cursor-pointer hover:fill-current hover:text-primary"
                             onClick={handleSearchButtonClick}
                         >
-                            <use href="src/icons_sprite.svg#search" />
+                            <use href={`${iconsSprite}#search`} />
                         </svg>
                         <a
                             href="/cart"
