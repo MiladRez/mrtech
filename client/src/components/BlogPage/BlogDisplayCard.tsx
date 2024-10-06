@@ -1,8 +1,8 @@
 import React from "react";
-import { Blog } from "../../data/blogs";
+import { BlogItem } from "../../data/blogs";
 import { Link } from "react-router-dom";
 
-export default function BlogDisplayCard({blog, localLang}: {blog: Blog, localLang: "english" | "french"}) {
+export default function BlogDisplayCard({blog, localLang}: {blog: BlogItem, localLang: "english" | "french"}) {
 	return (
 		<Link to={`/blog/${encodeURIComponent(blog.title["english"])}`} >
 			<div className="group">

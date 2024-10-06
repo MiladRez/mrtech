@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { Link, useParams } from "react-router-dom";
 import FeaturedProducts from "../components/HomePage/FeaturedProducts";
-import { ProductItem, allProducts } from "../data/products";
+import { ProductItem, getAllProductsFromDB } from "../data/products";
 import StarRatings from "react-star-ratings";
 import { useCart } from "../components/CartContext";
 import {getInLocalLangAndCurrency} from "../data/products";
@@ -21,7 +21,10 @@ type ProductInfoProps = {
 }
 
 export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
-	const { cart, addItemToCart, removeItemFromCart, updateItemQuantity } = useCart();
+	const {cart, addItemToCart, removeItemFromCart, updateItemQuantity} = useCart();
+	
+	// list containing all of the products, will be populated with useeffect calling backend API
+	const [productList, setProductList] = useState<ProductItem[]>([]);
 
 	const [product, setProduct] = useState({} as ProductItem);
 	// used for logic (backend quantity)
@@ -132,18 +135,26 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 
 	useEffect(() => {
 		// get random list of products for "Similar products" list (excluding current product)
-		const randomProductsList = allProducts.filter(prod => prod.id != product.id).sort(() => 0.5 - Math.random());
+		const randomProductsList = productList.filter(prod => prod.id != product.id).sort(() => 0.5 - Math.random());
 		setSimilarProducts(randomProductsList.slice(0, 4));
 	}, [product]);
 
 	useEffect(() => {
 		// update product when accessing new url
-		allProducts.forEach(prod => {
+		productList.forEach(prod => {
 			if (prod.name === decodeURIComponent(product_name!)) {
 				setProduct(prod);
 			}
 		});
-	}, [product_name]);
+	}, [product_name, productList]);
+
+	useEffect(() => {
+		const getProductList = async () => {
+			const data = await getAllProductsFromDB();
+			setProductList(data);
+		}
+		getProductList();
+	}, [])
 
 	return (
 		<>
@@ -155,7 +166,7 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 			/>
 			<section className="flex justify-center select-none">
 				<div className="flex flex-col big:flex-row items-center big:items-start max-w-screen-xl px-12 py-12">
-					<div className="big:w-1/2 xl:w-2/3 flex flex-col items-center">
+					<div className="big:w-1/2 xl:w-2/3 flex flex-col items-center h-full">
 						<img src={img ? img.toString() : ""} className="sm:w-4/5 big:w-3/5 sticky top-32 border px-8 py-8" />
 					</div>
 					<div className="big:w-1/2 xl:w-1/3 flex flex-col gap-8 my-5 big:my-0">

@@ -1,6 +1,6 @@
 import React, { LegacyRef, useEffect, useState } from "react";
-import { ProductItem, allProducts, searchQuerySuggestions, sitePages } from "../data/products";
-import {Blog, allBlogs} from "../data/blogs";
+import { ProductItem, getAllProductsFromDB, searchQuerySuggestions, sitePages } from "../data/products";
+import {BlogItem, getAllBlogsFromDB} from "../data/blogs";
 import iconsSprite from "../icons_sprite.svg";
 
 type SearchBarProps = {
@@ -21,13 +21,31 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
             french: string;
         };
         link: string;
-    };
+	};
 
     const [queryDisplay, setQueryDisplay] = useState(query);
     const [searchResultsDisplay, setSearchResultsDisplay] = useState(searchResults);
     const [suggestions, setSuggestions] = useState([] as string[]);
     const [products, setProducts] = useState([] as ProductItem[]);
-    const [pages, setPages] = useState([] as PageWithLink[]);
+	const [pages, setPages] = useState([] as PageWithLink[]);
+	const [productList, setProductList] = useState<ProductItem[]>([]);
+	const [blogList, setBlogList] = useState<BlogItem[]>([]);
+
+	useEffect(() => {
+		const getProductList = async () => {
+			const data = await getAllProductsFromDB();
+			setProductList(data);
+		}
+		getProductList();
+	}, []);
+
+	useEffect(() => {
+		const getBlogList = async () => {
+			const data = await getAllBlogsFromDB();
+			setBlogList(data);
+		}
+		getBlogList();
+	}, []);
 
     // handling of closing search results when user clicks outside of search results area
     const closeWhenClickedOutsideSearchResults = (event: any) => {
@@ -60,7 +78,7 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
             // search algo for products
             let productsArr = [] as ProductItem[];
             queryInputArr.forEach((queryTerm) => {
-                allProducts.map((prod: ProductItem) => {
+                productList.map((prod: ProductItem) => {
                     if (prod.name.toLowerCase().includes(queryTerm.toLowerCase()) && !productsArr.includes(prod)) {
                         productsArr = [...productsArr, prod];
                     }
@@ -83,7 +101,7 @@ export default function SearchBar({ searchBarInput, search, searchResults, query
             }
 
             queryInputArr.forEach((queryTerm) => {
-                allBlogs.map((blog: Blog) => {
+                blogList.map((blog: BlogItem) => {
                     const title = blog.title[localLang.lang].toLowerCase();
                     const desc = blog.desc[localLang.lang].toLowerCase();
                     const queryLC = queryTerm.toLowerCase();

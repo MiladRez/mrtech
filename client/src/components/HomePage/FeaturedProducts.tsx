@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Product from "../Product";
 import { ProductItem } from "../../data/products";
 import { Link } from "react-router-dom";
@@ -21,12 +21,12 @@ type FeaturedProductsProps = {
 
 export default function FeaturedProducts({ header, subheader, products, viewAllPage, setProduct, locale }: FeaturedProductsProps) {
 
-	const { addItemToCart } = useCart();
+	const {addItemToCart} = useCart();
 
 	const localLang = locale.localLang.text;
 
 	const addToCart = (item: ProductItem) => {
-		addItemToCart(item)
+		addItemToCart(item);
 		setProduct(item);
 	}
 

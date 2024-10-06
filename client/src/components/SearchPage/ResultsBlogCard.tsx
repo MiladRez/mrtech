@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Blog } from "../../data/blogs";
+import { BlogItem } from "../../data/blogs";
 
-export default function ResultsBlogCard({ blog, localLang }: { blog: Blog, localLang: { text: any, lang: "english" | "french" } }) {
+export default function ResultsBlogCard({ blog, localLang }: { blog: BlogItem, localLang: { text: any, lang: "english" | "french" } }) {
 	const { title, img, date, author } = blog;
 
 	return (

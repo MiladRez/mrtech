@@ -4,7 +4,7 @@ import ContactSection from "../components/CheckoutPage/ContactSection";
 import DeliverySection from "../components/CheckoutPage/DeliverySection";
 import PaymentSection from "../components/CheckoutPage/PaymentSection";
 import {useCart} from "../components/CartContext";
-import {ProductItem, allProducts} from "../data/products";
+import {ProductItem, getAllProductsFromDB} from "../data/products";
 import {getInLocalLangAndCurrency} from "../data/products";
 import {useParams} from "react-router-dom";
 
@@ -28,6 +28,9 @@ export default function Checkout({locale, setLocale}: CheckoutProps) {
 	const [product, setProduct] = useState({} as ProductItem);
 	const [quantity, setQuantity] = useState(0);
 	const [shippingFee, setShippingFee] = useState(-1);
+
+	// list containing all of the products, will be populated with useeffect calling backend API
+	const [productList, setProductList] = useState<ProductItem[]>([]);
 
 	const localLang = locale.localLang.text;
 
@@ -78,9 +81,18 @@ export default function Checkout({locale, setLocale}: CheckoutProps) {
 		setShippingFee(fee);
 	};
 
+	// call API to retreive list of products
+	useEffect(() => {
+		const getProductList = async () => {
+			const data = await getAllProductsFromDB();
+			setProductList(data);
+		}
+		getProductList();
+	}, [])
+
 	useEffect(() => {
 		// update product when accessing new url
-		allProducts.forEach(prod => {
+		productList.forEach(prod => {
 			if (prod.name === decodeURIComponent(product_name!)) {
 				setProduct(prod);
 			}

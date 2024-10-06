@@ -1,11 +1,13 @@
 import React from "react";
-import { ProductItem, allProducts, sitePages } from "../../data/products";
+import { ProductItem, sitePages } from "../../data/products";
 import ResultsProductCard from "./ResultsProductCard";
 import ResultsPageCard from "./ResultsPageCard";
-import { Blog, allBlogs } from "../../data/blogs";
+import { BlogItem } from "../../data/blogs";
 import ResultsBlogCard from "./ResultsBlogCard";
 
 type SearchResultsProps = {
+	productList: ProductItem[];
+	blogList: BlogItem[];
     searchQuery: string;
     locale: {
         localLang: {
@@ -16,7 +18,7 @@ type SearchResultsProps = {
     };
 };
 
-export default function SearchResults({ searchQuery, locale }: SearchResultsProps) {
+export default function SearchResults({ searchQuery, locale, productList, blogList }: SearchResultsProps) {
     const getAllResults = () => {
         if (!searchQuery) {
             return [];
@@ -31,18 +33,18 @@ export default function SearchResults({ searchQuery, locale }: SearchResultsProp
 
         // store query-matched products, blogs, and pages in their respective arrays
         let productsArr = [] as ProductItem[];
-        let blogsArr = [] as Blog[];
+        let blogsArr = [] as BlogItem[];
         let pagesArr = [] as string[];
 
         searchQueryArr.forEach((queryTerm) => {
-            allProducts.map((prod: ProductItem) => {
+            productList.map((prod: ProductItem) => {
                 if (prod.name.toLowerCase().includes(queryTerm.toLowerCase()) && !productsArr.includes(prod)) {
                     productsArr = [...productsArr, prod];
                     atLeastOneProduct = true;
                 }
             });
 
-            allBlogs.map((blog: Blog) => {
+            blogList.map((blog: BlogItem) => {
                 const title = blog.title[locale.localLang.lang].toLowerCase();
                 const desc = blog.desc[locale.localLang.lang].toLowerCase();
                 const queryLC = queryTerm.toLowerCase();

@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Hero from "../components/HomePage/Hero";
 import FeaturedProducts from "../components/HomePage/FeaturedProducts";
-import { productsOnSale, popularProducts, ProductItem } from "../data/products";
+import { getProductsOnSaleFromDB, getPopularProductsFromDB, ProductItem } from "../data/products";
 import PromoDisplay from "../components/HomePage/PromoDisplay";
 import Footer from "../components/Footer";
 import BuildYourPC from "../components/HomePage/BuildYourPC";
 import FeaturedBlogs from "../components/HomePage/FeaturedBlogs";
 import SubscribeToNewsletter from "../components/HomePage/SubscribeToNewsletter";
+import {BlogItem, getAllBlogsFromDB} from "../data/blogs";
 
 type HomeProps = {
 	locale: {
@@ -24,6 +25,28 @@ export default function Home({locale, setLocale}: HomeProps) {
 
 	const [product, setProduct] = useState(null);
 	const localLang = locale.localLang.text;
+
+	const [productsOnSale, setProductsOnSale] = useState<ProductItem[]>([]);
+	const [popularProducts, setPopularProducts] = useState<ProductItem[]>([]);
+	const [blogList, setBlogList] = useState<BlogItem[]>([]);
+
+	useEffect(() => {
+		const getProductList = async () => {
+			const response_productOnSale = await getProductsOnSaleFromDB();
+			const response_popularProducts = await getPopularProductsFromDB();
+			setProductsOnSale(response_productOnSale);
+			setPopularProducts(response_popularProducts)
+		}
+		getProductList();
+	}, []);
+
+	useEffect(() => {
+		const getBlogList = async () => {
+			const data = await getAllBlogsFromDB();
+			setBlogList(data);
+		}
+		getBlogList();
+	}, []);
 
 	return (
 		<>
@@ -51,7 +74,7 @@ export default function Home({locale, setLocale}: HomeProps) {
 				setProduct={setProduct}
 				locale={locale}
 			/>
-			<FeaturedBlogs localLang={locale.localLang} />
+			<FeaturedBlogs localLang={locale.localLang} blogs={blogList} />
 			<SubscribeToNewsletter localLang={locale.localLang.text} />
 			<Footer localLang={locale.localLang.text} />
 		</>

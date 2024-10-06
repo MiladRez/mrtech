@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
-import { Blog, allBlogs } from "../data/blogs";
+import { BlogItem, getAllBlogsFromDB } from "../data/blogs";
 import ShareBlogButton from "../components/BlogPage/ShareBlogButton";
 
 export default function BlogPost({ localLang, setLocale }: { localLang: { text: any; lang: "english" | "french" }; setLocale: Function }) {
     const { blog_title } = useParams();
-	const [blog, setBlog] = useState({} as Blog);
+	const [blog, setBlog] = useState({} as BlogItem);
 	const [copyLinkVisible, setCopyLinkVisible] = useState(false);
+	const [blogList, setBlogList] = useState<BlogItem[]>([]);
 
     const { img, author } = blog;
     const title = blog.id ? blog.title[localLang.lang] : null;
@@ -20,12 +21,20 @@ export default function BlogPost({ localLang, setLocale }: { localLang: { text: 
     }, [])
 
     useEffect(() => {
-        allBlogs.forEach((blog) => {
+        blogList.forEach((blog) => {
             if (blog.title["english"] === decodeURIComponent(blog_title!)) {
                 setBlog(blog);
             }
         });
-    }, [blog_title]);
+	}, [blog_title, blogList]);
+	
+	useEffect(() => {
+		const getBlogsList = async () => {
+			const data = await getAllBlogsFromDB();
+			setBlogList(data);
+		}
+		getBlogsList();
+	}, [])
 
     return (
         <>

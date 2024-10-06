@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import ProductListHeader from "../components/ShopDealsPage/ProductListHeader";
 import ProductList from "../components/ShopDealsPage/ProductList";
 import Footer from "../components/Footer";
-import { productsOnSale } from "../data/products";
+import { getProductsOnSaleFromDB, ProductItem } from "../data/products";
 
 type DealsProps = {
     locale: {
@@ -17,7 +17,16 @@ type DealsProps = {
 };
 
 export default function Deals({ locale, setLocale }: DealsProps) {
-    const [product, setProduct] = useState(null);
+	const [product, setProduct] = useState(null);
+	const [productList, setProductList] = useState<ProductItem[]>([])
+
+	useEffect(() => {
+		const getProductList = async () => {
+			const data = await getProductsOnSaleFromDB();
+			setProductList(data);
+		}
+		getProductList();
+	}, []);
 
     const localLang = locale.localLang.text;
 
@@ -38,7 +47,7 @@ export default function Deals({ locale, setLocale }: DealsProps) {
                 desc={localLang.deals_subheader}
             />
             <ProductList
-                products={productsOnSale}
+                products={productList}
                 setProduct={setProduct}
                 locale={locale}
             />

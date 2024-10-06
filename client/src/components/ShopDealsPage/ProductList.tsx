@@ -19,14 +19,15 @@ type ProductListProps = {
     };
 };
 
-export default function ProductList({ products, setProduct, locale }: ProductListProps) {
+export default function ProductList({products, setProduct, locale}: ProductListProps) {
+	
     const { addItemToCart } = useCart();
 
     const localLang = locale.localLang.text;
 
     const sortOrder: string[] = [localLang.sort_opt_1, localLang.sort_opt_2, localLang.sort_opt_3, localLang.sort_opt_4, localLang.sort_opt_5, localLang.sort_opt_6, localLang.sort_opt_7];
 
-    const [productsDisplay, setProductsDisplay] = useState(products);
+	const [productsDisplay, setProductsDisplay] = useState(products);
 
     // for mobile view filter button
     const [filterPopup, setFilterPopup] = useState(false);
@@ -115,16 +116,20 @@ export default function ProductList({ products, setProduct, locale }: ProductLis
                 filteredProductsByStock.filter((prod) => [...filteredProductsByPrice, ...filteredProductsByInputtedPriceRange.filter((prod) => !filteredProductsByPrice.includes(prod))].includes(prod))
             );
         } else {
-            if (noMatchToInputtedPriceRange) {
+			if (noMatchToInputtedPriceRange) {
                 return sortByProductProperty(selectedSortOrder, []);
-            }
+			}
             return sortByProductProperty(selectedSortOrder, products);
         }
     }, [filteredProductsByStock, filteredProductsByPrice, filteredProductsByInputtedPriceRange]);
 
     useEffect(() => {
         sortByProductProperty(selectedSortOrder, productsDisplay);
-    }, [selectedSortOrder]);
+	}, [selectedSortOrder]);
+	
+	useEffect(() => {
+		setProductsDisplay(products)
+	}, [products]);
 
     return (
         <section className="flex justify-center pb-16">
