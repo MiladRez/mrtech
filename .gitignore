@@ -29,3 +29,5 @@ dist-ssr
 # Python virtual environment
 venv
 
+client_secret.json
+.env

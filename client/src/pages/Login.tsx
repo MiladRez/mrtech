@@ -59,6 +59,12 @@ export default function Login({ localLang }: { localLang: any }) {
 						<button className="mt-12 px-3 py-4 bg-black text-white border select-none hover:bg-primary hover:border-primary hover:text-white transition duration-200">
 							{localLang.login_signin}
 						</button>
+						<Link to="http://127.0.0.1:5000/login" className="flex items-center justify-center gap-4 mt-2 px-3 py-4 bg-white text-black border border-neutral-400 select-none hover:bg-primary hover:border-primary hover:text-white transition duration-200">
+							{localLang.login_signin_with_google}
+							<svg className="w-7 h-7">
+								<use href={`${iconsSprite}#google`} />
+							</svg>
+						</Link>
 					</form>
 					<p>
 						{localLang.login_dont_have_account}
