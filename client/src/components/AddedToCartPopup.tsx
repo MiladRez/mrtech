@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {ProductItem} from "../data/products";
 import iconsSprite from "../icons_sprite.svg";
+import {Link} from "react-router-dom";
+import httpClient from "../utils/httpClient";
 
 type AddedToCartPopupProps = {
 	product: ProductItem | null | undefined,
@@ -9,7 +11,9 @@ type AddedToCartPopupProps = {
 	localLang: any
 }
 
-export default function AddedToCartPopup({product, visible, closeItemAddedPopup, localLang }: AddedToCartPopupProps) {
+export default function AddedToCartPopup({product, visible, closeItemAddedPopup, localLang}: AddedToCartPopupProps) {
+	
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	
 	let img, name, manufacturer;
 
@@ -18,6 +22,20 @@ export default function AddedToCartPopup({product, visible, closeItemAddedPopup,
 		name = product.name;
 		manufacturer = product.manufacturer;
 	}
+
+	useEffect(() => {
+		const checkUserToken = async () => {
+			const response = await httpClient.get("http://localhost:5000/authorized");
+			if (response.data.authorized) {
+				console.log("User is authorized via Google")
+				setIsLoggedIn(true);
+			} else {
+				console.log("User is not authorized")
+				setIsLoggedIn(false);
+			}
+		}
+		checkUserToken();
+	}, []);
 
 	return (
 		<div className="absolute left-0 top-0 w-full h-full sm:px-12 py-4 flex justify-end pointer-events-none">
@@ -54,11 +72,14 @@ export default function AddedToCartPopup({product, visible, closeItemAddedPopup,
 								{localLang.nav_prod_popup_view_my_cart}
 							</button>
 						</a>
-						<a href="/checkout" className="w-full">
+						<Link
+							to={isLoggedIn ? "/checkout" : "/login"}
+							state={"/checkout"}
+							className="w-full">
 							<button className="w-full py-3 bg-black text-white text-xs sm:text-sm ring-1 ring-black hover:bg-primary hover:ring-2 hover:ring-primary hover:text-white transition duration-200">
 								{localLang.nav_prod_popup_checkout}
 							</button>
-						</a>
+						</Link>
 						<p onClick={() => closeItemAddedPopup()} className="cursor-pointer pt-2 hover:underline text-sm sm:text-base">
 							{ localLang.nav_prod_popup_continue_shopping }
 						</p>

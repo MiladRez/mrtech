@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import mrtechLogo from "../images/mrtech-logo.png";
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import iconsSprite from "../icons_sprite.svg";
+import httpClient from "../utils/httpClient";
 
-export default function Register({ localLang }: { localLang: any }) {
+export default function Register({localLang}: {localLang: any}) {
+	const navigate = useNavigate();
+	const prevPage = useLocation().state || "/home";
+
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 	const [passwordHidden, setPasswordHidden] = useState(true);
 	const [checkPasswordValidity, setCheckPasswordValidity] = useState(false);
 	const [containsMinChars, setContainsMinChars] = useState(false);
@@ -17,6 +23,8 @@ export default function Register({ localLang }: { localLang: any }) {
 		containsMinChars && containsNum && containsSpecialChar && containsUpperChar && containsLowerChar;
 
 	const handlePasswordInput = (event: any) => {
+		setPassword(event.target.value);
+
 		if (event.target.value != "") {
 			setCheckPasswordValidity(true);
 		} else {
@@ -54,10 +62,6 @@ export default function Register({ localLang }: { localLang: any }) {
 		}
 	};
 
-	useEffect(() => {
-		window.scrollTo(0, 0)
-	}, []);
-
 	const passwordValidity = (name: string, metRequirement: boolean) => {
 		return (
 			<div className="flex justify-between gap-1">
@@ -77,13 +81,31 @@ export default function Register({ localLang }: { localLang: any }) {
 		);
 	}
 
+	const handleRegisterButtonClick = async (event: any) => {
+		event.preventDefault()
+
+		try {
+			await httpClient.post("http://localhost:5000/register", {email, password});
+			navigate(prevPage);
+		} catch (error: any) {
+			if (error.response.status === 409) {
+				alert("User already exists.");
+			}
+		}
+	}
+
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, []);
+
 	return (
 		<>
 			<div className="h-screen sm:my-12 flex justify-center items-center">
-				<div className="w-full h-full sm:w-[36rem] flex flex-col items-center gap-12 border px-12 sm:px-16 py-12 bg-stone-50 shadow-xl">
+				<div className="w-full sm:w-[36rem] flex flex-col items-center gap-12 border px-12 sm:px-16 py-12 bg-stone-50 shadow-xl">
 					<img src={mrtechLogo} className="w-44" />
 					<form action="/" className="flex flex-col w-full gap-2">
 						<div className="flex flex-col pr-[2.15rem] pb-8 gap-2">
+							{/* First Name */}
 							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<input
 									type="text"
@@ -93,6 +115,7 @@ export default function Register({ localLang }: { localLang: any }) {
 								/>
 								<div className="absolute top-0 w-full h-full pointer-events-none border-2 border-transparent peer-focus:border-blue-800 transition-[border-color] duration-[400ms]"></div>
 							</div>
+							{/* Last Name */}
 							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<input
 									type="text"
@@ -102,6 +125,7 @@ export default function Register({ localLang }: { localLang: any }) {
 								/>
 								<div className="absolute top-0 w-full h-full pointer-events-none border-2 border-transparent peer-focus:border-blue-800 transition-[border-color] duration-[400ms]"></div>
 							</div>
+							{/* Phone Number */}
 							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<input
 									type="text"
@@ -113,10 +137,12 @@ export default function Register({ localLang }: { localLang: any }) {
 							</div>
 						</div>
 						<div className="flex items-center gap-2">
+							{/* Email */}
 							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<input
 									type="email"
 									placeholder={localLang.register_email}
+									onChange={(e) => setEmail(e.target.value)}
 									className="w-full border-neutral-400 text-sm focus:ring-0 peer"
 									required
 								/>
@@ -127,6 +153,7 @@ export default function Register({ localLang }: { localLang: any }) {
 							</svg>
 						</div>
 						<div className="flex items-center gap-2">
+							{/* Password */}
 							<div className="relative w-full focus-within:ring-4 focus-within:ring-blue-800/10 focus-within:rounded-sm transition-all duration-[400ms]">
 								<input
 									type={passwordHidden ? "password" : "text"}
@@ -162,6 +189,7 @@ export default function Register({ localLang }: { localLang: any }) {
 						</div>
 						<button
 							disabled={isValidPassword ? false : true}
+							onClick={(e) => handleRegisterButtonClick(e)}
 							className={`${
 								isValidPassword ? "hover:bg-primary hover:border-primary hover:text-white transition duration-200" : "cursor-not-allowed"
 							} mt-12 px-3 py-4 bg-black text-white border select-none`}
@@ -169,13 +197,13 @@ export default function Register({ localLang }: { localLang: any }) {
 							{ localLang.register_register_button }
 						</button>
 					</form>
-					<p>
+					<div className="flex flex-col items-center gap-2">
 						{ localLang.register_already_have_account }
 						<Link to="/login">
-							<span className="pl-1 text-primary cursor-pointer hover:text-blue-700">{ localLang.register_sign_in }</span>
+							<p className="pl-1 text-primary cursor-pointer hover:text-blue-700">{ localLang.register_sign_in }</p>
 						</Link>
 						
-					</p>
+					</div>
 				</div>
 			</div>
 		</>

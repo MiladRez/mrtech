@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useCart} from "../CartContext";
 import {ProductItem} from "../../data/products";
 import CartProductDisplay from "./CartProductDisplay";
 import {getInLocalLangAndCurrency} from "../../data/products";
 import {Link} from "react-router-dom";
 import iconsSprite from "../../icons_sprite.svg";
+import httpClient from "../../utils/httpClient";
 
 type CartListProps = {
 	locale: {
@@ -23,6 +24,8 @@ export default function CartList({locale}: CartListProps) {
 
 	const subtotal = getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, totalCost);
 
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 	const removeFromCart = (item: ProductItem) => {
 		removeItemFromCart(item);
 	};
@@ -30,6 +33,20 @@ export default function CartList({locale}: CartListProps) {
 	const updateQuantity = (item: ProductItem, quantity: number) => {
 		updateItemQuantity(item, quantity);
 	};
+
+	useEffect(() => {
+		const checkUserToken = async () => {
+			const response = await httpClient.get("http://localhost:5000/authorized");
+			if (response.data.authorized) {
+				console.log("User is authorized via Google")
+				setIsLoggedIn(true);
+			} else {
+				console.log("User is not authorized")
+				setIsLoggedIn(false);
+			}
+		}
+		checkUserToken();
+	}, []);
 
 	return (
 		<section className="flex justify-center">
@@ -83,7 +100,7 @@ export default function CartList({locale}: CartListProps) {
 							</p>
 						</div>
 						<p className="text-xs text-neutral-500">{localLang.cart_taxes_and_shipping}</p>
-						<Link to="/checkout">
+						<Link to={isLoggedIn ? "/checkout" : "/login"} state={"/checkout"}>
 							<button className="w-full border px-4 py-4 bg-black border border-black text-white text-sm hover:bg-primary hover:border-primary hover:text-white transition duration-200">
 								{localLang.cart_checkout}
 							</button>

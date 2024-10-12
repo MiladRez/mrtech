@@ -15,6 +15,7 @@ import Search from './pages/Search';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { localityText } from './data/locality';
+import ProtectedRoute from './utils/ProtectedRoute';
 
 
 export default function App() {
@@ -37,6 +38,8 @@ export default function App() {
 		<>
 			<CartProvider>
 				<Routes>
+
+					{/* Public routes accessible for both authenticated and non-authenticated users */}
 					<Route path='/' element={<Navigate to='/home' />} />
 					<Route path='/login' element={<Login localLang={locale.localLang.text} />} />
 					<Route path='/register' element={<Register localLang={locale.localLang.text} />} />
@@ -47,11 +50,21 @@ export default function App() {
 					<Route path='/blog' element={<Blog localLang={locale.localLang} setLocale={setLocale} />} />
 					<Route path='/blog/:blog_title' element={<BlogPost localLang={locale.localLang} setLocale={setLocale} />} />
 					<Route path='/contact' element={<Contact localLang={locale.localLang} setLocale={setLocale} />} />
-					<Route path='/cart' element={<Cart locale={locale} setLocale={setLocale} />} />
-					<Route path='/checkout' element={<Checkout locale={locale} setLocale={setLocale} />} />
-					<Route path='/checkout/:product_name' element={<Checkout locale={locale} setLocale={setLocale} />} />
 					<Route path='/search' element={<Search locale={locale} setLocale={setLocale} />} />
 					<Route path='/search/:search_query' element={<Search locale={locale} setLocale={setLocale} />} />
+					<Route path='/cart' element={<Cart locale={locale} setLocale={setLocale} />} />
+
+					{/* Routes that require a user to be authenticated */}
+					<Route path='/checkout' element={
+						<ProtectedRoute>
+							<Checkout locale={locale} setLocale={setLocale} />
+						</ProtectedRoute>
+					} />
+					<Route path='/checkout/:product_name' element={
+						<ProtectedRoute>
+							<Checkout locale={locale} setLocale={setLocale} />
+						</ProtectedRoute>
+					} />
 					<Route path='*' element={<Page404 localLang={locale.localLang.text} />} />
 				</Routes>	
 			</CartProvider>

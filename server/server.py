@@ -1,18 +1,37 @@
 import os
 import pathlib
 import requests
-from flask import Flask, session, abort, redirect, request
+
+from flask import Flask, jsonify, session, abort, redirect, request, url_for
+from flask_cors import CORS
+from flask_session import Session
+
 from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 import google.auth.transport.requests
-from flask_cors import CORS
+from flask_bcrypt import Bcrypt
+
 from pymongo import MongoClient
 from bson import json_util
+from bson.objectid import ObjectId
 import json
 
+from config import ApplicationConfig
+
 app = Flask(__name__)
-CORS(app)
+app.config.from_object(ApplicationConfig)
+CORS(app, supports_credentials=True)
+Session(app)
+bcrypt = Bcrypt(app)
+
+# Mongo client
+client = MongoClient("localhost", 27017)
+db = client.mrtech
+# collections
+products = db.products
+blogs = db.blogs
+users = db.users
 
 # OAuth with Google
 
@@ -25,30 +44,19 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1" # to allow HTTP traffic for loca
 flow = Flow.from_client_secrets_file(
 	client_secrets_file=client_secrets_file,
 	scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
-	redirect_uri="http://127.0.0.1:5000/callback"
+	redirect_uri="http://localhost:5000/callback"
 )
 
-def login_is_required(function):
-    def wrapper(*args, **kwargs):
-        if "google_id" not in session:
-            return abort(401) # Unauthorized access
-        else:
-            return function()
-    return wrapper
-        
-@app.route("/login")
+@app.route("/googleLogin")
 def login():
-    authorization_url, state = flow.authorization_url()
-    session["state"] = state
+    session["prevPage"] = request.args.get("prevPage")
+    authorization_url, _ = flow.authorization_url()
     return redirect(authorization_url)
 
 @app.route("/callback")
 def callback():
     flow.fetch_token(authorization_response=request.url)
-    
-    if not session["state"] == request.args["state"]:
-        abort(500) # state doesn't match
-    
+        
     credentials = flow.credentials
     request_session = requests.session()
     cached_session = cachecontrol.CacheControl(request_session)
@@ -62,25 +70,100 @@ def callback():
     
     session["google_id"] = id_info.get("sub")
     session["name"] = id_info.get("name")
-    return redirect("/protected_area")
+    
+    return redirect(f"http://localhost:3000{session.get("prevPage")}")
+
+@app.route("/")
+def index():
+    return "Hello World"
 
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect("http://localhost:5173/login")
+    return "200"
 
-@app.route("/protected_area")
-@login_is_required
-def protected_area():
-    return redirect("http://localhost:5173/home")
+@app.route("/authorized")
+def authorized():
+    
+    if "google_id" in session:
+        return jsonify({
+      		"authorized": True, 
+        	"user_info": {
+				"user_id": session["google_id"],
+				"name": session["name"]
+			}
+		})
+    elif "user_id" in session:
+        return jsonify({
+			"authorized": True,
+			"user_info": {
+				"user_id": session["user_id"],
+			}
+		})
+    else:
+        return jsonify({"authorized": False})
+ 
+ # Manual Authentication
+ 
+@app.route("/user_info")
+def get_current_user():
+    user_id = session.get("user_id")
+     
+    if not user_id:
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    user = users.find_one({"_id": ObjectId(user_id)})
+    
+    return jsonify({
+		"id": str(user["_id"]),
+		"email": user["email"]
+	})
+
+@app.route("/register", methods=["POST"])
+def register_user():
+    email = request.json["email"]
+    password = request.json["password"]
+    
+    user_exists = users.find_one({"email": email})
+    
+    if user_exists:
+        return jsonify({"error": "User already exists."}), 409
+    
+    hashedPassword = bcrypt.generate_password_hash(password)
+    new_user = {
+		"email": email,
+		"password": hashedPassword
+	}
+    new_user_id = parse_json(users.insert_one(new_user).inserted_id)
+    
+    session["user_id"] = str(new_user_id)
+    
+    return jsonify({
+        "id": new_user_id,
+		"email": email
+	})
+    
+@app.route("/login", methods=["POST"])
+def login_user():
+    email = request.json["email"]
+    password = request.json["password"]
+    
+    user = users.find_one({"email": email})
+    
+    if user is None:
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    if not bcrypt.check_password_hash(user["password"], password):
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    session["user_id"] = str(user["_id"])
+    
+    return jsonify({
+		"id": str(user["_id"]),
+		"email": user["email"]
+	})
 
 # MongoDB connection and routes
-
-client = MongoClient("localhost", 27017)
-db = client.mrtech
-# collections
-products = db.products
-blogs = db.blogs
 
 # test API Route
 @app.route("/test")
@@ -114,4 +197,4 @@ def parse_json(data):
     return json.loads(json_util.dumps(data))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="localhost", port=5000, debug=True)

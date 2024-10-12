@@ -8,6 +8,7 @@ import StarRatings from "react-star-ratings";
 import { useCart } from "../components/CartContext";
 import {getInLocalLangAndCurrency} from "../data/products";
 import iconsSprite from "../icons_sprite.svg";
+import httpClient from "../utils/httpClient";
 
 type ProductInfoProps = {
 	locale: {
@@ -22,6 +23,8 @@ type ProductInfoProps = {
 
 export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 	const {cart, addItemToCart, removeItemFromCart, updateItemQuantity} = useCart();
+
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	
 	// list containing all of the products, will be populated with useeffect calling backend API
 	const [productList, setProductList] = useState<ProductItem[]>([]);
@@ -156,6 +159,22 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 		getProductList();
 	}, [])
 
+	useEffect(() => {
+		const checkUserToken = async () => {
+			const response = await httpClient.get("http://localhost:5000/authorized");
+			if (response.data.authorized) {
+				console.log("User is authorized via Google")
+				setIsLoggedIn(true);
+			} else {
+				console.log("User is not authorized")
+				setIsLoggedIn(false);
+			}
+		}
+		checkUserToken();
+	}, []);
+
+	//`${stock > 0 ? `/checkout/${encodeURIComponent(name)}` : ""}`
+
 	return (
 		<>
 			<NavBar
@@ -264,7 +283,14 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 							>
 								{ localLang.product_info_add_to_cart }
 							</button>
-							<Link to={`${stock > 0 ? `/checkout/${encodeURIComponent(name)}` : ""}`}>
+							<Link to={
+								isLoggedIn ?
+									stock > 0 ? `/checkout/${encodeURIComponent(name)}` : ""
+								:
+									"/login"
+								}
+								state={"/checkout"}
+							>
 								<button
 									onClick={handleAddProductToCart}
 									className={`${

@@ -8,8 +8,9 @@ import { ProductItem } from "../data/products";
 import SearchBar from "./SearchBar";
 import { localityText } from "../data/locality";
 import AddedToCartPopup from "./AddedToCartPopup";
-import {useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import iconsSprite from "../icons_sprite.svg";
+import httpClient from "../utils/httpClient";
 
 const siteLocality = new Map([
     [
@@ -52,9 +53,11 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
     const { numOfItemsInCart, clearCart } = useCart();
 
     const searchBarInput = useRef<HTMLInputElement>(null);
-    const navigate = useNavigate();
+	const navigate = useNavigate();
+	const location = useLocation();
 
-    const [prevScrollPos, setPrevScrollPos] = useState(0);
+	const [prevScrollPos, setPrevScrollPos] = useState(0);
+	const [isLoggedIn, setIsLoggedIn] = useState<string | null>(null);
     const [navVisible, setNavVisible] = useState(true);
     const [menuVisible, setMenuVisible] = useState(false);
     const [search, setSearch] = useState(false);
@@ -146,7 +149,25 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
         setMenuVisible(false);
         setNavVisible(true);
         document.body.style.overflow = "scroll";
-    };
+	};
+	
+	const handleLogout = async () => {
+		await httpClient.get("http://localhost:5000/logout")
+	}
+
+	useEffect(() => {
+		const checkUserToken = async () => {
+			const response = await httpClient.get("http://localhost:5000/authorized");
+			if (response.data.authorized) {
+				console.log("User is authorized via Google")
+				setIsLoggedIn("logged in");
+			} else {
+				console.log("User is not authorized")
+				setIsLoggedIn("not logged in");
+			}
+		}
+		checkUserToken();
+	}, []);
 
     useEffect(() => {
         product ? document.addEventListener("mouseup", closeWhenClickedOutsideCartPopup) : null;
@@ -251,13 +272,24 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
                                                 </Dropdown.Item>
                                             ))}
                                     </Dropdown>
-                                </div>
-                                <a
-                                    href="/login"
-                                    className="uppercase cursor-pointer hover:text-primary hidden lg:flex"
-                                >
-                                    {text.nav_register_signin}
-                                </a>
+								</div>
+								{/* Login/Register button or Logout button conditional */
+									isLoggedIn != null ?
+										<Link
+											to="/login"
+											state={location.pathname}
+											onClick={isLoggedIn === "logged in" ? handleLogout : function(){} }
+											className="uppercase cursor-pointer hover:text-primary hidden lg:flex"
+										>
+											{isLoggedIn === "not logged in" ?
+												text.nav_register_signin
+												:
+												text.nav_logout
+											}
+										</Link>	
+									:
+									null
+								}							
                             </div>
                         </div>
                     </div>

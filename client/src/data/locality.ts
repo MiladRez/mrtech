@@ -5,7 +5,8 @@ export const localityText = {
         nav_deals: "Deals",
         nav_blog: "Blog",
         nav_contact: "Contact",
-        nav_register_signin: "Register / Sign In",
+		nav_register_signin: "Register / Sign In",
+		nav_logout: "Logout",
         nav_search: "Search",
         nav_cart: "Cart",
 
@@ -223,7 +224,8 @@ export const localityText = {
         nav_deals: "Offres",
         nav_blog: "Blogue",
         nav_contact: "Contact",
-        nav_register_signin: "Enregistrer / Connecter",
+		nav_register_signin: "Enregistrer / Connecter",
+		nav_logout: "Déconnexion",
         nav_search: "Recherche",
         nav_cart: "Panier",
 
