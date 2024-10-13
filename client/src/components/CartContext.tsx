@@ -4,19 +4,17 @@ import { ProductItem } from "../data/products";
 type CartContextType = {
 	cart: Map<ProductItem, number>,
 	numOfItemsInCart: number,
-	totalCost: number,
 	addItemToCart: Function,
 	removeItemFromCart: Function,
 	updateItemQuantity: Function,
 	clearCart: Function
 }
 
-const CartContext = createContext<CartContextType>({cart: new Map(), numOfItemsInCart: 0, totalCost: 0, addItemToCart: Function, removeItemFromCart: Function, updateItemQuantity: Function, clearCart: Function });
+const CartContext = createContext<CartContextType>({cart: new Map(), numOfItemsInCart: 0, addItemToCart: Function, removeItemFromCart: Function, updateItemQuantity: Function, clearCart: Function });
 
 export function CartProvider({ children } : { children: ReactNode }) {
 	const [cart, setCart] = useState(new Map<ProductItem, number>(localStorage.cart ? JSON.parse(localStorage.cart) : null));
 	const [numOfItemsInCart, setNumOfItemsInCart] = useState(localStorage.numOfItemsInCart ? parseInt(localStorage.numOfItemsInCart) : 0);
-	const [totalCost, setTotalCost] = useState(localStorage.totalCost ? parseFloat(parseFloat(localStorage.totalCost).toFixed(2)) : 0.00);
 
 	// determines the local currency
 	const locale = localStorage.locality ? (localStorage.locality === "USA (EN)" ? "usd" : "cad") : "cad";
@@ -28,10 +26,6 @@ export function CartProvider({ children } : { children: ReactNode }) {
 	useEffect(() => {
 		localStorage.setItem("numOfItemsInCart", numOfItemsInCart.toString());
 	}, [numOfItemsInCart]);
-
-	useEffect(() => {
-		localStorage.setItem("totalCost", totalCost.toFixed(2));
-	}, [totalCost]);
 
 	const addItemToCart = (item: ProductItem) => {
 		// check if item exists in cart
@@ -50,9 +44,6 @@ export function CartProvider({ children } : { children: ReactNode }) {
 		}
 
 		setNumOfItemsInCart(numOfItemsInCart + 1);
-
-		const itemPrice = item.salePrice ? item.salePrice[locale] : item.price[locale];
-		setTotalCost(totalCost + itemPrice);
 	}
 
 	const removeItemFromCart = (item: ProductItem) => {
@@ -65,9 +56,6 @@ export function CartProvider({ children } : { children: ReactNode }) {
 		})
 		setCart(new Map(cart))
 		setNumOfItemsInCart((numOfItemsInCart - removedItemCount) > 0 ? numOfItemsInCart - removedItemCount : 0);
-
-		const itemPrice = item.salePrice ? item.salePrice[locale] : item.price[locale];
-		setTotalCost(totalCost - (itemPrice * removedItemCount));
 	}
 
 	const updateItemQuantity = (item: ProductItem, quantity: number) => {
@@ -81,15 +69,11 @@ export function CartProvider({ children } : { children: ReactNode }) {
 		
 		const quantityDiff = quantity - origQuantity;
 		setNumOfItemsInCart((numOfItemsInCart + quantityDiff) > 0 ? numOfItemsInCart + quantityDiff : 0);
-
-		const itemPrice = item.salePrice ? item.salePrice[locale] : item.price[locale];
-		setTotalCost(totalCost + (itemPrice * quantityDiff));
 	}
 
 	const clearCart = () => {
 		setCart(new Map());
 		setNumOfItemsInCart(0);
-		setTotalCost(0.00);
 		
 		localStorage.removeItem("cart");
 		localStorage.removeItem("numOfItemsInCart");
@@ -97,7 +81,7 @@ export function CartProvider({ children } : { children: ReactNode }) {
 	}
 
 	return (
-		<CartContext.Provider value={{ cart, numOfItemsInCart, totalCost, addItemToCart, removeItemFromCart, updateItemQuantity, clearCart }}>
+		<CartContext.Provider value={{ cart, numOfItemsInCart, addItemToCart, removeItemFromCart, updateItemQuantity, clearCart }}>
 			{children}
 		</CartContext.Provider>
 	);

@@ -7,6 +7,8 @@ import {useCart} from "../components/CartContext";
 import {ProductItem, getAllProductsFromDB} from "../data/products";
 import {getInLocalLangAndCurrency} from "../data/products";
 import {useParams} from "react-router-dom";
+import {getTotalCost} from "../utils/calculateTotalCartCost";
+import iconsSprite from "../icons_sprite.svg";
 
 type CheckoutProps = {
 	locale: {
@@ -20,7 +22,7 @@ type CheckoutProps = {
 };
 
 export default function Checkout({locale, setLocale}: CheckoutProps) {
-	const {cart, totalCost} = useCart();
+	const {cart} = useCart();
 	
 	// use params for "Buy Now" feature
 	const {product_name} = useParams();
@@ -28,6 +30,7 @@ export default function Checkout({locale, setLocale}: CheckoutProps) {
 	const [product, setProduct] = useState({} as ProductItem);
 	const [quantity, setQuantity] = useState(0);
 	const [shippingFee, setShippingFee] = useState(-1);
+	const [totalCost, setTotalCost] = useState(0.00);
 
 	// list containing all of the products, will be populated with useeffect calling backend API
 	const [productList, setProductList] = useState<ProductItem[]>([]);
@@ -81,6 +84,15 @@ export default function Checkout({locale, setLocale}: CheckoutProps) {
 		setShippingFee(fee);
 	};
 
+	// call API to get total cost of all products in cart (using pricing from db to prevent any client-side tampering)
+	useEffect(() => {
+		const getSubtotal = async () => {
+			const response_subtotal = await getTotalCost(cart);
+			setTotalCost(response_subtotal);
+		}
+		getSubtotal();
+	});
+
 	// call API to retreive list of products
 	useEffect(() => {
 		const getProductList = async () => {
@@ -122,6 +134,7 @@ export default function Checkout({locale, setLocale}: CheckoutProps) {
 					<div className="w-2/5 h-full bg-stone-100"></div>
 				</div>
 				<div className="w-full max-w-screen-xl flex flex-col lg:flex-row">
+					{/* Left hand side of page */}
 					<div className="lg:w-3/5 flex flex-col gap-8 px-12 pt-[8.5rem] sm:pt-44 pb-12 lg:pb-20">
 						<ContactSection localLang={localLang} />
 						<DeliverySection handleDeliverySelection={handleDeliverySelection} locale={locale} />
@@ -129,6 +142,7 @@ export default function Checkout({locale, setLocale}: CheckoutProps) {
 							<PaymentSection localLang={localLang} />
 						</div>
 					</div>
+					{/* Right hand side of page */}
 					<div className="lg:w-2/5 border-l px-12 py-12 lg:pt-44 lg:pb-20 bg-stone-100">
 						<div className="sticky top-32 flex flex-col gap-8">
 							<div className="flex flex-col gap-2">
@@ -175,16 +189,29 @@ export default function Checkout({locale, setLocale}: CheckoutProps) {
 									))
 								)}
 							</div>
+							{/* Total cost section */}
 							<div className="flex flex-col gap-2">
 								<div className="flex justify-between">
 									<p className="text-sm">{localLang.checkout_subtotal}</p>
-									<p className="text-sm">{subtotal}</p>
+									{totalCost > 0 ?
+										<p className="text-sm">{subtotal}</p>
+										:
+										<svg className="w-4 h-4 text-gray-400 animate-spin dark:text-gray-600 fill-blue-600">
+											<use href={`${iconsSprite}#spinner`} />
+										</svg>
+									}
 								</div>
 								<div className="flex justify-between">
 									<p className="text-sm">{localLang.checkout_taxes}</p>
-									<p className="text-sm">
-										{getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, taxes)}
-									</p>
+									{totalCost > 0 ?
+										<p className="text-sm">
+											{getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, taxes)}
+										</p>
+										:
+										<svg className="w-4 h-4 text-gray-400 animate-spin dark:text-gray-600 fill-blue-600">
+											<use href={`${iconsSprite}#spinner`} />
+										</svg>
+									}
 								</div>
 								<div className="flex justify-between">
 									<p className="text-sm">{localLang.checkout_shipping}</p>
@@ -194,12 +221,18 @@ export default function Checkout({locale, setLocale}: CheckoutProps) {
 								</div>
 								<div className="flex justify-between">
 									<p className="font-semibold">{localLang.checkout_total}</p>
-									<div className="flex items-center gap-2">
-										<p className="text-xs text-neutral-500 pt-1">
-											{locale.localCurrency === "cad" ? "CAD" : "USD"}
-										</p>
-										<p className="text-lg font-semibold">{total}</p>
-									</div>
+									{totalCost > 0 ?
+										<div className="flex items-center gap-2">
+											<p className="text-xs text-neutral-500 pt-1">
+												{locale.localCurrency === "cad" ? "CAD" : "USD"}
+											</p>
+											<p className="text-lg font-semibold">{total}</p>
+										</div>
+										:
+										<svg className="w-5 h-5 text-gray-400 animate-spin dark:text-gray-600 fill-blue-600">
+											<use href={`${iconsSprite}#spinner`} />
+										</svg>
+									}
 								</div>
 							</div>
 						</div>

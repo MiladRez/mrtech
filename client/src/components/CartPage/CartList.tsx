@@ -6,6 +6,7 @@ import {getInLocalLangAndCurrency} from "../../data/products";
 import {Link} from "react-router-dom";
 import iconsSprite from "../../icons_sprite.svg";
 import httpClient from "../../utils/httpClient";
+import { getTotalCost } from "../../utils/calculateTotalCartCost";
 
 type CartListProps = {
 	locale: {
@@ -18,13 +19,12 @@ type CartListProps = {
 };
 
 export default function CartList({locale}: CartListProps) {
-	const {cart, totalCost, removeItemFromCart, updateItemQuantity} = useCart();
+	const {cart, removeItemFromCart, updateItemQuantity} = useCart();
 
 	const localLang = locale.localLang.text;
 
-	const subtotal = getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, totalCost);
-
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [subtotal, setSubtotal] = useState(0.00);
 
 	const removeFromCart = (item: ProductItem) => {
 		removeItemFromCart(item);
@@ -47,6 +47,14 @@ export default function CartList({locale}: CartListProps) {
 		}
 		checkUserToken();
 	}, []);
+
+	useEffect(() => {
+		const getSubtotal = async () => {
+			const response_subtotal = await getTotalCost(cart);
+			setSubtotal(response_subtotal);
+		}
+		getSubtotal();
+	});
 
 	return (
 		<section className="flex justify-center">
@@ -94,10 +102,16 @@ export default function CartList({locale}: CartListProps) {
 					<div className="flex flex-col gap-8 text-right md:w-1/4 select-none">
 						<div className="flex justify-end">
 							<p className="px-8">{localLang.cart_subtotal}</p>
-							<p>
-								<span className="pr-2">{locale.localCurrency === "cad" ? "CAD" : "USD"}</span>
-								{subtotal}
-							</p>
+							{subtotal > 0 ?
+								<p>
+									<span className="pr-2">{locale.localCurrency === "cad" ? "CAD" : "USD"}</span>
+									{getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, subtotal)}
+								</p>
+								:
+								<svg className="w-5 h-5 text-gray-400 animate-spin dark:text-gray-600 fill-blue-600">
+									<use href={`${iconsSprite}#spinner`} />
+								</svg>
+							}
 						</div>
 						<p className="text-xs text-neutral-500">{localLang.cart_taxes_and_shipping}</p>
 						<Link to={isLoggedIn ? "/checkout" : "/login"} state={"/checkout"}>

@@ -55,7 +55,7 @@ export default function ProductList({products, setProduct, locale}: ProductListP
     const sortByProductProperty = (sortOrder: string, prods: ProductItem[]) => {
         switch (sortOrder) {
             case localLang.sort_opt_1:
-                setProductsDisplay([...prods.sort((a, b) => (parseInt(a.id) < parseInt(b.id) ? 1 : -1))]);
+                setProductsDisplay([...prods.sort((a, b) => (parseInt(a.id) < parseInt(b.id) ? -1 : 1))]);
                 break;
             case localLang.sort_opt_2:
                 setProductsDisplay([...prods.sort((a, b) => (a.rating < b.rating ? 1 : -1))]);
@@ -123,7 +123,7 @@ export default function ProductList({products, setProduct, locale}: ProductListP
         }
     }, [filteredProductsByStock, filteredProductsByPrice, filteredProductsByInputtedPriceRange]);
 
-    useEffect(() => {
+	useEffect(() => {
         sortByProductProperty(selectedSortOrder, productsDisplay);
 	}, [selectedSortOrder]);
 	

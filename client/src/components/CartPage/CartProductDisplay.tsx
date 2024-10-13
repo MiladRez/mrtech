@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ProductItem, allProducts } from "../../data/products";
+import { ProductItem } from "../../data/products";
 import { Link } from "react-router-dom";
 import {getInLocalLangAndCurrency} from "../../data/products";
 import iconsSprite from "../../icons_sprite.svg";
