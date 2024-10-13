@@ -191,6 +191,17 @@ def blog():
     allBlogs = blogs.find()
     return parse_json(allBlogs)
 
+@app.route("/getPrice", methods=["POST"])
+def getPrice():
+	id = request.json["id"]
+	local_curr = request.json["local_currency"]
+    
+	product = products.find_one({"id": id})
+ 
+	if "salePrice" in product:
+		return str(product["salePrice"][local_curr])
+	return str(product["price"][local_curr])
+
 # pymongo returns data in BSON format which raises an issue when trying to serialize the field "_id" with value "ObjectId"
 # to fix this, we parse the BSON into JSON using below function
 def parse_json(data):
