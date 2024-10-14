@@ -1,5 +1,6 @@
 import {ProductItem} from "../data/products";
 import httpClient from "./httpClient";
+import api from "./flaskEndpoint";
 
 export const getTotalCost = async (cart: Map<ProductItem, number>) => {
 	let totalCost = 0.00
@@ -11,7 +12,7 @@ export const getTotalCost = async (cart: Map<ProductItem, number>) => {
 				let local_currency = localStorage.locality === "USA (EN)" ? "usd" : "cad"
 				let quantity = cart.get(prod)!
 
-				const response = await httpClient.post("http://localhost:5000/getPrice", {id, local_currency})
+				const response = await httpClient.post(`${api}/getPrice`, {id, local_currency})
 				return parseFloat(response.data) * quantity;
 			})
 		)
