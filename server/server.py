@@ -2,7 +2,7 @@ import os
 import pathlib
 import requests
 
-from flask import Flask, jsonify, session, abort, redirect, request, url_for
+from flask import Flask, jsonify, session, redirect, request
 from flask_cors import CORS
 from flask_session import Session
 
@@ -76,6 +76,7 @@ def callback():
 @app.route("/")
 def index():
     return "Hello World"
+    return app.send_static_file("index.html")
 
 @app.route("/logout")
 def logout():
@@ -165,20 +166,6 @@ def login_user():
 
 # MongoDB connection and routes
 
-# test API Route
-@app.route("/test")
-def test():
-    return [
-        {
-            "name": "RTX4090",
-            "price": "2999.99"
-        },
-        {
-            "name": "RTX4070",
-            "price": "699.99"
-        }
-    ]
-
 # API route to retrieve products from db
 @app.route("/products")
 def product():
@@ -208,4 +195,4 @@ def parse_json(data):
     return json.loads(json_util.dumps(data))
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=5000, debug=True)
+    app.run(host="0.0.0.0", debug=True)

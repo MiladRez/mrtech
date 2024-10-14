@@ -9,3 +9,4 @@ requests
 requests-oauthlib
 redis
 flask_bcrypt
+waitress
