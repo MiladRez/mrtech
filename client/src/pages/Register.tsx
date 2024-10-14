@@ -3,6 +3,7 @@ import mrtechLogo from "../images/mrtech-logo.png";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import iconsSprite from "../icons_sprite.svg";
 import httpClient from "../utils/httpClient";
+import api from "../utils/flaskEndpoint";
 
 export default function Register({localLang}: {localLang: any}) {
 	const navigate = useNavigate();
@@ -85,7 +86,7 @@ export default function Register({localLang}: {localLang: any}) {
 		event.preventDefault()
 
 		try {
-			await httpClient.post("http://localhost:5000/register", {email, password});
+			await httpClient.post(`${api}/register`, {email, password});
 			navigate(prevPage);
 		} catch (error: any) {
 			if (error.response.status === 409) {
