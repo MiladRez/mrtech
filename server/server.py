@@ -86,7 +86,7 @@ def callback():
     session["google_id"] = id_info.get("sub")
     session["name"] = id_info.get("name")
     
-    return redirect(f"http://localhost:3000{session.get("prevPage")}")
+    return redirect(f"https://mrtech-site.vercel.app{session.get("prevPage")}")
 
 @app.route("/")
 def index():

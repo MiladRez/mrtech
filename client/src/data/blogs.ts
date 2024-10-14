@@ -3,6 +3,8 @@ import CommunitySTEM from "../images/community-STEM.jpeg";
 import IPhone from "../images/iphone.jpeg";
 import SSDvsHDD from "../images/ssd-vs-hdd.png";
 
+import api from "../utils/flaskEndpoint";
+
 export type BlogItem = {
     id: string;
     img: File;
@@ -33,7 +35,7 @@ const blogs_IDtoImgMap = new Map<number, File>([
 ]);
 
 export const getAllBlogsFromDB = async (): Promise<BlogItem[]> => {
-    const response = await fetch("http://127.0.0.1:5000/blogs");
+    const response = await fetch(`${api}/blogs`);
     const data = await response.json();
 
     // iterate through each blog in list and add a new field "img" with the corresponding image file saved locally
