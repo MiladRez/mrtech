@@ -1,11 +1,11 @@
 import os
-import pathlib
 import requests
 
 from flask import Flask, jsonify, session, redirect, request
 from flask_cors import CORS
 from flask_session import Session
 
+from dotenv import load_dotenv
 from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
@@ -24,9 +24,10 @@ app.config.from_object(ApplicationConfig)
 CORS(app, supports_credentials=True)
 Session(app)
 bcrypt = Bcrypt(app)
+load_dotenv()
 
 # Mongo client
-client = MongoClient(f"mongodb+srv://{os.environ.get("MONGODB_USERNAME")}:{os.environ.get("MONGODB_PASSWORD")}@mrtech.ghx34.mongodb.net/")
+client = MongoClient(f"mongodb+srv://{os.getenv("MONGODB_USERNAME")}:{os.getenv("MONGODB_PASSWORD")}@mrtech.ghx34.mongodb.net/")
 db = client.mrtech
 # collections
 products = db.products
@@ -35,14 +36,14 @@ users = db.users
 
 # OAuth with Google
 
-GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
-app.secret_key = os.environ.get("SECRET_KEY")
-client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+app.secret_key = os.getenv("SECRET_KEY")
+client_secrets_config = json.loads(os.getenv("CLIENT_SECRET"))
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1" # to allow HTTP traffic for local dev
 
-flow = Flow.from_client_secrets_file(
-	client_secrets_file=client_secrets_file,
+flow = Flow.from_client_config(
+	client_config=client_secrets_config,
 	scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
 	redirect_uri="http://localhost:5000/callback"
 )
