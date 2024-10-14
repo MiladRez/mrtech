@@ -160,7 +160,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 		const checkUserToken = async () => {
 			const response = await httpClient.get(`${api}/authorized`);
 			if (response.data.authorized) {
-				console.log("User is authorized via Google")
+				console.log("User is authorized")
 				setIsLoggedIn("logged in");
 			} else {
 				console.log("User is not authorized")
@@ -168,7 +168,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 			}
 		}
 		checkUserToken();
-	}, []);
+	});
 
     useEffect(() => {
         product ? document.addEventListener("mouseup", closeWhenClickedOutsideCartPopup) : null;
