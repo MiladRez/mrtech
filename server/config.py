@@ -1,4 +1,4 @@
-import redis
+from redis import Redis
 import os
 from datetime import timedelta
 
@@ -10,4 +10,4 @@ class ApplicationConfig:
 	SESSION_USE_SIGNER = True
 	SESSION_COOKIE_SAMESITE = None
 	SESSION_COOKIE_SECURE = False
-	SESSION_REDIS = redis.StrictRedis(host='localhost', port=6379, db=0)
+	SESSION_REDIS = Redis(host='redis', port=6379)
