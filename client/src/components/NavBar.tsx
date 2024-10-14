@@ -11,6 +11,7 @@ import AddedToCartPopup from "./AddedToCartPopup";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import iconsSprite from "../icons_sprite.svg";
 import httpClient from "../utils/httpClient";
+import api from "../utils/flaskEndpoint";
 
 const siteLocality = new Map([
     [
@@ -152,12 +153,12 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 	};
 	
 	const handleLogout = async () => {
-		await httpClient.get("http://localhost:5000/logout")
+		await httpClient.get(`${api}/logout`)
 	}
 
 	useEffect(() => {
 		const checkUserToken = async () => {
-			const response = await httpClient.get("http://localhost:5000/authorized");
+			const response = await httpClient.get(`${api}/authorized`);
 			if (response.data.authorized) {
 				console.log("User is authorized via Google")
 				setIsLoggedIn("logged in");

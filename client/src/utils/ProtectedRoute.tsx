@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import httpClient from "./httpClient";
+import api from "./flaskEndpoint";
 
 export default function ProtectedRoute(props: any) {
 	const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function ProtectedRoute(props: any) {
 
 	useEffect(() => {
 		const checkUserToken = async () => {
-			const response = await httpClient.get("http://localhost:5000/authorized");
+			const response = await httpClient.get(`${api}/authorized`);
 			if (response.data.authorized) {
 				console.log("User is authorized via Google")
 				setIsLoggedIn(true);

@@ -6,6 +6,7 @@ import {getInLocalLangAndCurrency} from "../../data/products";
 import {Link} from "react-router-dom";
 import iconsSprite from "../../icons_sprite.svg";
 import httpClient from "../../utils/httpClient";
+import api from "../../utils/flaskEndpoint";
 import { getTotalCost } from "../../utils/calculateTotalCartCost";
 
 type CartListProps = {
@@ -36,7 +37,7 @@ export default function CartList({locale}: CartListProps) {
 
 	useEffect(() => {
 		const checkUserToken = async () => {
-			const response = await httpClient.get("http://localhost:5000/authorized");
+			const response = await httpClient.get(`${api}/authorized`);
 			if (response.data.authorized) {
 				console.log("User is authorized via Google")
 				setIsLoggedIn(true);

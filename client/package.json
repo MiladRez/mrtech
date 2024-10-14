@@ -2,7 +2,7 @@
   "name": "mrtech",
   "private": true,
   "version": "0.0.0",
-  "proxy": "http://localhost:5000",
+  "proxy": "https://mrtech-server.vercel.app/",
   "type": "module",
   "scripts": {
     "dev": "vite",

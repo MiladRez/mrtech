@@ -9,6 +9,7 @@ import { useCart } from "../components/CartContext";
 import {getInLocalLangAndCurrency} from "../data/products";
 import iconsSprite from "../icons_sprite.svg";
 import httpClient from "../utils/httpClient";
+import api from "../utils/flaskEndpoint";
 
 type ProductInfoProps = {
 	locale: {
@@ -161,7 +162,7 @@ export default function ProductInfo({ locale, setLocale }: ProductInfoProps) {
 
 	useEffect(() => {
 		const checkUserToken = async () => {
-			const response = await httpClient.get("http://localhost:5000/authorized");
+			const response = await httpClient.get(`${api}/authorized`);
 			if (response.data.authorized) {
 				console.log("User is authorized via Google")
 				setIsLoggedIn(true);

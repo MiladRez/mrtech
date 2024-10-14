@@ -3,6 +3,7 @@ import {ProductItem} from "../data/products";
 import iconsSprite from "../icons_sprite.svg";
 import {Link} from "react-router-dom";
 import httpClient from "../utils/httpClient";
+import api from "../utils/flaskEndpoint";
 
 type AddedToCartPopupProps = {
 	product: ProductItem | null | undefined,
@@ -25,7 +26,7 @@ export default function AddedToCartPopup({product, visible, closeItemAddedPopup,
 
 	useEffect(() => {
 		const checkUserToken = async () => {
-			const response = await httpClient.get("http://localhost:5000/authorized");
+			const response = await httpClient.get(`${api}/authorized`);
 			if (response.data.authorized) {
 				console.log("User is authorized via Google")
 				setIsLoggedIn(true);

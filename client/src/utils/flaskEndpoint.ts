@@ -1,0 +1,1 @@
+export default "https://mrtech-server.vercel.app";

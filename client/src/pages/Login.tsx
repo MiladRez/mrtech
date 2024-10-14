@@ -3,6 +3,7 @@ import mrtechLogo from "../images/mrtech-logo.png";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import iconsSprite from "../icons_sprite.svg";
 import httpClient from "../utils/httpClient";
+import api from "../utils/flaskEndpoint";
 
 export default function Login({localLang}: {localLang: any}) {
 	const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function Login({localLang}: {localLang: any}) {
 	const authenticateWithGoogle = async (e: any) => {
 		e.preventDefault();
 		try {
-			window.location.href = `http://localhost:5000/googleLogin?prevPage=${encodeURIComponent(prevPage)}`;
+			window.location.href = `${api}/googleLogin?prevPage=${encodeURIComponent(prevPage)}`;
 		} catch (error: any) {
 			if (error.response.status === 401) {
 				alert("Invalid credentials")
@@ -32,7 +33,7 @@ export default function Login({localLang}: {localLang: any}) {
 		e.preventDefault();
 
 		try {
-			await httpClient.post("http://localhost:5000/login", {email, password});
+			await httpClient.post(`${api}/login`, {email, password});
 			navigate(prevPage);
 		} catch (error: any) {
 			if (error.response.status === 401) {
