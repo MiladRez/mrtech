@@ -26,7 +26,7 @@ Session(app)
 bcrypt = Bcrypt(app)
 
 # Mongo client
-client = MongoClient("localhost", 27017)
+client = MongoClient(f"mongodb+srv://{os.environ.get("MONGODB_USERNAME")}:{os.environ.get("MONGODB_PASSWORD")}@mrtech.ghx34.mongodb.net/")
 db = client.mrtech
 # collections
 products = db.products
