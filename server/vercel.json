@@ -4,6 +4,11 @@
 		{"src": "server.py", "use": "@vercel/python"}
 	],
 	"routes": [
-		{"src": "/(.*)", "dest": "server.py"}
+		{
+			"src": "/(.*)", "dest": "server.py",
+			"headers": {
+        		"Access-Control-Allow-Origin": "*"
+      		}
+		}
 	]
 }

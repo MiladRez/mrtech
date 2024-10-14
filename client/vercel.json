@@ -1,8 +1,5 @@
 {
 	"rewrites":  [
 	  {"source": "/(.*)", "destination": "/"}
-	],
-	"headers": {
-        "Access-Control-Allow-Origin": "*"
-      }
+	]
   }
