@@ -37,7 +37,7 @@ export default function Home({locale, setLocale}: HomeProps) {
 				cad: 123,
 				usd: 134
 			},
-			salePrice?: {
+			salePrice: {
 				cad: 123,
 				usd: 134
 			},
