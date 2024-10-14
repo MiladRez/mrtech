@@ -159,6 +159,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 	useEffect(() => {
 		const checkUserToken = async () => {
 			const response = await httpClient.get(`${api}/authorized`);
+			console.log(response)
 			if (response.data.authorized) {
 				console.log("User is authorized")
 				setIsLoggedIn("logged in");
