@@ -3,10 +3,29 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.server
+    env_file: .env
+    environment:
+      MONGODB_USERNAME: ${MONGODB_USERNAME}
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
     ports:
       - "5000:5000"
     volumes:
       - ./server:/app
+    depends_on:
+      - mongodb
+  
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    hostname: mrtech
+    env_file: .env
+    environment:
+      - MONGO_INITDB_DATABASE=mrtech
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+    volumes:
+      - mongodbdata:/data/db
+  
   client:
     build:
       context: .
@@ -18,3 +37,7 @@ services:
       - "/app/node_modules"
     depends_on:
       - server
+
+volumes:
+  mongodbdata:
+    driver: local

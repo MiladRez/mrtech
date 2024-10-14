@@ -26,12 +26,15 @@ Session(app)
 bcrypt = Bcrypt(app)
 
 # Mongo client
-client = MongoClient("localhost", 27017)
+client = MongoClient(f"mongodb+srv://{os.environ.get("MONGODB_USERNAME")}:{os.environ.get("MONGODB_PASSWORD")}@mrtech.ghx34.mongodb.net/")
 db = client.mrtech
 # collections
 products = db.products
 blogs = db.blogs
 users = db.users
+
+user = users.find_one({"email": "mr7@gmail.com"})
+print(f"This is a test: {user}")
 
 # OAuth with Google
 
