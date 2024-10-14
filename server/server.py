@@ -59,7 +59,7 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1" # to allow HTTP traffic for loca
 flow = Flow.from_client_config(
 	client_config=client_secrets_config,
 	scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
-	redirect_uri="http://localhost:5000/callback"
+	redirect_uri="https://mrtech-server.vercel.app/callback"
 )
 
 @app.route("/googleLogin")
