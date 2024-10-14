@@ -10,6 +10,8 @@ import FeaturedBlogs from "../components/HomePage/FeaturedBlogs";
 import SubscribeToNewsletter from "../components/HomePage/SubscribeToNewsletter";
 import {BlogItem, getAllBlogsFromDB} from "../data/blogs";
 
+import RazerTomahawkCase from "../images/razer-tomahawk-case.jpeg";
+
 type HomeProps = {
 	locale: {
 		localLang: {
@@ -30,7 +32,7 @@ export default function Home({locale, setLocale}: HomeProps) {
 		{
 
 			id: "12",
-			img: null,
+			img: RazerTomahawkCase,
 			name: "Test",
 			manufacturer: "Test",
 			price: {

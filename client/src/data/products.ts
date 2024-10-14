@@ -17,7 +17,7 @@ import api from "../utils/flaskEndpoint";
 
 export type ProductItem = {
 	id: string,
-	img: File | null,
+	img: File,
 	name: string,
 	manufacturer: string,
 	price: {
