@@ -41,12 +41,12 @@ app.secret_key = os.getenv("SECRET_KEY")
 
 client_secrets = {
     "web": {
-        "client_id": os.getenv("CLIENT_ID"),
+        "client_id": os.getenv("GOOGLE_CLIENT_ID"),
         "project_id": os.getenv("PROJECT_ID"),
         "auth_uri": os.getenv("AUTH_URI"),
         "token_uri": os.getenv("TOKEN_URI"),
         "auth_provider_x509_cert_url": os.getenv("AUTH_PROVIDER_CERT"),
-        "client_secret": os.getenv("CLIENT_SECRET"),
+        "client_secret": os.getenv("SECRET_KEY"),
         "redirect_uris":[os.getenv("REDIRECT_URIS")] 
     } 
 }
