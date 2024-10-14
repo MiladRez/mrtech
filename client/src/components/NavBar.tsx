@@ -168,7 +168,7 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 			}
 		}
 		checkUserToken();
-	});
+	}, []);
 
     useEffect(() => {
         product ? document.addEventListener("mouseup", closeWhenClickedOutsideCartPopup) : null;
