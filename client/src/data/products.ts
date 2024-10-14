@@ -13,6 +13,8 @@ import ThermaltakeFan from "../images/thermaltake-fan.jpeg";
 import Samsung990proSSD from "../images/samsung-990-pro-ssd.jpeg";
 import AsusMotherboard from "../images/asus-motherboard.jpeg";
 
+import api from "../utils/flaskEndpoint";
+
 export type ProductItem = {
 	id: string,
 	img: File,
@@ -49,7 +51,7 @@ const products_IDtoImgMap = new Map<number, File>([
 ]);
 
 export const getAllProductsFromDB = async (): Promise<ProductItem[]> => {
-	const response = await fetch("http://127.0.0.1:5000/products");
+	const response = await fetch(`${api}/products`);
 	const data = await response.json()
 
 	// iterate through each product in list and add a new field "img" with the corresponding image file saved locally
