@@ -26,7 +26,30 @@ export default function Home({locale, setLocale}: HomeProps) {
 	const [product, setProduct] = useState(null);
 	const localLang = locale.localLang.text;
 
-	const [productsOnSale, setProductsOnSale] = useState<ProductItem[]>([]);
+	const [productsOnSale, setProductsOnSale] = useState<ProductItem[]>([
+		{
+
+			id: "12",
+			img: null,
+			name: "Test",
+			manufacturer: "Test",
+			price: {
+				cad: 123,
+				usd: 134
+			},
+			salePrice?: {
+				cad: 123,
+				usd: 134
+			},
+			stock: 123,
+			rating: 2,
+			numOfReviews: 45,
+			features: {
+				english: ["test"],
+				french: ["test"]
+			}
+		}
+	]);
 	const [popularProducts, setPopularProducts] = useState<ProductItem[]>([]);
 	const [blogList, setBlogList] = useState<BlogItem[]>([]);
 
