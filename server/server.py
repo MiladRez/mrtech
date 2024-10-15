@@ -100,6 +100,8 @@ def logout():
 @app.route("/authorized")
 def authorized():
     
+    print(session)
+    
     if "google_id" in session:
         return jsonify({
       		"authorized": True, 
