@@ -12,6 +12,8 @@ from pip._vendor import cachecontrol
 import google.auth.transport.requests
 from flask_bcrypt import Bcrypt
 
+import redis
+
 from pymongo import MongoClient
 from bson import json_util
 from bson.objectid import ObjectId
@@ -25,6 +27,8 @@ CORS(app, supports_credentials=True)
 Session(app)
 bcrypt = Bcrypt(app)
 load_dotenv()
+
+redis_cache = redis.Redis(host=os.getenv("REDIS_HOST"), port=os.getenv("REDIS_PORT"), password=os.getenv("REDIS_PASSWORD"))
 
 # Mongo client
 client = MongoClient(f"mongodb+srv://{os.getenv("MONGODB_USERNAME")}:{os.getenv("MONGODB_PASSWORD")}@mrtech.ghx34.mongodb.net/")
@@ -95,6 +99,7 @@ def index():
 @app.route("/logout")
 def logout():
     session.clear()
+    redis_cache.flushall()
     return "200"
 
 @app.route("/authorized")
@@ -175,6 +180,10 @@ def login_user():
     
     session["user_id"] = str(user["_id"])
     
+    print(f"From /login: ${session}")
+    for key in redis_cache.scan_iter():
+        print(f"redis: ${key}")
+     
     return jsonify({
 		"id": str(user["_id"]),
 		"email": user["email"]
