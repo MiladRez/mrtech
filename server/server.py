@@ -158,6 +158,7 @@ def register_user():
 	}
     new_user_id = parse_json(users.insert_one(new_user).inserted_id)
     
+    session.setdefault()
     session["user_id"] = str(new_user_id)
     
     return jsonify({
