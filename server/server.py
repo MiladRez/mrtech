@@ -5,6 +5,8 @@ from flask import Flask, jsonify, session, redirect, request
 from flask_cors import CORS
 from flask_session import Session
 
+import redis
+
 from dotenv import load_dotenv
 from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
@@ -25,6 +27,8 @@ CORS(app, supports_credentials=True)
 Session(app)
 bcrypt = Bcrypt(app)
 load_dotenv()
+
+redis_cache = redis.Redis(host=os.getenv("REDIS_HOST"), port=os.getenv("REDIS_PORT"), password=os.getenv("REDIS_PASSWORD"))
 
 # Mongo client
 client = MongoClient(f"mongodb+srv://{os.getenv("MONGODB_USERNAME")}:{os.getenv("MONGODB_PASSWORD")}@mrtech.ghx34.mongodb.net/")
@@ -95,6 +99,7 @@ def index():
 @app.route("/logout")
 def logout():
     session.clear()
+    redis_cache.flushall()
     return "200"
 
 @app.route("/authorized")
