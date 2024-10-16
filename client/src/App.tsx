@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
@@ -16,7 +16,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import { localityText } from './data/locality';
 import ProtectedRoute from './utils/ProtectedRoute';
-
+import { version } from "../package.json";
 
 export default function App() {
 
@@ -33,6 +33,17 @@ export default function App() {
 		: "cad";
 	
 	const [locale, setLocale] = useState({localLang: localLangFromLocalStorage, localCurrency: localCurrencyFromLocalStorage});
+
+	useEffect(() => {
+		const currentVersion = version;
+		const storedVersion = localStorage.get("appVersion");
+		
+		if (storedVersion !== currentVersion) {
+			localStorage.clear();
+			localStorage.set("appVersion", currentVersion);
+		}
+		
+	}, []);
 	
 	return (
 		<>
