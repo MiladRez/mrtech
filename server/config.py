@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import redis
 import os
+from datetime import timedelta
 
 class ApplicationConfig:
     load_dotenv()
@@ -8,6 +9,7 @@ class ApplicationConfig:
     
     SESSION_TYPE = "redis"
     SESSION_PERMANENT = False
+    PERMANENT_SESSION_LIFETIME = timedelta(hours=10)
     SESSION_USE_SIGNER = True
     SESSION_COOKIE_SAMESITE = None
     SESSION_COOKIE_SECURE = True
