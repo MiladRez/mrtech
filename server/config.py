@@ -9,7 +9,6 @@ class ApplicationConfig:
     
     SESSION_TYPE = "redis"
     SESSION_PERMANENT = False
-    SESSION_COOKIE_DOMAIN = ".vercel.app"
     SESSION_USE_SIGNER = True
     SESSION_COOKIE_SAMESITE = None
     SESSION_COOKIE_SECURE = True
