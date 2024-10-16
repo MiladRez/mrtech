@@ -16,7 +16,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import { localityText } from './data/locality';
 import ProtectedRoute from './utils/ProtectedRoute';
-import { version } from "../package.json";
 
 export default function App() {
 
@@ -33,17 +32,6 @@ export default function App() {
 		: "cad";
 	
 	const [locale, setLocale] = useState({localLang: localLangFromLocalStorage, localCurrency: localCurrencyFromLocalStorage});
-
-	useEffect(() => {
-		const currentVersion = version;
-		const storedVersion = localStorage.getItem("appVersion");
-		
-		if (storedVersion !== currentVersion) {
-			localStorage.clear();
-			localStorage.setItem("appVersion", currentVersion);
-		}
-
-	}, []);
 	
 	return (
 		<>
