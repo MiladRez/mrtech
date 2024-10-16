@@ -213,7 +213,7 @@ export const localityText = {
         checkout_taxes: "Taxes",
         checkout_shipping: "Shipping",
         checkout_shipping_free: "Free",
-        checkout_shipping_add_address: "Enter shipping address",
+        checkout_shipping_select_method: "Select shipping method",
         checkout_total: "Total",
 
         page_404: "Page Not Found",
@@ -432,7 +432,7 @@ export const localityText = {
         checkout_taxes: "Impôts",
         checkout_shipping: "Expédition",
         checkout_shipping_free: "Gratuit",
-        checkout_shipping_add_address: "Entrez l'adresse de livraison",
+        checkout_shipping_select_method: "Sélectionnez le mode de livraison",
         checkout_total: "Total",
 
         page_404: "Page non trouvée",
