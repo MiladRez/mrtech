@@ -36,13 +36,13 @@ export default function App() {
 
 	useEffect(() => {
 		const currentVersion = version;
-		const storedVersion = localStorage.get("appVersion");
+		const storedVersion = localStorage.getItem("appVersion");
 		
 		if (storedVersion !== currentVersion) {
 			localStorage.clear();
-			localStorage.set("appVersion", currentVersion);
+			localStorage.setItem("appVersion", currentVersion);
 		}
-		
+
 	}, []);
 	
 	return (
