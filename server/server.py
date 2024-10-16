@@ -23,7 +23,7 @@ from config import ApplicationConfig
 
 app = Flask(__name__)
 app.config.from_object(ApplicationConfig)
-CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://mrtech-site.vercel.app"}})
+CORS(app, supports_credentials=True)
 Session(app)
 bcrypt = Bcrypt(app)
 load_dotenv()
