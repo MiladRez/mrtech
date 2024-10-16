@@ -9,7 +9,7 @@ class ApplicationConfig:
     
     SESSION_TYPE = "redis"
     SESSION_PERMANENT = False
-    PERMANENT_SESSION_LIFETIME = timedelta(hours=10)
+    PERMANENT_SESSION_LIFETIME = timedelta(hours=20)
     SESSION_USE_SIGNER = True
     SESSION_COOKIE_SAMESITE = None
     SESSION_COOKIE_SECURE = True
