@@ -48,7 +48,7 @@ export default function Checkout({locale, setLocale}: CheckoutProps) {
 			? shippingFee === 0
 				? localLang.checkout_shipping_free
 				: getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, shippingFee)
-			: localLang.checkout_shipping_add_address;
+			: localLang.checkout_shipping_select_method;
 
 	const subtotal = product.id
 		? getInLocalLangAndCurrency(locale.localCurrency, locale.localLang.lang, productPrice)
