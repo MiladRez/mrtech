@@ -8,7 +8,7 @@ class ApplicationConfig:
     SECRET_KEY = os.getenv("SECRET_KEY")
     
     SESSION_TYPE = "redis"
-    SESSION_PERMANENT = False
+    SESSION_PERMANENT = True
     SESSION_USE_SIGNER = True
     SESSION_COOKIE_SAMESITE = None
     SESSION_COOKIE_SECURE = True
