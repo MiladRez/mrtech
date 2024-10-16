@@ -161,10 +161,10 @@ export default function NavBar({ product, setProduct, localLang, setLocale }: Na
 			const response = await httpClient.get(`${api}/authorized`);
 			console.log(response)
 			if (response.data.authorized) {
-				console.log("User is authorized")
+				// console.log("User is authorized")
 				setIsLoggedIn("logged in");
 			} else {
-				console.log("User is not authorized")
+				// console.log("User is not authorized")
 				setIsLoggedIn("not logged in");
 			}
 		}

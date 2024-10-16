@@ -12,10 +12,10 @@ export default function ProtectedRoute(props: any) {
 		const checkUserToken = async () => {
 			const response = await httpClient.get(`${api}/authorized`);
 			if (response.data.authorized) {
-				console.log("User is authorized via Google")
+				// console.log("User is authorized via Google")
 				setIsLoggedIn(true);
 			} else {
-				console.log("User is not authorized")
+				// console.log("User is not authorized")
 				setIsLoggedIn(false);
 				return navigate("/login");
 			}
